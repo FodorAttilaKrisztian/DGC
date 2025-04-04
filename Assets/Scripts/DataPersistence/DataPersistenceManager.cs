@@ -17,13 +17,16 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
+    public string FileName => fileName;  // Expose file name for the MainMenuController
+    public GameData GameData => gameData;  // Expose game data for checking/loading
+
     public static DataPersistenceManager instance { get; private set; }
 
     private void Awake()
     {
         if (instance != null && instance != this)
         {
-            Debug.LogError("Found more than one Data Persistence Manager in the scene. Destroying duplicate.");
+            Debug.Log("Found more than one Data Persistence Manager in the scene. Destroying duplicate.");
             Destroy(gameObject);
             return;
         }
@@ -33,26 +36,26 @@ public class DataPersistenceManager : MonoBehaviour
 
     private void Start()
     {
-        this.dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
-        this.dataPersistenceObjects = FindAllDataPersistenceObjects();
-        
-        LoadGame();
+        dataHandler = new FileDataHandler(Application.persistentDataPath, fileName, useEncryption);
+        StartCoroutine(InitializeDataPersistence());
     }
 
     public void NewGame()
     {
-        this.gameData = new GameData();
+        gameData = new GameData();
     }
 
     public void LoadGame()
     {
-        this.gameData = dataHandler.Load();
+        gameData = dataHandler.Load();
 
-        if (this.gameData == null)
+        if (gameData == null)
         {
             Debug.Log("No data was found. Initializing data to defaults.");
             NewGame();
         }
+
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
 
         foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
@@ -63,6 +66,8 @@ public class DataPersistenceManager : MonoBehaviour
     public void SaveGame()
     {
         if (gameData == null) return;
+
+        dataPersistenceObjects = FindAllDataPersistenceObjects();
 
         foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
@@ -77,10 +82,20 @@ public class DataPersistenceManager : MonoBehaviour
         SaveGame();
     }
 
+    private void OnApplicationQuit()
+    {
+        SaveGame();
+    }
+
+    private IEnumerator InitializeDataPersistence()
+    {
+        yield return new WaitForEndOfFrame(); // Wait until the first frame is done rendering
+        LoadGame();
+    }
+
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
-        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None)
-            .OfType<IDataPersistence>();
+        IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }

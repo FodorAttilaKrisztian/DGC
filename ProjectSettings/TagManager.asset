@@ -8,6 +8,10 @@ TagManager:
   - MainMenu
   - SettingsMenu
   - CreditsMenu
+  - FireballUI
+  - KeyUI
+  - LifeUI
+  - PowerupUI
   layers:
   - Default
   - TransparentFX

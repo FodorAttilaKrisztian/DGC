@@ -50,6 +50,7 @@ public class FileDataHandler
             catch (Exception e)
             {
                 Debug.Log("Error occured when trying to load data from file: " + fullPath + "\n" + e);
+                loadedData = new GameData();
             }
         }
 
