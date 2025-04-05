@@ -32,7 +32,7 @@ public class PowerupSpawnManager : MonoBehaviour, IDataPersistence
             {
                 PowerupEffect effect = allPowerupTypes.Find(e => e.name == pData.effectName);
 
-                if (effect != null)
+                if (effect != null && effect.name != "LifeBuff")
                 {
                     GameObject prefab = PowerupUtils.LoadPowerupPrefab(pData.effectName);
 

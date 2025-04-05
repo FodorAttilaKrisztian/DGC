@@ -121,6 +121,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "3c0aa49c-bbcb-4e56-b140-8de7fce36f92",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -563,6 +572,28 @@
                     "action": "UseGravityBuff",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ca66dfc3-11f4-43de-8d45-2e593a7eaba0",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3a24ed47-8238-4b03-849b-c8a91b1d4e74",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -583,7 +614,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "7607c7b6-cd76-4816-beef-bd0341cfe950",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -664,6 +695,15 @@
                     "name": "Escape",
                     "type": "Button",
                     "id": "0992037e-6b3c-456f-a69b-88fceb82ba9b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Unpause",
+                    "type": "Button",
+                    "id": "36d369a7-7a0f-447d-8efd-d23bff5e1df5",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -1091,12 +1131,23 @@
                 },
                 {
                     "name": "",
-                    "id": "d214bc72-5a7b-4de4-b4c0-e6ddea9908f3",
+                    "id": "5b85274e-0210-47c5-81c8-5d214617a3c3",
+                    "path": "<Keyboard>/m",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Unpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e0e8d7e-fe35-40a5-9453-d930f62d655f",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "Escape",
+                    "action": "Unpause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

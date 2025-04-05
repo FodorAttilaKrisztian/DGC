@@ -26,21 +26,25 @@ public class PersistentCamera : MonoBehaviour
 
     private void UpdateCameraTarget()
     {
-        PlayerController player = FindFirstObjectByType<PlayerController>();
-        
-        if (player != null)
+        if (PlayerController.instance != null)
         {
-            GetComponent<CinemachineCamera>().Follow = player.transform;
+            GetComponent<CinemachineCamera>().Follow = PlayerController.instance.transform;
         }
     }
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += (scene, mode) => UpdateCameraTarget();
+        if (PlayerController.instance != null)
+        {
+            SceneManager.sceneLoaded += (scene, mode) => UpdateCameraTarget();
+        }
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= (scene, mode) => UpdateCameraTarget();
+        if (PlayerController.instance != null)
+        {
+            SceneManager.sceneLoaded -= (scene, mode) => UpdateCameraTarget();
+        }
     }
 }

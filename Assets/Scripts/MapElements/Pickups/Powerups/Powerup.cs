@@ -1,4 +1,6 @@
 using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Powerup : MonoBehaviour, IDataPersistence
 {
@@ -38,13 +40,19 @@ public class Powerup : MonoBehaviour, IDataPersistence
         // Now we can safely register to GameData
         if (!isInitialized && effect != null)
         {
-            RegisterUncollected();
+            StartCoroutine(WaitForGameData());
         }
     }
 
     private void RegisterUncollected()
     {
-        GameData data = DataPersistenceManager.instance.GameData;
+        GameData data = DataPersistenceManager.instance?.GameData;
+
+        if (data == null)
+        {
+            Debug.LogError("GameData is null! Powerup cannot be registered.");
+            return;
+        }
 
         if (!data.uncollectedPowerups.Exists(p => p.id == id))
         {
@@ -52,6 +60,18 @@ public class Powerup : MonoBehaviour, IDataPersistence
         }
 
         isInitialized = true;
+    }
+
+    private IEnumerator WaitForGameData()
+    {
+        // Wait until DataPersistenceManager.instance.GameData is not null
+        while (DataPersistenceManager.instance == null || DataPersistenceManager.instance.GameData == null)
+        {
+            yield return null; // Wait for one frame and try again
+        }
+
+        // Now GameData is available, so register the powerup
+        RegisterUncollected();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

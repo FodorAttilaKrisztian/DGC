@@ -7,6 +7,7 @@ using System;
 
 public class MainMenuController : MonoBehaviour
 {
+    public static MainMenuController instance;
     public GameObject mainMenu;
     public GameObject optionsMenu;
     public GameObject creditsMenu;
@@ -14,7 +15,20 @@ public class MainMenuController : MonoBehaviour
 
     private DataPersistenceManager dataPersistenceManager;
 
-    public void Start()
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // Keeps the player across scenes
+        }
+        else
+        {
+            Destroy(gameObject); // Prevent duplicates
+        }
+    }
+
+    private void Start()
     {
         if (PlayerController.instance != null)
         {
@@ -39,6 +53,11 @@ public class MainMenuController : MonoBehaviour
         if (PersistentCamera.instance != null)
         {
             Destroy(PersistentCamera.instance.gameObject);
+        }
+
+        if (PauseMenu.instance != null)
+        {
+            Destroy(PauseMenu.instance.gameObject);
         }
 
         dataPersistenceManager = DataPersistenceManager.instance;

@@ -4,27 +4,19 @@ using UnityEngine.SceneManagement;
 public class PersistentCanvas : MonoBehaviour
 {
     public static PersistentCanvas instance;
-    private UIManager uiManager;
 
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this object alive between scenes
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            Destroy(gameObject); // Prevent duplicates when loading new scenes
+            Destroy(gameObject);
         
             return;
-        }
-
-        uiManager = FindFirstObjectByType<UIManager>();
-
-        if (uiManager == null)
-        {
-            Debug.LogError("PersistentCanvas: UIManager component missing!");
         }
     }
 
@@ -40,9 +32,9 @@ public class PersistentCanvas : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (uiManager != null)
+        if (UIManager.instance != null)
         {
-            uiManager.ResetUI();
+            UIManager.instance.ResetUI();
         }
     }
 }

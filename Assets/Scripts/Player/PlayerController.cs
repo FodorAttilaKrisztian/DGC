@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour, IDataPersistence
 {
     public static PlayerController instance;
+    private PlayerInput playerInput;
     private UIManager uiManager;
     private PowerupInventory powerupInventory;
     private Dictionary<string, Coroutine> activeBuffs = new Dictionary<string, Coroutine>();
@@ -60,6 +61,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public float fireballRangedCooldown = 1.25f;
     public float rangedAttackCooldown = 2f;
     private float lastRangedAttackTime = -999f;
+
+    public void onPause(InputAction.CallbackContext context)
+    {
+        if (context.started)
+        {
+            if (PauseMenu.instance != null)
+            {
+                if (!PauseMenu.isPaused)
+                {
+                    PauseMenu.instance.PauseGame();
+                }
+            }
+        }
+    }
 
     public bool canMove { 
         get {
@@ -123,17 +138,20 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void onMove(InputAction.CallbackContext context)
     {
-        moveInput = context.ReadValue<Vector2>();
-
-        if (isAlive)
+        if (!PauseMenu.isPaused)
         {
-            isMoving = moveInput != Vector2.zero;
+            moveInput = context.ReadValue<Vector2>();
 
-            setFacingDirection(moveInput);
-        }
-        else
-        {
-            isMoving = false;
+            if (isAlive)
+            {
+                isMoving = moveInput != Vector2.zero;
+
+                setFacingDirection(moveInput);
+            }
+            else
+            {
+                isMoving = false;
+            }
         }
     }
 
@@ -152,28 +170,34 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void onRun(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!PauseMenu.isPaused)
         {
-            isRunning = true;
-        }
-        else if (context.canceled)
-        {
-            isRunning = false;
+            if (context.started)
+            {
+                isRunning = true;
+            }
+            else if (context.canceled)
+            {
+                isRunning = false;
+            }
         }
     }
 
     public void onInteract(InputAction.CallbackContext context)
     {
-        if (context.started && hasKey && isNearExit)
+        if (!PauseMenu.isPaused)
         {
-            DontDestroyOnLoad(gameObject);
-            hasFireball = false;
-            uiManager?.SetFireballUI(false);
-            hasKey = false;
-            uiManager?.SetKeyUI(false);
-            uiManager.UpdatePowerupUI();
-            DataPersistenceManager.instance.SaveGame();
-            SceneController.instance.NextLevel();
+            if (context.started && hasKey && isNearExit)
+            {
+                DontDestroyOnLoad(gameObject);
+                hasFireball = false;
+                uiManager?.SetFireballUI(false);
+                hasKey = false;
+                uiManager?.SetKeyUI(false);
+                uiManager.UpdatePowerupUI();
+                DataPersistenceManager.instance.SaveGame();
+                SceneController.instance.NextLevel();
+            }
         }
     }
 
@@ -226,6 +250,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             Destroy(gameObject); // Prevent duplicates
         }
 
+        playerInput = GetComponent<PlayerInput>();
         uiManager = FindFirstObjectByType<UIManager>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
@@ -279,20 +304,23 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void onJump(InputAction.CallbackContext context)
     {
-        if (context.started && canMove && isAlive)
+        if (!PauseMenu.isPaused)
         {
-            if (touchingDirections.isGrounded)
+            if (context.started && canMove && isAlive)
             {
-                animator.SetTrigger(AnimationStrings.jumpTrigger);
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
-            }
-            else
-            {
-                if (canDoubleJump)
+                if (touchingDirections.isGrounded)
                 {
                     animator.SetTrigger(AnimationStrings.jumpTrigger);
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
-                    canDoubleJump = false;
+                }
+                else
+                {
+                    if (canDoubleJump)
+                    {
+                        animator.SetTrigger(AnimationStrings.jumpTrigger);
+                        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
+                        canDoubleJump = false;
+                    }
                 }
             }
         }
@@ -305,53 +333,68 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void onAttack(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!PauseMenu.isPaused)
         {
-            animator.SetTrigger(AnimationStrings.attackTrigger);
-        }
+            if (context.started)
+            {
+                animator.SetTrigger(AnimationStrings.attackTrigger);
+            }
+        }   
     }
 
     public void onRangedAttack(InputAction.CallbackContext context)
     {
-        if (context.started && Time.time >= lastRangedAttackTime + rangedAttackCooldown)
+        if (!PauseMenu.isPaused)
         {
-            if (hasFireball)
+            if (context.started && Time.time >= lastRangedAttackTime + rangedAttackCooldown)
             {
-                animator.SetTrigger(AnimationStrings.fireBallTrigger);
+                if (hasFireball)
+                {
+                    animator.SetTrigger(AnimationStrings.fireBallTrigger);
+                }
+                else
+                {
+                    animator.SetTrigger(AnimationStrings.rangedAttackTrigger);
+                }
+                
+                projectileLauncher.projectilePrefab = hasFireball ? fireballProjectilePrefab : defaultProjectilePrefab;
+                
+                rangedAttackCooldown = hasFireball ? fireballRangedCooldown : defaultRangedCooldown;
+                lastRangedAttackTime = Time.time;
             }
-            else
-            {
-                animator.SetTrigger(AnimationStrings.rangedAttackTrigger);
-            }
-            
-            projectileLauncher.projectilePrefab = hasFireball ? fireballProjectilePrefab : defaultProjectilePrefab;
-            
-            rangedAttackCooldown = hasFireball ? fireballRangedCooldown : defaultRangedCooldown;
-            lastRangedAttackTime = Time.time;
         }
     }
 
     public void OnUsePowerup1(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!PauseMenu.isPaused)
         {
-            powerupInventory.UsePowerup("HealthBuff");
+            if (context.started)
+            {
+                powerupInventory.UsePowerup("HealthBuff");
+            }
         }
     }
 
     public void OnUsePowerup2(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!PauseMenu.isPaused)
         {
-            powerupInventory.UsePowerup("SpeedBuff");
+            if (context.started)
+            {
+                powerupInventory.UsePowerup("SpeedBuff");
+            }
         }
     }
 
     public void OnUsePowerup3(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (!PauseMenu.isPaused)
         {
-            powerupInventory.UsePowerup("GravityBuff");
+            if (context.started)
+            {
+                powerupInventory.UsePowerup("GravityBuff");
+            }
         }
     }
 

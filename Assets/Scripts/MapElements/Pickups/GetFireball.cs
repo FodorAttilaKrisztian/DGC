@@ -26,8 +26,6 @@ public class GetFireball : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        Debug.Log("Fireball LoadData Called. Was collected: " + data.fireballCollected);
-        
         if (data.fireballCollected)
         {
             UIManager.instance.SetFireballUI(true);

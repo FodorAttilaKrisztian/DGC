@@ -165,8 +165,6 @@ public class UIManager : MonoBehaviour
         if (keyUI != null)
         {
             keyUI.SetActive(false);
-
-            
         }
 
         foreach (var slot in powerupSlots)
