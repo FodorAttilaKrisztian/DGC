@@ -4,6 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(TouchingDirections), typeof(Damageable))]
 public class Skeleton : MonoBehaviour
 {
+    private Transform player;
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     Animator animator;
@@ -13,16 +14,15 @@ public class Skeleton : MonoBehaviour
     public DetectionZone cliffDetectionZone;
 
     public LayerMask playerLayer;
-    private Transform player;
     public float chaseRadius = 4f;
     private bool chasingPlayer = false; 
 
     public enum WalkableDirection { Right, Left };
     private WalkableDirection _walkDirection;
 
-    public float walkAcceleration = 30f;
-    public float maxSpeed = 3f;
-    public float walkStopRate = 0.05f;
+    public float walkAcceleration = 15f;
+    public float maxSpeed = 4f;
+    public float walkStopRate = 0.2f;
 
     private Vector2 walkDirectionVector = Vector2.right;
     public bool canMove => animator.GetBool(AnimationStrings.canMove);
@@ -61,9 +61,16 @@ public class Skeleton : MonoBehaviour
 
     public bool hasTarget
     {
-        get => attackZone.detectedColliders.Count > 0;
+        get => animator.GetBool(AnimationStrings.hasTarget);
         private set => animator.SetBool(AnimationStrings.hasTarget, value);
     }
+
+    public bool isAlert
+    {
+        get => animator.GetBool(AnimationStrings.isAlert);
+        set => animator.SetBool(AnimationStrings.isAlert, value);
+    }
+
 
     public float attackCooldown
     {
@@ -84,28 +91,40 @@ public class Skeleton : MonoBehaviour
         hasTarget = attackZone.detectedColliders.Count > 0;
         attackCooldown -= Time.deltaTime;
 
-        Collider2D playerCollider = Physics2D.OverlapCircle(transform.position, chaseRadius, playerLayer);
+        Vector2 boxSize = new Vector2(chaseRadius * 2f, chaseRadius);
+        Vector2 boxCenter = (Vector2)transform.position + Vector2.up * (boxSize.y / 2f);
         
+        Collider2D playerCollider = Physics2D.OverlapBox(boxCenter, boxSize, 0f, playerLayer);
+
         if (playerCollider != null)
         {
             player = playerCollider.transform;
-            chasingPlayer = true;
-            maxSpeed = 4f;
 
+            if (player.position.y - transform.position.y <= 1f)
+            {
+                chasingPlayer = true;
+                maxSpeed = 6f;
+            }
+            else
+            {
+                chasingPlayer = false;
+                maxSpeed = 3f;
+            }
         }
         else
         {
-            player = null;
             chasingPlayer = false;
             maxSpeed = 3f;
         }
+
+        isAlert = chasingPlayer;
     }
 
     private void FixedUpdate()
     {
         bool nearCliff = cliffDetectionZone.detectedColliders.Count == 0;
 
-        if (touchingDirections.isGrounded && (touchingDirections.isOnWall || nearCliff) && !chasingPlayer)
+        if (touchingDirections.isGrounded && (touchingDirections.isOnWall || nearCliff))
         {
             FlipDirection();
         }
@@ -115,12 +134,15 @@ public class Skeleton : MonoBehaviour
             if (chasingPlayer && player != null)
             {
                 float directionToPlayer = player.position.x - transform.position.x;
+
+                // Flip to face player
                 walkDirection = directionToPlayer > 0 ? WalkableDirection.Right : WalkableDirection.Left;
             }
 
             if (nearCliff)
             {
                 rb.linearVelocity = new Vector2(0, rb.linearVelocity.y);
+                
                 return;
             }
 
@@ -137,7 +159,9 @@ public class Skeleton : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, chaseRadius);
+        Vector2 boxSize = new Vector2(chaseRadius, chaseRadius);
+        Vector2 boxCenter = (Vector2)transform.position + Vector2.up * (boxSize.y / 2f - 1f);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireCube(boxCenter, boxSize);
     }
 }

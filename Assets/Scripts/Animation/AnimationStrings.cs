@@ -24,4 +24,5 @@ internal class AnimationStrings
     internal static string fireBallTrigger = "fireBall";
     internal static string levelEndTrigger = "end";
     internal static string levelStartTrigger = "start";
+    internal static string isAlert = "isAlert";
 }

@@ -415,9 +415,9 @@ MonoBehaviour:
   maxLives: 3
   currentLives: 0
   walkSpeed: 5
-  runSpeed: 8
-  airWalkSpeed: 5
-  airRunSpeed: 8
+  runSpeed: 7
+  airWalkSpeed: 4
+  airRunSpeed: 6
   jumpImpulse: 10
   respawnPoint: {x: -4, y: 0, z: 0}
   latestRespawnPointX: 0
@@ -495,7 +495,19 @@ MonoBehaviour:
     m_ActionId: 6c2ab1b8-8984-453a-af3d-a3c78ae1679a
     m_ActionName: 'Player/Attack[/Mouse/leftButton,/Keyboard/enter]'
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1409454109426951487}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onInteract
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 852140f2-7766-474d-8707-702459ba45f3
     m_ActionName: 'Player/Interact[/Keyboard/e]'
   - m_PersistentCalls:
@@ -602,6 +614,86 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: c3ebc8dd-97d8-4b88-bd96-251687328250
     m_ActionName: 'Player/RangedAttack[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1409454109426951487}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUsePowerup1
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 37535670-46fe-4b6d-83c3-2ec7121e197f
+    m_ActionName: 'Player/SpeedBuff[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1409454109426951487}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUsePowerup2
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e9bf7e1e-0038-4e63-94a4-ac07337d48d0
+    m_ActionName: 'Player/GravityBuff[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1409454109426951487}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnUsePowerup3
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 97c53e41-e269-4259-a870-0e6a4a8152ad
+    m_ActionName: 'Player/UseGravityBuff[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1409454109426951487}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: onPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3c0aa49c-bbcb-4e56-b140-8de7fce36f92
+    m_ActionName: 'Player/Pause[/Keyboard/m]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: onUnpause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 36d369a7-7a0f-447d-8efd-d23bff5e1df5
+    m_ActionName: 'UI/Unpause[/Keyboard/m]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -663,8 +755,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 1
-  m_Offset: {x: -0.00020046532, y: -0.005500108}
-  m_Size: {x: 0.17592093, y: 0.26123393}
+  m_Offset: {x: -0.00095406175, y: -0.0047465116}
+  m_Size: {x: 0.19249982, y: 0.2778128}
   m_Direction: 0
 --- !u!114 &8719773116604172915
 MonoBehaviour:
@@ -687,7 +779,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 524352
+      m_Bits: 524864
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0
@@ -733,7 +825,7 @@ MonoBehaviour:
   _isAlive: 1
   isInvincible: 0
   timeSinceHit: 0
-  invincibilityTime: 0.5
+  invincibilityTime: 0.25
 --- !u!114 &7696692624266465915
 MonoBehaviour:
   m_ObjectHideFlags: 0
