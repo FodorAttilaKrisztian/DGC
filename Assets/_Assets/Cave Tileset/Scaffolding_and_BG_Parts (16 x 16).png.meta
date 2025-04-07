@@ -747,7 +747,32 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Scaffolding_and_BG_Parts (16 x 16)_0: 8983649238964250588
+      Scaffolding_and_BG_Parts (16 x 16)_1: 5190727356333910256
+      Scaffolding_and_BG_Parts (16 x 16)_10: 6857142872639858280
+      Scaffolding_and_BG_Parts (16 x 16)_11: -4135279151294402200
+      Scaffolding_and_BG_Parts (16 x 16)_12: -7674090631781586934
+      Scaffolding_and_BG_Parts (16 x 16)_13: 1340736693995705117
+      Scaffolding_and_BG_Parts (16 x 16)_14: 5569816334203521779
+      Scaffolding_and_BG_Parts (16 x 16)_15: 1950525750803855112
+      Scaffolding_and_BG_Parts (16 x 16)_16: 6122201292038153505
+      Scaffolding_and_BG_Parts (16 x 16)_17: -3168869162688480587
+      Scaffolding_and_BG_Parts (16 x 16)_18: 710177043192875961
+      Scaffolding_and_BG_Parts (16 x 16)_19: 6884909680631010108
+      Scaffolding_and_BG_Parts (16 x 16)_2: -5587668441744082764
+      Scaffolding_and_BG_Parts (16 x 16)_20: -5391984258620989742
+      Scaffolding_and_BG_Parts (16 x 16)_21: 6001155955481493668
+      Scaffolding_and_BG_Parts (16 x 16)_22: -858179515100233888
+      Scaffolding_and_BG_Parts (16 x 16)_23: -3877638601707132912
+      Scaffolding_and_BG_Parts (16 x 16)_24: -4417669168249750494
+      Scaffolding_and_BG_Parts (16 x 16)_3: -1275447044132102722
+      Scaffolding_and_BG_Parts (16 x 16)_4: -2263648202572813707
+      Scaffolding_and_BG_Parts (16 x 16)_5: -7377975804833420023
+      Scaffolding_and_BG_Parts (16 x 16)_6: -7678138268875359474
+      Scaffolding_and_BG_Parts (16 x 16)_7: -5299332432869034979
+      Scaffolding_and_BG_Parts (16 x 16)_8: -5034520231677673170
+      Scaffolding_and_BG_Parts (16 x 16)_9: -8937981558667380162
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

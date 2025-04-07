@@ -23,9 +23,12 @@ public class Attack : MonoBehaviour
 
             Vector2 deliveredKnockBackForce = new Vector2(knockbackX * Mathf.Abs(knockBackForce.x), knockbackY * Mathf.Abs(knockBackForce.y));
 
-            // Apply knockback directly to Rigidbody2D
-            rb.linearVelocity = Vector2.zero; // reset current velocity to prevent downward drag
-            rb.AddForce(deliveredKnockBackForce, ForceMode2D.Impulse);
+            if ((damageable != null && rb != null))
+            {
+                // Apply knockback directly to Rigidbody2D
+                rb.linearVelocity = Vector2.zero; // reset current velocity to prevent downward drag
+                rb.AddForce(deliveredKnockBackForce, ForceMode2D.Impulse);   
+            }
 
             damageable.Hit(attackDamage, deliveredKnockBackForce);
         }

@@ -415,9 +415,9 @@ MonoBehaviour:
   maxLives: 3
   currentLives: 0
   walkSpeed: 5
-  runSpeed: 7
-  airWalkSpeed: 4
-  airRunSpeed: 6
+  runSpeed: 8
+  airWalkSpeed: 5
+  airRunSpeed: 8
   jumpImpulse: 10
   respawnPoint: {x: -4, y: 0, z: 0}
   latestRespawnPointX: 0

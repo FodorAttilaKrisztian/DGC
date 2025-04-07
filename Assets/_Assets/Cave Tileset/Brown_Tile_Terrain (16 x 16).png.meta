@@ -1472,7 +1472,61 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Brown_Tile_Terrain (16 x 16)_0: 5410561921614034885
+      Brown_Tile_Terrain (16 x 16)_1: 1775072125371998204
+      Brown_Tile_Terrain (16 x 16)_10: -6941529199403462396
+      Brown_Tile_Terrain (16 x 16)_11: -7303821974050881731
+      Brown_Tile_Terrain (16 x 16)_12: 5091850643920947878
+      Brown_Tile_Terrain (16 x 16)_13: -2321524080095634424
+      Brown_Tile_Terrain (16 x 16)_14: -2346062370593947210
+      Brown_Tile_Terrain (16 x 16)_15: -4900981276944410654
+      Brown_Tile_Terrain (16 x 16)_16: -3720016111655952622
+      Brown_Tile_Terrain (16 x 16)_17: 741473820600313106
+      Brown_Tile_Terrain (16 x 16)_18: -2270287154241304291
+      Brown_Tile_Terrain (16 x 16)_19: -7700188753435000853
+      Brown_Tile_Terrain (16 x 16)_2: 1536917300950452824
+      Brown_Tile_Terrain (16 x 16)_20: -5008873418054358540
+      Brown_Tile_Terrain (16 x 16)_21: 1344629808828469230
+      Brown_Tile_Terrain (16 x 16)_22: 355148551170358989
+      Brown_Tile_Terrain (16 x 16)_23: 1539204310566521880
+      Brown_Tile_Terrain (16 x 16)_24: 6407272997838984723
+      Brown_Tile_Terrain (16 x 16)_25: -6389492714533542399
+      Brown_Tile_Terrain (16 x 16)_26: 5656257590905346887
+      Brown_Tile_Terrain (16 x 16)_27: 378521212159182920
+      Brown_Tile_Terrain (16 x 16)_28: -9186632066345089202
+      Brown_Tile_Terrain (16 x 16)_29: -8626697162080832583
+      Brown_Tile_Terrain (16 x 16)_3: 5774735870751019703
+      Brown_Tile_Terrain (16 x 16)_30: -4723819470026479459
+      Brown_Tile_Terrain (16 x 16)_31: -8115379459553022216
+      Brown_Tile_Terrain (16 x 16)_32: -6233260298960558232
+      Brown_Tile_Terrain (16 x 16)_33: -4894052708963116531
+      Brown_Tile_Terrain (16 x 16)_34: 8666969863377950283
+      Brown_Tile_Terrain (16 x 16)_35: -6039211300796747893
+      Brown_Tile_Terrain (16 x 16)_36: 2018912303594656772
+      Brown_Tile_Terrain (16 x 16)_37: -163134444664874650
+      Brown_Tile_Terrain (16 x 16)_38: 2949969702503724270
+      Brown_Tile_Terrain (16 x 16)_39: 7382540201322848265
+      Brown_Tile_Terrain (16 x 16)_4: 4352762884744963535
+      Brown_Tile_Terrain (16 x 16)_40: -6702843117387962697
+      Brown_Tile_Terrain (16 x 16)_41: -1944589845520275088
+      Brown_Tile_Terrain (16 x 16)_42: 2735112042433879654
+      Brown_Tile_Terrain (16 x 16)_43: 8488785989352040039
+      Brown_Tile_Terrain (16 x 16)_44: 5976076481694639006
+      Brown_Tile_Terrain (16 x 16)_45: 7451706341514808080
+      Brown_Tile_Terrain (16 x 16)_46: -2767473345382082074
+      Brown_Tile_Terrain (16 x 16)_47: -4819087965709412460
+      Brown_Tile_Terrain (16 x 16)_48: 4932323185892227519
+      Brown_Tile_Terrain (16 x 16)_49: 4289232498253487952
+      Brown_Tile_Terrain (16 x 16)_5: -3896686193872209188
+      Brown_Tile_Terrain (16 x 16)_50: -38863798526092369
+      Brown_Tile_Terrain (16 x 16)_51: -2050052922522487055
+      Brown_Tile_Terrain (16 x 16)_52: -364365429097191328
+      Brown_Tile_Terrain (16 x 16)_53: 2576951771525139350
+      Brown_Tile_Terrain (16 x 16)_6: 7711189090489722536
+      Brown_Tile_Terrain (16 x 16)_7: 2468323815925284661
+      Brown_Tile_Terrain (16 x 16)_8: 4748698527204035095
+      Brown_Tile_Terrain (16 x 16)_9: 1942250282309980737
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
