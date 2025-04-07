@@ -26,11 +26,23 @@ public class PersistentCamera : MonoBehaviour
 
     private void UpdateCameraTarget()
     {
-        if (PlayerController.instance != null)
+        var cam = GetComponent<CinemachineCamera>();
+        
+        if (PlayerController.instance == null)
         {
-            GetComponent<CinemachineCamera>().Follow = PlayerController.instance.transform;
+            Debug.LogWarning("PlayerController instance not found.");
+            return;
         }
+
+        if (cam == null)
+        {
+            Debug.LogError("CinemachineCamera component is missing on this GameObject.");
+            return;
+        }
+
+        cam.Follow = PlayerController.instance.transform;
     }
+
 
     private void OnEnable()
     {

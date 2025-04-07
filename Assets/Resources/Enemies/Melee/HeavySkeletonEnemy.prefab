@@ -201,8 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535127cad74fa074c971cfe26ae06be0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 35
-  knockBackForce: {x: 15, y: 5}
+  attackDamage: 40
+  knockBackForce: {x: 25, y: 8}
 --- !u!1 &3488191526070274608
 GameObject:
   m_ObjectHideFlags: 0
@@ -407,7 +407,7 @@ MonoBehaviour:
   chaseRadius: 6
   walkAcceleration: 15
   maxSpeed: 4
-  walkStopRate: 0.75
+  walkStopRate: 0.075
 --- !u!114 &5602283524239908038
 MonoBehaviour:
   m_ObjectHideFlags: 0
