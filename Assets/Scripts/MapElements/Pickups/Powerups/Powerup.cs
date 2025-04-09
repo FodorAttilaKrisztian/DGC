@@ -8,8 +8,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
     private bool isCollected = false;
     private bool isInitialized = false;
 
-    AudioManager audioManager;
-
     public PowerupEffect effect;
     public Vector3 spinRotationSpeed = new Vector3(0, 180, 0);
 
@@ -27,8 +25,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
-        
         // Generate an ID if this is a brand-new (non-persistent) powerup
         if (string.IsNullOrEmpty(id))
         {
@@ -95,9 +91,9 @@ public class Powerup : MonoBehaviour, IDataPersistence
 
                 DataPersistenceManager.instance.SaveGame();
 
-                if (audioManager != null)
+                if (AudioManager.instance != null)
                 {
-                    audioManager.PlaySFX(audioManager.pickupSound, 2f);
+                    AudioManager.instance.PlaySFX(AudioManager.instance.pickupSound, 2f);
                 }
 
                 Destroy(gameObject);

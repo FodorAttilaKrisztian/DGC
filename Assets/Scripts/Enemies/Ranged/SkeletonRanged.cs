@@ -82,7 +82,7 @@ public class SkeletonRanged : MonoBehaviour
 
     private void Awake()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager = AudioManager.instance;
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
@@ -179,7 +179,7 @@ public class SkeletonRanged : MonoBehaviour
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.rockThrowSound, 0.6f);
+            audioManager.PlaySFX(audioManager.rockThrowSound, 0.2f);
         }
     }
 

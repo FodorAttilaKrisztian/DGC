@@ -2,12 +2,8 @@ using UnityEngine;
 
 public class GetFireball : MonoBehaviour, IDataPersistence
 {
-    AudioManager audioManager;
-
     private void Awake()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
-
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player == null)
@@ -26,9 +22,9 @@ public class GetFireball : MonoBehaviour, IDataPersistence
             UIManager.instance.SetFireballUI(true);  // Use the cached reference
             DataPersistenceManager.instance.SaveGame();
 
-            if (audioManager != null)
+            if (AudioManager.instance != null)
             {
-                audioManager.PlaySFX(audioManager.keyPickupSound, 2.5f);
+                AudioManager.instance.PlaySFX(AudioManager.instance.keyPickupSound, 2.5f);
             }
 
             Destroy(gameObject);

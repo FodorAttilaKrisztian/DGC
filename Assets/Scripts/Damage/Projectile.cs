@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager = AudioManager.instance;
     }
 
     void Start()

@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             Destroy(gameObject);
         }
 
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager = AudioManager.instance;
         playerInput = GetComponent<PlayerInput>();
         uiManager = FindFirstObjectByType<UIManager>();
         rb = GetComponent<Rigidbody2D>();
@@ -576,7 +576,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.rockThrowSound, 0.6f);
+            audioManager.PlaySFX(audioManager.rockThrowSound, 0.2f);
         }
     }
 
@@ -608,7 +608,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.singlePunchSound, 1.25f);
+            audioManager.PlaySFX(audioManager.singlePunchSound, 0.75f);
         }
     }
 
@@ -616,7 +616,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.doublePunchSound, 1.25f);
+            audioManager.PlaySFX(audioManager.doublePunchSound, 0.75f);
         }
     }
 }

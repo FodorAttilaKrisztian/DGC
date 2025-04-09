@@ -82,7 +82,7 @@ public class Skeleton : MonoBehaviour
 
     private void Awake()
     {
-        audioManager = FindFirstObjectByType<AudioManager>();
+        audioManager = AudioManager.instance;
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();

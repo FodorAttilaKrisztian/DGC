@@ -6,6 +6,7 @@ public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu instance;
     public GameObject pauseMenu;
+    public GameObject settingsMenu;
     public static bool isPaused;
 
     private PlayerInput playerInput;
@@ -35,6 +36,7 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
 
         if (PlayerController.instance != null)
         {
@@ -55,6 +57,7 @@ public class PauseMenu : MonoBehaviour
     {
         isPaused = false;
         pauseMenu.SetActive(false);
+        settingsMenu.SetActive(false);
         Time.timeScale = 1f;
 
         PlayerController.instance.GetComponent<PlayerInput>().SwitchCurrentActionMap("Player");
@@ -62,7 +65,8 @@ public class PauseMenu : MonoBehaviour
 
     public void Settings()
     {
-        //
+        pauseMenu.SetActive(false);
+        settingsMenu.SetActive(true);
     }
 
     public void BackToMenu()
