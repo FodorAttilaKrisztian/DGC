@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class KeyPickup : MonoBehaviour, IDataPersistence
 {
+    AudioManager audioManager;
+
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         if (player == null)
@@ -21,6 +25,12 @@ public class KeyPickup : MonoBehaviour, IDataPersistence
             PlayerController.instance.hasKey = true;
             UIManager.instance.SetKeyUI(true);  // Use the cached reference
             DataPersistenceManager.instance.SaveGame();
+
+            if (audioManager != null)
+            {
+                audioManager.PlaySFX(audioManager.keyPickupSound, 2.5f);
+            }
+
             Destroy(gameObject);
         }
     }

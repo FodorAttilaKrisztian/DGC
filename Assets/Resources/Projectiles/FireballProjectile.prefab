@@ -106,6 +106,7 @@ MonoBehaviour:
   damage: 20
   moveSpeed: {x: 20, y: 0}
   knockBackForce: {x: 2.5, y: 0}
+  projectileType: 1
 --- !u!50 &-1734010030292613106
 Rigidbody2D:
   serializedVersion: 5

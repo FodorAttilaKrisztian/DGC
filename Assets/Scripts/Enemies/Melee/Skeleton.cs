@@ -10,6 +10,8 @@ public class Skeleton : MonoBehaviour
     Animator animator;
     Damageable damageable;
 
+    AudioManager audioManager;
+
     public DetectionZone attackZone;
     public DetectionZone cliffDetectionZone;
 
@@ -80,6 +82,7 @@ public class Skeleton : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
@@ -163,5 +166,20 @@ public class Skeleton : MonoBehaviour
         Vector2 boxCenter = (Vector2)transform.position + Vector2.up * (boxSize.y / 2f - 1f);
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(boxCenter, boxSize);
+    }
+
+    public void PlaySkeletonSwordSound()
+    {
+        if (audioManager != null) 
+        {
+            audioManager.PlaySFX(audioManager.skeletonSwordSound, 1.25f);
+        }
+    }
+    public void PlaySkeletonHammerSound()
+    {
+        if (audioManager != null) 
+        {
+            audioManager.PlaySFX(audioManager.skeletonHammerSound, 0.5f);
+        }
     }
 }

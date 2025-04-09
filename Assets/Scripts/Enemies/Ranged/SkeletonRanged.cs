@@ -9,6 +9,7 @@ public class SkeletonRanged : MonoBehaviour
     TouchingDirections touchingDirections;
     Animator animator;
     Damageable damageable;
+    AudioManager audioManager;
 
     public DetectionZone throwZone;
     public DetectionZone kickZone;
@@ -81,6 +82,7 @@ public class SkeletonRanged : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
@@ -163,5 +165,29 @@ public class SkeletonRanged : MonoBehaviour
         Vector2 boxCenter = (Vector2)transform.position + Vector2.up * (boxSize.y / 2f - 1f);
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireCube(boxCenter, boxSize);
+    }
+
+    public void PlaySkeletonKickSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.skeletonKickSound, 1.5f);
+        }
+    }
+
+    public void PlayRockThrowSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.rockThrowSound, 0.6f);
+        }
+    }
+
+    public void PlayRockHitSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.rockHitSound, 0.1f);
+        }
     }
 }

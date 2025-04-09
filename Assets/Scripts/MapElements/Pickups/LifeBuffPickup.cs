@@ -5,6 +5,8 @@ public class LifeBuffPickup : MonoBehaviour, IDataPersistence
     [SerializeField] private LifeBuff lifeBuff;
     [SerializeField] private string id;
 
+    AudioManager audioManager;
+
     private bool hasBeenPickedUp = false;
 
     [ContextMenu("Generate guid for id")]
@@ -15,6 +17,8 @@ public class LifeBuffPickup : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
+        audioManager = FindFirstObjectByType<AudioManager>();
+
         if (string.IsNullOrEmpty(id))
         {
             id = System.Guid.NewGuid().ToString();  // Assign a new GUID if missing
@@ -30,6 +34,11 @@ public class LifeBuffPickup : MonoBehaviour, IDataPersistence
                 hasBeenPickedUp = true;
 
                 DataPersistenceManager.instance.SaveGame();
+
+                if (audioManager != null)
+                {
+                    audioManager.PlaySFX(audioManager.keyPickupSound, 2.5f);
+                }
 
                 Destroy(gameObject);
             }

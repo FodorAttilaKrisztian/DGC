@@ -6,11 +6,17 @@ public class Projectile : MonoBehaviour
     public Vector2 moveSpeed = new Vector2(8f, 0);
     public Vector2 knockBackForce = new Vector2(5, 2);
 
+    private AudioManager audioManager;
+
     Rigidbody2D rb;
+
+    public enum ProjectileType { Rock, Fireball }
+    public ProjectileType projectileType;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioManager = FindFirstObjectByType<AudioManager>();
     }
 
     void Start()
@@ -32,13 +38,36 @@ public class Projectile : MonoBehaviour
 
             if (gotHit)
             {
+                switch (projectileType)
+                {
+                    case ProjectileType.Rock:
+                        audioManager?.PlaySFX(audioManager.rockHitSound, 0.2f);
+                        break;
+                    case ProjectileType.Fireball:
+                        audioManager?.PlaySFX(audioManager.fireballHitSound, 0.5f);
+                        break;
+                }
+
                 Destroy(gameObject);
 
                 return;
             }
-        }
 
-        Destroy(gameObject);
+        }
+        else
+        {
+            switch (projectileType)
+            {
+                case ProjectileType.Rock:
+                    audioManager?.PlaySFX(audioManager.rockHitSound, 0.2f);
+                    break;
+                case ProjectileType.Fireball:
+                    audioManager?.PlaySFX(audioManager.fireballHitSound, 0.75f);
+                    break;
+            }
+
+            Destroy(gameObject);
+        }
     }
 
     private void OnBecameInvisible()

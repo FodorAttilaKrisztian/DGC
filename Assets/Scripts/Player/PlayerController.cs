@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 {
     public static PlayerController instance;
     private PlayerInput playerInput;
+    AudioManager audioManager;
     private UIManager uiManager;
     private PowerupInventory powerupInventory;
     private Dictionary<string, Coroutine> activeBuffs = new Dictionary<string, Coroutine>();
@@ -61,6 +62,40 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public float fireballRangedCooldown = 1.25f;
     public float rangedAttackCooldown = 2f;
     private float lastRangedAttackTime = -999f;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        audioManager = FindFirstObjectByType<AudioManager>();
+        playerInput = GetComponent<PlayerInput>();
+        uiManager = FindFirstObjectByType<UIManager>();
+        rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        touchingDirections = GetComponent<TouchingDirections>();
+        damageable = GetComponent<Damageable>();
+        currentLives = maxLives;
+        projectileLauncher = GetComponent<ProjectileLauncher>();
+        powerupInventory = FindFirstObjectByType<PowerupInventory>();
+
+        baseWalkSpeed = walkSpeed;
+        baseRunSpeed = runSpeed;
+        baseAirWalkSpeed = airWalkSpeed;
+        baseAirRunSpeed = airRunSpeed;
+
+        if (respawnPoint != Vector3.zero)
+        {
+            transform.position = respawnPoint;
+        }
+    }
 
     public void onPause(InputAction.CallbackContext context)
     {
@@ -238,39 +273,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     Rigidbody2D rb;
     Animator animator;
 
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Keeps the player across scenes
-        }
-        else
-        {
-            Destroy(gameObject); // Prevent duplicates
-        }
-
-        playerInput = GetComponent<PlayerInput>();
-        uiManager = FindFirstObjectByType<UIManager>();
-        rb = GetComponent<Rigidbody2D>();
-        animator = GetComponent<Animator>();
-        touchingDirections = GetComponent<TouchingDirections>();
-        damageable = GetComponent<Damageable>();
-        currentLives = maxLives;
-        projectileLauncher = GetComponent<ProjectileLauncher>();
-        powerupInventory = FindFirstObjectByType<PowerupInventory>();
-
-        baseWalkSpeed = walkSpeed;
-        baseRunSpeed = runSpeed;
-        baseAirWalkSpeed = airWalkSpeed;
-        baseAirRunSpeed = airRunSpeed;
-
-        if (respawnPoint != Vector3.zero)
-        {
-            transform.position = respawnPoint;
-        }
-    }
-
     private void FixedUpdate()
     {
         if (isAlive)
@@ -311,6 +313,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 if (touchingDirections.isGrounded)
                 {
                     animator.SetTrigger(AnimationStrings.jumpTrigger);
+                    PlayJumpSound();
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
                 }
                 else
@@ -318,6 +321,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     if (canDoubleJump)
                     {
                         animator.SetTrigger(AnimationStrings.jumpTrigger);
+                        PlayJumpSound();
                         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpImpulse);
                         canDoubleJump = false;
                     }
@@ -526,5 +530,93 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         DataPersistenceManager.instance.NewGame();
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void PlayDeathSound()
+    {
+        if(audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.deathSound, 0.75f);
+        }
+    }
+
+    public void PlayGameOverSound()
+    {
+        if(audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.gameOverSound, 0.75f);
+        }
+    }
+
+    public void PlayJumpSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.jumpSound, 0.25f);
+        }
+    }
+
+    public void PlayPickupSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.pickupSound, 2f);
+        }
+    }
+
+    public void PlayKeyPickupSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.keyPickupSound, 2.5f);
+        }
+    }
+
+    public void PlayRockThrowSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.rockThrowSound, 0.6f);
+        }
+    }
+
+    public void PlayRockHitSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.rockHitSound, 0.1f);
+        }
+    }
+
+    public void PlayFireballThrowSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.fireballThrowSound, 0.25f);
+        }
+    }
+
+    public void PlayFireballHitSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.fireballHitSound, 0.25f);
+        }
+    }
+
+    public void PlaySinglePunchSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.singlePunchSound, 1.25f);
+        }
+    }
+
+    public void PlayDoublePunchSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.doublePunchSound, 1.25f);
+        }
     }
 }

@@ -12,6 +12,7 @@ TagManager:
   - KeyUI
   - LifeUI
   - PowerupUI
+  - Audio
   layers:
   - Default
   - TransparentFX

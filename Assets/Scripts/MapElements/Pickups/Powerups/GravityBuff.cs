@@ -14,6 +14,7 @@ public class GravityBuff : PowerupEffect
         if (playerController != null)
         {
             playerController.ApplyGravityBuff(gravityValue, duration);
+            
             return true;
         }
 
