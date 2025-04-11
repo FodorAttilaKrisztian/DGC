@@ -45,7 +45,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -180,21 +180,30 @@ MonoBehaviour:
   menuMusic: {fileID: 8300000, guid: 677ac37e14481e64087aa86f6d10f28d, type: 3}
   dungeonMusic: {fileID: 8300000, guid: 256d3ee87ae4b29498942ebcfc4281a0, type: 3}
   villageMusic: {fileID: 8300000, guid: 073dadc8b63b14c47b059515a8dee545, type: 3}
-  checkpointSound: {fileID: 8300000, guid: 5d47ae616439e9547878dc8028d11c4e, type: 3}
-  deathSound: {fileID: 8300000, guid: 0d7ed82c84c9b6943ac8e499f7b6ce84, type: 3}
-  gameOverSound: {fileID: 8300000, guid: 66fb6c5e08632904bb10e29d928d9946, type: 3}
-  skeletonSwordSound: {fileID: 8300000, guid: 53af7f20295b9f14c93a9d1e88b9028b, type: 3}
-  skeletonHammerSound: {fileID: 8300000, guid: 0b275411a86fbfb4c933b5168556266a, type: 3}
-  skeletonKickSound: {fileID: 8300000, guid: 8f1923e2e77496f4098e51d7440ff3a2, type: 3}
   singlePunchSound: {fileID: 8300000, guid: 1cbc1d4151982334fa85cc7591edd5aa, type: 3}
   doublePunchSound: {fileID: 8300000, guid: f0209712598282c45ad4f2f872d32be0, type: 3}
   jumpSound: {fileID: 8300000, guid: 7ee680b6ae1f0bf48b18ca91aaf3841e, type: 3}
+  playerHurtSound: {fileID: 8300000, guid: b7e1a63a1afe1ef4c9d25d2e928271f6, type: 3}
+  deathSound: {fileID: 8300000, guid: 0d7ed82c84c9b6943ac8e499f7b6ce84, type: 3}
+  gameOverSound: {fileID: 8300000, guid: 66fb6c5e08632904bb10e29d928d9946, type: 3}
+  healSound: {fileID: 8300000, guid: 641dcda1e8783784497f666c50d8d6ff, type: 3}
+  speedSound: {fileID: 8300000, guid: eb56336669929a242a976d9c8ce3130f, type: 3}
+  gravitySound: {fileID: 8300000, guid: a1d40e4dd6928354a97f79336d76f578, type: 3}
   pickupSound: {fileID: 8300000, guid: be37d925c1bd3ea4489701aea99335cc, type: 3}
   keyPickupSound: {fileID: 8300000, guid: 082404f2d597abd4ea57c4176f54d2fe, type: 3}
+  checkpointSound: {fileID: 8300000, guid: 5d47ae616439e9547878dc8028d11c4e, type: 3}
+  boxBreakSound: {fileID: 8300000, guid: 60618c37a12098f4b87eea811ab03b1d, type: 3}
+  vaseBreakSound: {fileID: 8300000, guid: fc2f64d574c070245ae0960d33ee370e, type: 3}
+  barrelBreakSound: {fileID: 8300000, guid: ebdd1575eb378a345b3c8294d3b11099, type: 3}
   rockThrowSound: {fileID: 8300000, guid: 9b2b7af134fcdec439551944f985fe48, type: 3}
   rockHitSound: {fileID: 8300000, guid: 76ef05ec5b4e6f44ab086f1c6cf35205, type: 3}
   fireballThrowSound: {fileID: 8300000, guid: ef0bbea5a5bf41b4e820e2d5e10429b6, type: 3}
   fireballHitSound: {fileID: 8300000, guid: 9295e09f09cec06459204cc6feb248bb, type: 3}
+  skeletonHurtSound: {fileID: 8300000, guid: 91bd5e26150f7b147b3404aee672571a, type: 3}
+  skeletonDeathSound: {fileID: 8300000, guid: 5dbb82678e923814c97ede1e17a4875b, type: 3}
+  skeletonSwordSound: {fileID: 8300000, guid: 53af7f20295b9f14c93a9d1e88b9028b, type: 3}
+  skeletonHammerSound: {fileID: 8300000, guid: 0b275411a86fbfb4c933b5168556266a, type: 3}
+  skeletonKickSound: {fileID: 8300000, guid: 8f1923e2e77496f4098e51d7440ff3a2, type: 3}
 --- !u!1 &3556996818017409674
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,7 +249,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0

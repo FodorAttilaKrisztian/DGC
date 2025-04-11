@@ -13,25 +13,47 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource musicSource;
     [SerializeField] AudioSource SFXSource;
 
-    [Header("Audio Clips")]
+    [Header("Music Clips")]
+    
     public AudioClip menuMusic;
     public AudioClip dungeonMusic;
     public AudioClip villageMusic;
-    public AudioClip checkpointSound;
-    public AudioClip deathSound;
-    public AudioClip gameOverSound;
-    public AudioClip skeletonSwordSound;
-    public AudioClip skeletonHammerSound;
-    public AudioClip skeletonKickSound;
+
+    [Header("SFX Clips")]
+
+    [Header("Player Sounds")]
     public AudioClip singlePunchSound;
     public AudioClip doublePunchSound;
     public AudioClip jumpSound;
+    public AudioClip playerHurtSound;
+    public AudioClip deathSound;
+    public AudioClip gameOverSound;
+
+    [Header("Powerup Sounds")]
+    public AudioClip healSound;
+    public AudioClip speedSound;
+    public AudioClip gravitySound;
+
+    [Header("Map Sounds")]
     public AudioClip pickupSound;
     public AudioClip keyPickupSound;
+    public AudioClip checkpointSound;
+    public AudioClip boxBreakSound;
+    public AudioClip vaseBreakSound;
+    public AudioClip barrelBreakSound;
+
+    [Header("Projectile Sounds")]
     public AudioClip rockThrowSound;
     public AudioClip rockHitSound;
     public AudioClip fireballThrowSound;
     public AudioClip fireballHitSound;
+
+    [Header("Enemy Sounds")]
+    public AudioClip skeletonHurtSound;
+    public AudioClip skeletonDeathSound;
+    public AudioClip skeletonSwordSound;
+    public AudioClip skeletonHammerSound;
+    public AudioClip skeletonKickSound;
 
     private void Awake()
     {

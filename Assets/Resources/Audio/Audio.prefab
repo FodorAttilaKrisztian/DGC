@@ -310,6 +310,8 @@ MonoBehaviour:
   dungeonMusic: {fileID: 8300000, guid: 256d3ee87ae4b29498942ebcfc4281a0, type: 3}
   villageMusic: {fileID: 8300000, guid: 073dadc8b63b14c47b059515a8dee545, type: 3}
   checkpointSound: {fileID: 8300000, guid: 5d47ae616439e9547878dc8028d11c4e, type: 3}
+  skeletonHurtSound: {fileID: 8300000, guid: 91bd5e26150f7b147b3404aee672571a, type: 3}
+  playerHurtSound: {fileID: 8300000, guid: b7e1a63a1afe1ef4c9d25d2e928271f6, type: 3}
   deathSound: {fileID: 8300000, guid: 0d7ed82c84c9b6943ac8e499f7b6ce84, type: 3}
   gameOverSound: {fileID: 8300000, guid: 66fb6c5e08632904bb10e29d928d9946, type: 3}
   skeletonSwordSound: {fileID: 8300000, guid: 53af7f20295b9f14c93a9d1e88b9028b, type: 3}
@@ -324,3 +326,6 @@ MonoBehaviour:
   rockHitSound: {fileID: 8300000, guid: 76ef05ec5b4e6f44ab086f1c6cf35205, type: 3}
   fireballThrowSound: {fileID: 8300000, guid: ef0bbea5a5bf41b4e820e2d5e10429b6, type: 3}
   fireballHitSound: {fileID: 8300000, guid: 9295e09f09cec06459204cc6feb248bb, type: 3}
+  healSound: {fileID: 8300000, guid: 641dcda1e8783784497f666c50d8d6ff, type: 3}
+  speedSound: {fileID: 8300000, guid: eb56336669929a242a976d9c8ce3130f, type: 3}
+  gravitySound: {fileID: 8300000, guid: a1d40e4dd6928354a97f79336d76f578, type: 3}

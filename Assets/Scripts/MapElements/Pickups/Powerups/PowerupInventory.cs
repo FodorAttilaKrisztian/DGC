@@ -7,12 +7,15 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
 {
     private Dictionary<string, Queue<PowerupEffect>> storedPowerups = new Dictionary<string, Queue<PowerupEffect>>();
     public UnityEvent PowerupChanged;
+    private AudioManager audioManager;
 
     [SerializeField]
     private GameObject player;
 
     private void Awake()
     {
+        audioManager = AudioManager.instance;
+
         var playerInput = GetComponent<PlayerInput>();
 
         if (playerInput != null)
@@ -78,6 +81,8 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
                     }
                     
                     PowerupChanged?.Invoke();
+
+                    PlayHealSound();
                 }
             }
             else
@@ -91,6 +96,15 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
                 }
 
                 PowerupChanged?.Invoke();
+
+                if (powerupType == "SpeedBuff")
+                {
+                    PlaySpeedSound();
+                }
+                else if (powerupType == "GravityBuff")
+                {
+                    PlayGravitySound();
+                }
             }
         }
     }
@@ -128,5 +142,29 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
         if (powerup.name.Contains("Life")) return "LifeBuff";
 
         return "";
+    }
+
+    public void PlayHealSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.healSound, 0.25f);
+        }
+    }
+
+    public void PlaySpeedSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.speedSound, 0.25f);
+        }
+    }
+
+    public void PlayGravitySound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.gravitySound, 0.25f);
+        }
     }
 }

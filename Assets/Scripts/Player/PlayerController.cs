@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 {
     public static PlayerController instance;
     private PlayerInput playerInput;
-    AudioManager audioManager;
+    private AudioManager audioManager;
     private UIManager uiManager;
     private PowerupInventory powerupInventory;
     private Dictionary<string, Coroutine> activeBuffs = new Dictionary<string, Coroutine>();
@@ -532,6 +532,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         SceneManager.LoadScene("MainMenu");
     }
 
+    public void PlayHurtSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.playerHurtSound, 1f);
+        }
+    }
+
     public void PlayDeathSound()
     {
         if(audioManager != null)
@@ -600,7 +608,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.fireballHitSound, 0.25f);
+            audioManager.PlaySFX(audioManager.fireballHitSound, 0.15f);
         }
     }
 

@@ -190,4 +190,20 @@ public class SkeletonRanged : MonoBehaviour
             audioManager.PlaySFX(audioManager.rockHitSound, 0.1f);
         }
     }
+
+    public void PlaySkeletonHurtSound()
+    {
+        if (audioManager != null) 
+        {
+            audioManager.PlaySFX(audioManager.skeletonHurtSound, 0.15f);
+        }
+    }
+
+    public void PlaySkeletonDeathSound()
+    {
+        if (audioManager != null) 
+        {
+            audioManager.PlaySFX(audioManager.skeletonDeathSound, 0.5f);
+        }
+    }
 }

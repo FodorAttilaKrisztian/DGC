@@ -4,6 +4,9 @@ using System.Collections.Generic;
 
 public class Breakable : MonoBehaviour, IDataPersistence
 {
+    private AudioManager audioManager;
+    private Animator animator;
+
     [SerializeField]
     private string id;
 
@@ -19,6 +22,9 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
+        audioManager = AudioManager.instance;
+
         damageable = GetComponent<Damageable>();
 
         if (damageable != null)
@@ -34,13 +40,17 @@ public class Breakable : MonoBehaviour, IDataPersistence
     }
 
     public void OnHit(int damage, Vector2 knockback)
-    {
+    {   
         if (damageable.health <= 0 && !hasDroppedPowerup)
         {
+            animator.SetBool(AnimationStrings.isAlive, false);
+            
             DropPowerup();
             hasDroppedPowerup = true;
+
             DataPersistenceManager.instance.SaveGame();
-            Destroy(gameObject);
+
+            StartCoroutine(WaitandDestroy());
         }
     }
 
@@ -126,5 +136,36 @@ public class Breakable : MonoBehaviour, IDataPersistence
         }
 
         data.breakablesDestroyed.Add(id, hasDroppedPowerup);
+    }
+
+    public void PlayBoxSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.boxBreakSound, 0.25f);
+        }
+    }
+
+    public void PlayVaseSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.vaseBreakSound, 0.25f);
+        }
+    }
+
+    public void PlayBarrelSound()
+    {
+        if (audioManager != null)
+        {
+            audioManager.PlaySFX(audioManager.barrelBreakSound, 0.25f);
+        }
+    }
+
+    private IEnumerator WaitandDestroy()
+    {
+        yield return new WaitForSeconds(0.005f);
+
+        Destroy(gameObject);
     }
 }
