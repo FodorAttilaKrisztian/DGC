@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d89733c3c0cf1744ba31e0874fbb51d7, type: 3}
   m_Name: GravityBuff
   m_EditorClassIdentifier: 
-  gravityValue: 1
-  duration: 5
+  gravityValue: 1.25
+  duration: 6

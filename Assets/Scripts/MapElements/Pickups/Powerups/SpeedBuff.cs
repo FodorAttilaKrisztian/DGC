@@ -5,7 +5,7 @@ using System.Collections;
 public class SpeedBuff : PowerupEffect
 {
     public float speedMultiplier;
-    public float duration = 5f;
+    public float duration = 8f;
 
     public override bool Apply(GameObject target)
     {

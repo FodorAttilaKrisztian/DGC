@@ -4,8 +4,8 @@ using System.Collections;
 [CreateAssetMenu(menuName = "Powerups/GravityBuff")]
 public class GravityBuff : PowerupEffect
 {
-    public float gravityValue = 1f;
-    public float duration = 5f;
+    public float gravityValue = 1.25f;
+    public float duration = 6f;
 
     public override bool Apply(GameObject target)
     {

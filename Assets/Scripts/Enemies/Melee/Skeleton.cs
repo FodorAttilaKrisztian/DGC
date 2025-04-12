@@ -16,7 +16,7 @@ public class Skeleton : MonoBehaviour
     public DetectionZone cliffDetectionZone;
 
     public LayerMask playerLayer;
-    public float chaseRadius = 4f;
+    public float chaseRadius = 8f;
     private bool chasingPlayer = false; 
 
     public enum WalkableDirection { Right, Left };
@@ -106,18 +106,18 @@ public class Skeleton : MonoBehaviour
             if (player.position.y - transform.position.y <= 1f)
             {
                 chasingPlayer = true;
-                maxSpeed = 6f;
+                maxSpeed = 10f;
             }
             else
             {
                 chasingPlayer = false;
-                maxSpeed = 3f;
+                maxSpeed = 4f;
             }
         }
         else
         {
             chasingPlayer = false;
-            maxSpeed = 3f;
+            maxSpeed = 4f;
         }
 
         isAlert = chasingPlayer;

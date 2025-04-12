@@ -560,7 +560,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.jumpSound, 0.25f);
+            audioManager.PlaySFX(audioManager.jumpSound, 0.1f);
         }
     }
 

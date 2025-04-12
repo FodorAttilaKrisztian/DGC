@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: LargeSpeedBuff
   m_EditorClassIdentifier: 
   speedMultiplier: 1.4
-  duration: 2.5
+  duration: 5

@@ -178,10 +178,10 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  chaseRadius: 6
+  chaseRadius: 8
   walkAcceleration: 15
   maxSpeed: 4
-  walkStopRate: 0.2
+  walkStopRate: 0.05
 --- !u!114 &8942524242032299320
 MonoBehaviour:
   m_ObjectHideFlags: 0

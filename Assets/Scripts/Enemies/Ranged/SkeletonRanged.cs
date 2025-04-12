@@ -16,14 +16,14 @@ public class SkeletonRanged : MonoBehaviour
     public DetectionZone cliffDetectionZone;
 
     public LayerMask playerLayer;
-    public float chaseRadius = 4f;
+    public float chaseRadius = 8f;
     private bool chasingPlayer = false;
 
     public enum WalkableDirection { Right, Left };
     private WalkableDirection _walkDirection;
 
-    public float walkAcceleration = 15f;
-    public float maxSpeed = 4f;
+    public float walkAcceleration = 20f;
+    public float maxSpeed = 3f;
     public float walkStopRate = 0.2f;
 
     private Vector2 walkDirectionVector = Vector2.right;
