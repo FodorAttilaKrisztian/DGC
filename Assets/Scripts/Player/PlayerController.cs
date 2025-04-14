@@ -48,9 +48,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public Vector3 respawnPoint;
 
-    public float latestRespawnPointX;
-    public float latestRespawnPointY;
-
     public bool hasKey = false;
     public bool isNearExit = false;
 
@@ -224,6 +221,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (context.started && hasKey && isNearExit)
             {
+                respawnPoint = Vector3.zero;
                 DontDestroyOnLoad(gameObject);
                 hasFireball = false;
                 uiManager?.SetFireballUI(false);
@@ -468,13 +466,6 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     public void RespawnSetup()
     {
         respawnTriggered = true;
-
-        if (respawnPoint.x > latestRespawnPointX)
-        {
-            latestRespawnPointX = respawnPoint.x;
-            latestRespawnPointY = respawnPoint.y;
-        }
-
         currentLives--;
     }
 
@@ -492,7 +483,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             animator.SetBool(AnimationStrings.isAlive, true);
             damageable.Heal(damageable.maxHealth);
             animator.SetBool(AnimationStrings.canMove, true);
-            transform.position = new Vector3(latestRespawnPointX, latestRespawnPointY - 0.1f, 0);   
+            transform.position = respawnPoint;   
         }
     }
 

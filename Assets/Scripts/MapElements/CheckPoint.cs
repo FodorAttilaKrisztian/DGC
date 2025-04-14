@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class CheckPoint : MonoBehaviour
 {
-    private PlayerController playerController;
     private SpriteRenderer spriteRenderer;
 
     public Sprite defaultSprite;
     public Sprite activatedSprite;
 
-    private static CheckPoint currentActiveCheckpoint;
+    [Tooltip("Higher means closer to the goal. Must be unique.")]
+    public int priority;
+
+    private bool isActivated = false;
 
     private void Awake()
     {
-        playerController = FindFirstObjectByType<PlayerController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
@@ -23,25 +24,13 @@ public class CheckPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.name == "Player" && playerController != null)
+        if (collision.CompareTag("Player"))
         {
-            if (playerController.respawnPoint.x < transform.position.x)
-            {
-                playerController.respawnPoint = transform.position;
-
-                if (currentActiveCheckpoint != null)
-                {
-                    currentActiveCheckpoint.SetToDefault();
-                }
-
-                SetToActivated();
-
-                currentActiveCheckpoint = this;
-            }
+            CheckpointManager.Instance?.TryActivateCheckpoint(this);
         }
     }
 
-    private void SetToDefault()
+    public void SetToDefault()
     {
         if (spriteRenderer != null && defaultSprite != null)
         {
@@ -49,16 +38,20 @@ public class CheckPoint : MonoBehaviour
         }
     }
 
-    private void SetToActivated()
+    public void SetToActivated()
     {
         if (spriteRenderer != null && activatedSprite != null)
         {
             spriteRenderer.sprite = activatedSprite;
-            PlayCheckPointSound();
         }
+
+        isActivated = true;
+        PlayCheckPointSound();
     }
 
-    [ContextMenu("Sound Effects")]
+    public bool IsActivated() => isActivated;
+
+    [ContextMenu("Play Checkpoint Sound")]
     public void PlayCheckPointSound()
     {
         if (AudioManager.instance != null)

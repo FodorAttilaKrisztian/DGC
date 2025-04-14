@@ -56,21 +56,33 @@ public class SceneController : MonoBehaviour
 
         PlayerController player = FindFirstObjectByType<PlayerController>();
 
-        if (player != null)
+        if (player.respawnPoint == Vector3.zero)
         {
-            player.RebindUIManager(); 
+            CheckPoint[] allCheckpoints = FindObjectsByType<CheckPoint>(FindObjectsSortMode.None);
 
-            CinemachineCamera vCam = FindFirstObjectByType<CinemachineCamera>();
-            
-            if (vCam != null)
+            if (allCheckpoints != null && allCheckpoints.Length > 0)
             {
-                vCam.Follow = player.transform;  // Set the player as the new target
-            }
+                CheckPoint lowest = allCheckpoints[0];
 
-            if (player.respawnPoint != Vector3.zero)
-            {
-                player.transform.position = player.respawnPoint; // Move player to last checkpoint
+                foreach (CheckPoint cp in allCheckpoints)
+                {
+                    if (cp.priority < lowest.priority)
+                    {
+                        lowest = cp;
+                    }
+                }
+
+                player.transform.position = lowest.transform.position;
+                player.respawnPoint = lowest.transform.position;
             }
+            else
+            {
+                Debug.LogWarning("No checkpoints found in scene.");
+            }
+        }
+        else
+        {
+            player.transform.position = player.respawnPoint;
         }
 
         if (transitionAnim != null)
