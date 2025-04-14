@@ -82,7 +82,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
         {
             Powerup powerupComponent = powerup.GetComponent<Powerup>();
 
-            if (powerupComponent != null && IsValidPowerup(powerupComponent, player))
+            if (powerupComponent != null)
             {
                 validPowerups.Add(powerup);
             }
@@ -94,23 +94,6 @@ public class Breakable : MonoBehaviour, IDataPersistence
         }
 
         return null;
-    }
-
-    private bool IsValidPowerup(Powerup powerup, PlayerController player)
-    {
-        string powerupName = powerup.effect.name;
-
-        if (powerupName == "SmallHealthBuff" || powerupName == "LargeHealthBuff")
-        {
-            Damageable playerDamageable = player.GetComponent<Damageable>();
-            
-            if (playerDamageable != null && playerDamageable.health >= playerDamageable.maxHealth)
-            {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public void LoadData(GameData data)
