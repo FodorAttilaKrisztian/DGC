@@ -360,7 +360,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -811850554563380565, guid: 26f383f3ac629444190b0d25b31493bf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -420,8 +420,6 @@ MonoBehaviour:
   airRunSpeed: 8
   jumpImpulse: 10
   respawnPoint: {x: -4, y: 0, z: 0}
-  latestRespawnPointX: 0
-  latestRespawnPointY: 0
   hasKey: 0
   isNearExit: 0
   hasFireball: 0
