@@ -196,10 +196,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee3629738f169f49b969a9b39b3e6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 43f8f951-d8ec-42c7-b89f-dde37129eeda
+  id: 3d48b3e0-0584-48a3-824b-d65e8b34b4b6
   allPowerups:
   - {fileID: 8149507301831982564, guid: f56ed263b5d9f0c44bc013b1594ad9eb, type: 3}
-  - {fileID: 2480298623086735517, guid: aa857d88e44f0044cb31b371ec6633a6, type: 3}
 --- !u!114 &1191337069245390240
 MonoBehaviour:
   m_ObjectHideFlags: 0

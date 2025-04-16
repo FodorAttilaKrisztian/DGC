@@ -45,8 +45,9 @@ public class Breakable : MonoBehaviour, IDataPersistence
         {
             animator.SetBool(AnimationStrings.isAlive, false);
             
-            DropPowerup();
             hasDroppedPowerup = true;
+
+            DropPowerup();
 
             DataPersistenceManager.instance.SaveGame();
 
@@ -56,6 +57,11 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
     private void DropPowerup()
     {
+        if (Random.value <= 0.5f)
+        {
+            return;
+        }
+
         GameObject chosenPowerup = GetRandomValidPowerup();
 
         if (chosenPowerup != null)
