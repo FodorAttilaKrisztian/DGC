@@ -85,7 +85,7 @@ public class MainMenuController : MonoBehaviour
 
         dataPersistenceManager.NewGame();
 
-        SceneManager.LoadScene("Dungeon");
+        SceneManager.LoadScene("Tutorial");
     }
 
     public void ContinueGame()

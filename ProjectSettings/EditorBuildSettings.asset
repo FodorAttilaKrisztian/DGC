@@ -9,11 +9,17 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: e5e8770efc9c53e4d91da299b2bdafb5
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 93c80c3066a38854ab278a58bf5c9ede
+  - enabled: 1
     path: Assets/Scenes/Dungeon.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
     path: Assets/Scenes/Village.unity
     guid: b38aa36703503374d9682b2856fa5a78
+  - enabled: 1
+    path: Assets/Scenes/Win.unity
+    guid: 18a87332df35fa945bb43d4fbe660074
   - enabled: 1
     path: Assets/Scenes/QuitScene.unity
     guid: f030fb285cc3e064eb20c67c99817cbf

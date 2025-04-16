@@ -81,6 +81,9 @@ public class AudioManager : MonoBehaviour
             case "MainMenu":
                 ChangeMusic(menuMusic);
                 break;
+            case "Tutorial":
+                ChangeMusic(menuMusic);
+                break;
             case "Dungeon":
                 ChangeMusic(dungeonMusic);
                 break;
