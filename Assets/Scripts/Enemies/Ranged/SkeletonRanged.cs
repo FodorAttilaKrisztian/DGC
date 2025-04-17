@@ -74,7 +74,6 @@ public class SkeletonRanged : MonoBehaviour
         set => animator.SetBool(AnimationStrings.canKick, value);
     }
 
-
     public float attackCooldown
     {
         get => animator.GetFloat(AnimationStrings.attackCooldown);
@@ -83,12 +82,25 @@ public class SkeletonRanged : MonoBehaviour
 
     private void Awake()
     {
-        dataPersistenceManager = DataPersistenceManager.instance;
         audioManager = AudioManager.instance;
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
         animator = GetComponent<Animator>();
         damageable = GetComponent<Damageable>();
+    }
+
+    private void Start()
+    {
+        dataPersistenceManager = DataPersistenceManager.instance;
+
+        if (dataPersistenceManager == null)
+        {
+            Debug.LogWarning($"[Breakable:{gameObject.name}] Start(): DataPersistenceManager.instance is STILL null!");
+        }
+        else
+        {
+            Debug.Log($"[Breakable:{gameObject.name}] Start(): Got DataPersistenceManager instance.");
+        }
     }
 
     void Update()

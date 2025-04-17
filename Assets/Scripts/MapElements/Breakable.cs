@@ -23,7 +23,6 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
-        dataPersistenceManager = DataPersistenceManager.instance;
         animator = GetComponent<Animator>();
         audioManager = AudioManager.instance;
 
@@ -39,6 +38,17 @@ public class Breakable : MonoBehaviour, IDataPersistence
     private void Start()
     {
         damageable.damageableHit.AddListener(OnHit);
+
+        dataPersistenceManager = DataPersistenceManager.instance;
+
+        if (dataPersistenceManager == null)
+        {
+            Debug.LogWarning($"[Breakable:{gameObject.name}] Start(): DataPersistenceManager.instance is STILL null!");
+        }
+        else
+        {
+            Debug.Log($"[Breakable:{gameObject.name}] Start(): Got DataPersistenceManager instance.");
+        }
     }
 
     public void OnHit(int damage, Vector2 knockback)
@@ -51,7 +61,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
             DropPowerup();
 
-            DataPersistenceManager.instance.SaveGame();
+            dataPersistenceManager.SaveGame();
 
             StartCoroutine(WaitandDestroy());
         }
@@ -162,17 +172,24 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
     public void AddToBreakableCounter()
     {
-        if (dataPersistenceManager != null)
+        if (dataPersistenceManager == null)
         {
-            GameData gameData = dataPersistenceManager.GameData;
-
-            if (gameData == null) return;
-
-            gameData.breakablesTotal++;
-
-            gameData.score += 50;
-            
-            dataPersistenceManager.SaveGame();
+            Debug.LogWarning("[Breakable] DataPersistenceManager is NULL.");
+            return;
         }
+
+        GameData gameData = dataPersistenceManager.GameData;
+
+        if (gameData == null)
+        {
+            Debug.LogWarning("[Breakable] GameData is NULL.");
+            return;
+        }
+
+        gameData.breakablesTotal++;
+        
+        gameData.score += 50;
+
+        dataPersistenceManager.SaveGame();
     }
 }
