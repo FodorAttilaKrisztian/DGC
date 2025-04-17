@@ -6,6 +6,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
 {
     private AudioManager audioManager;
     private Animator animator;
+    private DataPersistenceManager dataPersistenceManager;
 
     [SerializeField]
     private string id;
@@ -22,6 +23,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
+        dataPersistenceManager = DataPersistenceManager.instance;
         animator = GetComponent<Animator>();
         audioManager = AudioManager.instance;
 
@@ -156,5 +158,21 @@ public class Breakable : MonoBehaviour, IDataPersistence
         yield return new WaitForSeconds(0.005f);
 
         Destroy(gameObject);
+    }
+
+    public void AddToBreakableCounter()
+    {
+        if (dataPersistenceManager != null)
+        {
+            GameData gameData = dataPersistenceManager.GameData;
+
+            if (gameData == null) return;
+
+            gameData.breakablesTotal++;
+
+            gameData.score += 50;
+            
+            dataPersistenceManager.SaveGame();
+        }
     }
 }

@@ -25,6 +25,7 @@ public class GameData
     public int breakablesTotal;
     public int eliminationsTotal;
     public int score;
+    public int highScore;
     public string levelName;
     public Vector3 lastCheckpointPosition;
     public bool fireballCollected;
@@ -42,6 +43,7 @@ public class GameData
         breakablesTotal = 0;
         eliminationsTotal = 0;
         score = 0;
+        highScore = 0;
         levelName = "Tutorial";
         lastCheckpointPosition = Vector3.zero;
         fireballCollected = false;

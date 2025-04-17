@@ -5,6 +5,7 @@ using UnityEngine;
 public class SkeletonRanged : MonoBehaviour
 {
     private Transform player;
+    private DataPersistenceManager dataPersistenceManager;
     Rigidbody2D rb;
     TouchingDirections touchingDirections;
     Animator animator;
@@ -82,6 +83,7 @@ public class SkeletonRanged : MonoBehaviour
 
     private void Awake()
     {
+        dataPersistenceManager = DataPersistenceManager.instance;
         audioManager = AudioManager.instance;
         rb = GetComponent<Rigidbody2D>();
         touchingDirections = GetComponent<TouchingDirections>();
@@ -204,6 +206,22 @@ public class SkeletonRanged : MonoBehaviour
         if (audioManager != null) 
         {
             audioManager.PlaySFX(audioManager.skeletonDeathSound, 0.5f);
+        }
+    }
+
+    public void AddToEliminationCounter()
+    {
+        if (dataPersistenceManager != null)
+        {
+            GameData gameData = dataPersistenceManager.GameData;
+
+            if (gameData == null) return;
+
+            gameData.eliminationsTotal++;
+
+            gameData.score += 200;
+
+            dataPersistenceManager.SaveGame();
         }
     }
 }
