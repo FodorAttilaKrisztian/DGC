@@ -22,6 +22,9 @@ public class GameData
 {
     public int currentHP;
     public int currentLifeCount;
+    public int breakablesTotal;
+    public int eliminationsTotal;
+    public int score;
     public string levelName;
     public Vector3 lastCheckpointPosition;
     public bool fireballCollected;
@@ -36,7 +39,10 @@ public class GameData
     {
         currentHP = 100;
         currentLifeCount = 3;
-        levelName = "Dungeon";
+        breakablesTotal = 0;
+        eliminationsTotal = 0;
+        score = 0;
+        levelName = "Tutorial";
         lastCheckpointPosition = Vector3.zero;
         fireballCollected = false;
         keyCollected = false;

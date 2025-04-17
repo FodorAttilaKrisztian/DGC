@@ -196,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aee3629738f169f49b969a9b39b3e6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: ce9d4089-cc77-4b86-b213-fed729af0c16
+  id: 7f931061-c480-498e-81f3-f920bad6cab9
   allPowerups:
   - {fileID: 6557704438579422255, guid: 81cd5b2e1273dfe44a8c53528fd916e9, type: 3}
 --- !u!114 &4952503713792189443

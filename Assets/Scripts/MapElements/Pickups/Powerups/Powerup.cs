@@ -14,8 +14,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
     public void InitializePersistentID(string persistentId)
     {
         id = persistentId;
-
-        SetupFromEffect();
     }
 
     public string GetID()
@@ -30,8 +28,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
         {
             id = System.Guid.NewGuid().ToString();
         }
-
-        // Delay adding to GameData until we're fully initialized
     }
 
     private void Start()
@@ -99,12 +95,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
                 Destroy(gameObject);
             }
         }
-    }
-
-    private void SetupFromEffect()
-    {
-        // Add visual or audio setup based on effect here
-        // Safe to do now since effect is assigned in the spawner
     }
 
     private void Update()

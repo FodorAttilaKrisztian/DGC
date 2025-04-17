@@ -1,7 +1,10 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using Unity.Cinemachine; 
+using System.IO;
+using System;
 
 public class SceneController : MonoBehaviour
 {
@@ -47,6 +50,28 @@ public class SceneController : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
+        DataPersistenceManager dataPersistenceManager = DataPersistenceManager.instance;
+
+        if (dataPersistenceManager != null)
+        {
+            GameData gameData = dataPersistenceManager.GameData;
+
+            if (gameData != null)
+            {
+                if (SceneManager.GetActiveScene().name == "Tutorial")
+                {
+                    string filePath = Path.Combine(Application.persistentDataPath, dataPersistenceManager.FileName);
+        
+                    if (File.Exists(filePath))
+                    {
+                        File.Delete(filePath);
+                    }
+
+                    dataPersistenceManager.NewGame();
+                }
+            }
+        }
+
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         
         while (!operation.isDone)
@@ -54,7 +79,7 @@ public class SceneController : MonoBehaviour
             yield return null; // Wait until the scene is fully loaded
         }
 
-        PlayerController player = FindFirstObjectByType<PlayerController>();
+        PlayerController player = PlayerController.instance;
 
         if (player.respawnPoint == Vector3.zero)
         {
@@ -85,16 +110,14 @@ public class SceneController : MonoBehaviour
             player.transform.position = player.respawnPoint;
         }
 
-        if (transitionAnim != null)
-        {
-            transitionAnim.SetTrigger(AnimationStrings.levelStartTrigger);
-        }
-
-        DataPersistenceManager dataPersistenceManager = FindFirstObjectByType<DataPersistenceManager>();
-        
         if (dataPersistenceManager != null)
         {
             dataPersistenceManager.LoadGame();
+        }
+
+        if (transitionAnim != null)
+        {
+            transitionAnim.SetTrigger(AnimationStrings.levelStartTrigger);
         }
     }
 }
