@@ -90,6 +90,9 @@ public class AudioManager : MonoBehaviour
             case "Village":
                 ChangeMusic(villageMusic);
                 break;
+            case "Win":
+                ChangeMusic(menuMusic);
+                break;
             default:
                 musicSource.Stop();
                 break;

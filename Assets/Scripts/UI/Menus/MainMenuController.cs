@@ -20,11 +20,10 @@ public class MainMenuController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); // Keeps the player across scenes
         }
         else
         {
-            Destroy(gameObject); // Prevent duplicates
+            Destroy(gameObject);
         }
     }
 
@@ -43,11 +42,6 @@ public class MainMenuController : MonoBehaviour
         if (PersistentCanvas.instance != null)
         {
             Destroy(PersistentCanvas.instance.gameObject);
-        }
-
-        if (PersistentCamera.instance != null)
-        {
-            Destroy(PersistentCamera.instance.gameObject);
         }
 
         if (PersistentCamera.instance != null)
