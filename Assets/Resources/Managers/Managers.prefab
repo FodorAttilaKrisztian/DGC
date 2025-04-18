@@ -289,6 +289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6794509172880165800, guid: 9692756b6415d6040a2d0dcb4af1b4ed, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7397645930845460081, guid: 9692756b6415d6040a2d0dcb4af1b4ed, type: 3}
       propertyPath: m_LocalPosition.x
       value: 76.58375

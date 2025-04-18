@@ -37,6 +37,14 @@ public class SceneController : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (UIManager.instance != null)
+        {
+            UIManager.instance.ResetUI();
+        }
+    }
+
     public void NextLevel()
     {
         StartCoroutine(LoadLevel());
@@ -60,6 +68,11 @@ public class SceneController : MonoBehaviour
             {
                 if (SceneManager.GetActiveScene().name == "Tutorial")
                 {
+                    if (UIManager.instance != null)
+                    {
+                        UIManager.instance.InitializePowerupUI();
+                    }
+
                     string filePath = Path.Combine(Application.persistentDataPath, dataPersistenceManager.FileName);
         
                     if (File.Exists(filePath))

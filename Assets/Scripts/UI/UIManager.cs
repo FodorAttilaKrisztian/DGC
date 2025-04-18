@@ -24,7 +24,7 @@ public class UIManager : MonoBehaviour
 
     public void Awake()
     {
-         if (instance != null && instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
 
@@ -46,14 +46,25 @@ public class UIManager : MonoBehaviour
         InitializePowerupUI();
     }
 
-    private void InitializePowerupUI()
+    public void Start()
+    {
+        if(PersistentCanvas.instance != null)
+        {
+            gameCanvas = PersistentCanvas.instance.GetCanvas();
+        }
+        else
+        {
+            Debug.LogError("PersistentCanvas instance is null. Cannot set game canvas.");
+        }
+    }
+
+    public void InitializePowerupUI()
     {
         foreach (var slot in powerupSlots)
         {
             slot.gameObject.SetActive(false);
         }
     }
-
 
     private void OnEnable()
     {

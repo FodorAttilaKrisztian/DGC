@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 public class PersistentCanvas : MonoBehaviour
 {
     public static PersistentCanvas instance;
+    private Canvas canvas;
 
     private void Awake()
     {
@@ -18,6 +19,13 @@ public class PersistentCanvas : MonoBehaviour
         
             return;
         }
+
+        canvas = GetComponent<Canvas>();
+    }
+
+    public Canvas GetCanvas()
+    {
+        return canvas;
     }
 
     private void OnEnable()

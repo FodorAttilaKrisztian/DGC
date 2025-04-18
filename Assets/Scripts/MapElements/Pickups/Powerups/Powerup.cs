@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Powerup : MonoBehaviour, IDataPersistence
 {
+    [SerializeField] 
+    private string persistentID;
     private string id;
     private bool isCollected = false;
     private bool isInitialized = false;
@@ -23,8 +25,11 @@ public class Powerup : MonoBehaviour, IDataPersistence
 
     private void Awake()
     {
-        // Generate an ID if this is a brand-new (non-persistent) powerup
-        if (string.IsNullOrEmpty(id))
+        if (!string.IsNullOrEmpty(persistentID))
+        {
+            id = persistentID;
+        }
+        else if (string.IsNullOrEmpty(id))
         {
             id = System.Guid.NewGuid().ToString();
         }
