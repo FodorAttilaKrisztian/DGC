@@ -9,7 +9,6 @@ public class SettingsMenu : MonoBehaviour
     public Toggle fullscreenToggle;
 
     Resolution[] resolutions;
-
     List<Resolution> selectedResolutionList = new List<Resolution>();
 
     bool isFullscreen;
@@ -17,16 +16,14 @@ public class SettingsMenu : MonoBehaviour
 
     void Start()
     {
-        isFullscreen = true;
         resolutions = Screen.resolutions;
-
         List<string> resolutionStrings = new List<string>();
 
         string newRes;
 
         foreach (Resolution res in resolutions)
         {
-            newRes = res.width.ToString() + " x " + res.height.ToString();
+            newRes = res.width + " x " + res.height;
 
             if (!resolutionStrings.Contains(newRes))
             {
@@ -35,21 +32,47 @@ public class SettingsMenu : MonoBehaviour
             }
         }
 
-        if (resolutionDropdown != null && resolutionStrings != null)
+        if (resolutionDropdown != null)
         {
+            resolutionDropdown.ClearOptions();
             resolutionDropdown.AddOptions(resolutionStrings);
         }
+
+        selectedResolution = PlayerPrefs.GetInt("resolutionIndex", 0);
+        isFullscreen = PlayerPrefs.GetInt("fullscreen", 1) == 1;
+        
+        resolutionDropdown.value = selectedResolution;
+        resolutionDropdown.RefreshShownValue();
+
+        fullscreenToggle.isOn = isFullscreen;
+
+        ApplyResolution();
     }
 
     public void ChangeResolution()
     {
         selectedResolution = resolutionDropdown.value;
-        Screen.SetResolution(selectedResolutionList[selectedResolution].width, selectedResolutionList[selectedResolution].height, isFullscreen);
+        ApplyResolution();
+
+        PlayerPrefs.SetInt("resolutionIndex", selectedResolution);
+        PlayerPrefs.Save();
     }
 
     public void ChangeFullscreen()
     {
         isFullscreen = fullscreenToggle.isOn;
-        Screen.SetResolution(selectedResolutionList[selectedResolution].width, selectedResolutionList[selectedResolution].height, isFullscreen);
+        ApplyResolution();
+
+        PlayerPrefs.SetInt("fullscreen", isFullscreen ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    void ApplyResolution()
+    {
+        Screen.SetResolution(
+            selectedResolutionList[selectedResolution].width,
+            selectedResolutionList[selectedResolution].height,
+            isFullscreen
+        );
     }
 }
