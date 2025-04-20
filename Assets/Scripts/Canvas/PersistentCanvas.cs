@@ -3,24 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class PersistentCanvas : MonoBehaviour
 {
-    public static PersistentCanvas instance;
+    public static PersistentCanvas instance { get; private set; }
     private Canvas canvas;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
-        
             return;
         }
 
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
         canvas = GetComponent<Canvas>();
+
+        if (canvas == null)
+        {
+            Debug.LogError("PersistentCanvas: No Canvas component found on this GameObject.");
+        }
     }
 
     public Canvas GetCanvas()
@@ -30,19 +32,23 @@ public class PersistentCanvas : MonoBehaviour
 
     private void OnEnable()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneLoaded += HandleSceneLoaded;
     }
 
     private void OnDisable()
     {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (UIManager.instance != null)
         {
             UIManager.instance.ResetUI();
+        }
+        else
+        {
+            Debug.LogWarning("PersistentCanvas: UIManager instance not found during scene load.");
         }
     }
 }

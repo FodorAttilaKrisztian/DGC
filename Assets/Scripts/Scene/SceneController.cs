@@ -8,28 +8,30 @@ using System;
 
 public class SceneController : MonoBehaviour
 {
-    public static SceneController instance;
+    public static SceneController instance { get; private set; }
     
     [SerializeField] 
     private Animator transitionAnim;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
-
             return;
         }
-        
+
+        instance = this;
+
+        InitializeTransitionAnimator();
+    }
+
+    private void InitializeTransitionAnimator()
+    {
         if (transitionAnim == null)
         {
             transitionAnim = GetComponentInChildren<Animator>();
-
+            
             if (transitionAnim == null)
             {
                 Debug.LogError("SceneController: No Animator found! Transitions won't work.");
@@ -39,10 +41,7 @@ public class SceneController : MonoBehaviour
 
     private void Start()
     {
-        if (UIManager.instance != null)
-        {
-            UIManager.instance.ResetUI();
-        }
+        UIManager.instance?.ResetUI();
     }
 
     public void NextLevel()
@@ -52,82 +51,132 @@ public class SceneController : MonoBehaviour
 
     private IEnumerator LoadLevel()
     {
+        yield return TriggerLevelEndTransition();
+
+        HandleGameData();
+
+        yield return LoadNextSceneAsync();
+
+        SetPlayerSpawnPosition();
+
+        // Load game data after scene load
+        DataPersistenceManager.instance?.LoadGame();
+
+        TriggerLevelStartTransition();
+    }
+
+    private IEnumerator TriggerLevelEndTransition()
+    {
         if (transitionAnim != null)
         {
             transitionAnim.SetTrigger(AnimationStrings.levelEndTrigger);
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1f); // Wait 1 second before proceeding
         }
 
-        DataPersistenceManager dataPersistenceManager = DataPersistenceManager.instance;
+        yield break;
+    }
+
+    private IEnumerator WaitForTransition(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+    }
+
+    private void HandleGameData()
+    {
+        var dataPersistenceManager = DataPersistenceManager.instance;
 
         if (dataPersistenceManager != null)
         {
-            GameData gameData = dataPersistenceManager.GameData;
+            var gameData = dataPersistenceManager.GameData;
 
             if (gameData != null)
             {
+                gameData.uncollectedPowerups = new List<PowerupData>();
+
                 if (SceneManager.GetActiveScene().name == "Tutorial")
                 {
-                    if (UIManager.instance != null)
-                    {
-                        UIManager.instance.InitializePowerupUI();
-                    }
-
-                    string filePath = Path.Combine(Application.persistentDataPath, dataPersistenceManager.FileName);
-        
-                    if (File.Exists(filePath))
-                    {
-                        File.Delete(filePath);
-                    }
-
-                    dataPersistenceManager.NewGame();
+                    UIManager.instance?.InitializePowerupUI();
+                    HandleTutorialGameData(dataPersistenceManager);
                 }
+                else
+                {
+                    dataPersistenceManager.SaveGame();
+                }
+            } 
+            else
+            {
+                Debug.Log("GameData is null or not in the scene. No action taken.");
             }
         }
+        else
+        {
+            Debug.LogError("DataPersistenceManager instance is null. Cannot handle game data.");
+        }
+    }
 
+    private void HandleTutorialGameData(DataPersistenceManager dataPersistenceManager)
+    {
+        string filePath = Path.Combine(Application.persistentDataPath, dataPersistenceManager.FileName);
+
+        if (File.Exists(filePath))
+        {
+            File.Delete(filePath);
+        }
+
+        dataPersistenceManager.NewGame();
+    }
+
+     private IEnumerator LoadNextSceneAsync()
+    {
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         
         while (!operation.isDone)
         {
-            yield return null; // Wait until the scene is fully loaded
+            yield return null;
         }
+    }
 
+    private void SetPlayerSpawnPosition()
+    {
         PlayerController player = PlayerController.instance;
 
         if (player.respawnPoint == Vector3.zero)
         {
-            CheckPoint[] allCheckpoints = FindObjectsByType<CheckPoint>(FindObjectsSortMode.None);
-
-            if (allCheckpoints != null && allCheckpoints.Length > 0)
-            {
-                CheckPoint lowest = allCheckpoints[0];
-
-                foreach (CheckPoint cp in allCheckpoints)
-                {
-                    if (cp.priority < lowest.priority)
-                    {
-                        lowest = cp;
-                    }
-                }
-
-                player.transform.position = lowest.transform.position;
-                player.respawnPoint = lowest.transform.position;
-            }
-            else
-            {
-                Debug.LogWarning("No checkpoints found in scene.");
-            }
+            SetPlayerToCheckpoint(player);
         }
         else
         {
             player.transform.position = player.respawnPoint;
         }
+    }
 
-        if (dataPersistenceManager != null)
+    private void SetPlayerToCheckpoint(PlayerController player)
+    {
+        CheckPoint[] allCheckpoints = FindObjectsByType<CheckPoint>(FindObjectsSortMode.None);
+
+        if (allCheckpoints != null && allCheckpoints.Length > 0)
         {
-            dataPersistenceManager.LoadGame();
-        }
+            CheckPoint lowest = allCheckpoints[0];
 
+            foreach (CheckPoint cp in allCheckpoints)
+            {
+                if (cp.priority < lowest.priority)
+                {
+                    lowest = cp;
+                }
+            }
+
+            player.transform.position = lowest.transform.position;
+            player.respawnPoint = lowest.transform.position;
+        }
+        else
+        {
+            Debug.LogWarning("No checkpoints found in scene.");
+        }
+    }
+
+    private void TriggerLevelStartTransition()
+    {
         if (transitionAnim != null)
         {
             transitionAnim.SetTrigger(AnimationStrings.levelStartTrigger);

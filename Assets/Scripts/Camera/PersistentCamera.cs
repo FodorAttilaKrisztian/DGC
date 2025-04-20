@@ -4,19 +4,37 @@ using UnityEngine.SceneManagement;
 
 public class PersistentCamera : MonoBehaviour
 {
-    public static PersistentCamera instance;
+    public static PersistentCamera instance { get; private set; }
+
+    private CinemachineCamera cam;
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(gameObject);
+            return;
         }
-        else
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        cam = GetComponent<CinemachineCamera>();
+
+        if (cam == null)
         {
-            Destroy(gameObject); // Prevent duplicates
+            Debug.LogError("PersistentCamera: CinemachineCamera component is missing.");
         }
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += HandleSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= HandleSceneLoaded;
     }
 
     private void Start()
@@ -24,39 +42,26 @@ public class PersistentCamera : MonoBehaviour
         UpdateCameraTarget();
     }
 
+    private void HandleSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateCameraTarget();
+    }
+
     private void UpdateCameraTarget()
     {
-        var cam = GetComponent<CinemachineCamera>();
-        
-        if (PlayerController.instance == null)
-        {
-            Debug.LogWarning("PlayerController instance not found.");
-            return;
-        }
-
         if (cam == null)
         {
-            Debug.LogError("CinemachineCamera component is missing on this GameObject.");
+            Debug.LogWarning("PersistentCamera: Skipping target assignment — no camera.");
             return;
         }
 
-        cam.Follow = PlayerController.instance.transform;
-    }
-
-
-    private void OnEnable()
-    {
         if (PlayerController.instance != null)
         {
-            SceneManager.sceneLoaded += (scene, mode) => UpdateCameraTarget();
+            cam.Follow = PlayerController.instance.transform;
         }
-    }
-
-    private void OnDisable()
-    {
-        if (PlayerController.instance != null)
+        else
         {
-            SceneManager.sceneLoaded -= (scene, mode) => UpdateCameraTarget();
+            Debug.LogWarning("PersistentCamera: PlayerController instance not found.");
         }
     }
 }

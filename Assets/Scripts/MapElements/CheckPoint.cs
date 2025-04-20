@@ -56,7 +56,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (AudioManager.instance != null)
         {
-            AudioManager.instance.PlaySFX(AudioManager.instance.checkpointSound, 0.5f);
+            AudioManager.instance.PlaySFX(AudioManager.instance.CheckpointSound, 0.5f);
         }
     }
 }

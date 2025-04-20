@@ -1,21 +1,28 @@
 using UnityEngine;
 
+/// <summary>
+/// Simple material-based horizontal parallax (auto-scroll).
+/// Attach to a background object with a material using a tiling texture.
+/// </summary>
+
+[RequireComponent(typeof(Renderer))]
 public class Parallax : MonoBehaviour
 {
-    Material mat;
-    float distance;
-
+    [Header("Scroll Speed (0 - 0.5)")]
     [Range(0f, 0.5f)]
-    public float speed = 0.2f;
+    [SerializeField] private float speed = 0.2f;
 
-    void Start()
+    private Material mat;
+    private float offset;
+
+    private void Start()
     {
         mat = GetComponent<Renderer>().material;
     }
 
-    void Update()
+    private void Update()
     {
-        distance += speed * Time.deltaTime;
-        mat.SetTextureOffset("_MainTex", Vector2.right * distance);
+        offset += speed * Time.deltaTime;
+        mat.SetTextureOffset("_MainTex", Vector2.right * offset);
     }
 }

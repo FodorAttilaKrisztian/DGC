@@ -1,106 +1,129 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CapsuleCollider2D), typeof(Animator))]
 public class TouchingDirections : MonoBehaviour
 {
-    Animator animator;
-    CapsuleCollider2D touchingCol;
-    RaycastHit2D[] groundHits = new RaycastHit2D[5];
-    RaycastHit2D[] wallHits = new RaycastHit2D[5];
-    RaycastHit2D[] ceilingHits = new RaycastHit2D[5];
-
+    [Header("Detection Settings")]
     public ContactFilter2D castFilter;
-
-    public float groundDistance = 0.05f; 
+    public float groundDistance = 0.05f;
     public float ceilingDistance = 0.05f;
     public float wallDistance = 0.15f;
 
-    [SerializeField]
-    private bool _isGrounded;
+    private CapsuleCollider2D touchingCollider;
+    private Animator animator;
 
-    public bool isGrounded { get {
-        return _isGrounded;
-    } private set {
-        _isGrounded = value;
+    [SerializeField] private bool _isGrounded;
+    [SerializeField] private bool _isOnCeiling;
+    [SerializeField] private bool _isOnWall;
 
-        animator.SetBool(AnimationStrings.isGrounded, value);
-    } }
+    public bool IsGrounded
+    {
+        get => _isGrounded;
+        private set
+        {
+            _isGrounded = value;
+            animator.SetBool(AnimationStrings.isGrounded, value);
+        }
+    }
 
-    [SerializeField]
-    private bool _isOnCeiling;
+    public bool IsOnCeiling
+    {
+        get => _isOnCeiling;
+        private set
+        {
+            _isOnCeiling = value;
+            animator.SetBool(AnimationStrings.isOnCeiling, value);
+        }
+    }
 
-    private Vector2 wallCheckDirection => gameObject.transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+    public bool IsOnWall
+    {
+        get => _isOnWall;
+        private set
+        {
+            _isOnWall = value;
+            animator.SetBool(AnimationStrings.isOnWall, value);
+        }
+    }
 
-    public bool isOnCeiling { get {
-        return _isOnCeiling;
-    } private set {
-        _isOnCeiling = value;
-
-        animator.SetBool(AnimationStrings.isOnCeiling, value);
-    } }
-
-    [SerializeField]
-    private bool _isOnWall;
-
-    public bool isOnWall { get {
-        return _isOnWall;
-    } private set {
-        _isOnWall = value;
-
-        animator.SetBool(AnimationStrings.isOnWall, value);
-    } }
+    private Vector2 WallCheckDirection => transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
     private void Awake()
     {
-        touchingCol = GetComponent<CapsuleCollider2D>();
+        touchingCollider = GetComponent<CapsuleCollider2D>();
         animator = GetComponent<Animator>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        Vector2 position = touchingCol.bounds.center;
-        Vector2 bottom = new Vector2(position.x, touchingCol.bounds.min.y);
-        Vector2 top = new Vector2(position.x, touchingCol.bounds.max.y);
+        Vector2 position = touchingCollider.bounds.center;
+        Vector2 bottom = new(position.x, touchingCollider.bounds.min.y);
+        Vector2 top = new(position.x, touchingCollider.bounds.max.y);
 
-        float wallX = gameObject.transform.localScale.x > 0 ? touchingCol.bounds.max.x : touchingCol.bounds.min.x;
+        float wallX = transform.localScale.x > 0 ? touchingCollider.bounds.max.x : touchingCollider.bounds.min.x;
+        float halfHeight = touchingCollider.bounds.size.y / 2f;
+        float sideOffset = halfHeight - 0.3f;
 
-        Vector2 wallSideTop = new Vector2(wallX, position.y + (touchingCol.bounds.size.y / 2));
-        Vector2 wallSideMiddle = new Vector2(wallX, position.y); 
-        Vector2 wallSideBottom = new Vector2(wallX, position.y - (touchingCol.bounds.size.y / 2 * 0.8f));
-
-        Vector2 wallSideHigh = new Vector2(wallX, position.y + (touchingCol.bounds.size.y / 2 - 0.3f)); 
-        Vector2 wallSideLow = new Vector2(wallX, position.y - (touchingCol.bounds.size.y / 2 - 0.3f)); 
-
-        isGrounded = Physics2D.Raycast(bottom, Vector2.down, groundDistance, castFilter.layerMask);
-
-        RaycastHit2D groundCenter = Physics2D.Raycast(bottom, Vector2.down, groundDistance, castFilter.layerMask);
-        RaycastHit2D groundLeft = Physics2D.Raycast(new Vector2(bottom.x - touchingCol.bounds.size.x / 4f, bottom.y), Vector2.down, groundDistance, castFilter.layerMask);
-        RaycastHit2D groundRight = Physics2D.Raycast(new Vector2(bottom.x + touchingCol.bounds.size.x / 4f, bottom.y), Vector2.down, groundDistance, castFilter.layerMask);
-
-        isGrounded = groundCenter.collider != null || groundLeft.collider != null || groundRight.collider != null;
-
-        isOnCeiling = Physics2D.Raycast(top, Vector2.up, ceilingDistance, castFilter.layerMask);
-
-        if (Physics2D.Raycast(wallSideTop, wallCheckDirection, wallDistance, castFilter.layerMask) ||
-            Physics2D.Raycast(wallSideMiddle, wallCheckDirection, wallDistance, castFilter.layerMask) || 
-            Physics2D.Raycast(wallSideBottom, wallCheckDirection, wallDistance, castFilter.layerMask) ||
-            Physics2D.Raycast(wallSideHigh, wallCheckDirection, wallDistance, castFilter.layerMask) || 
-            Physics2D.Raycast(wallSideLow, wallCheckDirection, wallDistance, castFilter.layerMask)) 
+        Vector2[] wallCheckPoints =
         {
-            isOnWall = true;
-        }
-        else
+            new(wallX, position.y + halfHeight),
+            new(wallX, position.y),
+            new(wallX, position.y - halfHeight * 0.8f),
+            new(wallX, position.y + sideOffset),
+            new(wallX, position.y - sideOffset)
+        };
+
+        IsGrounded = IsAnyGroundRayHit(bottom);
+        IsOnCeiling = Physics2D.Raycast(top, Vector2.up, ceilingDistance, castFilter.layerMask);
+        IsOnWall = IsAnyWallRayHit(wallCheckPoints);
+
+        DrawDebugRays(bottom, top, wallCheckPoints);
+    }
+
+    private bool IsAnyGroundRayHit(Vector2 bottom)
+    {
+        float halfWidth = touchingCollider.bounds.size.x / 4f;
+
+        Vector2[] groundCheckPoints =
         {
-            isOnWall = false;
+            bottom,
+            new(bottom.x - halfWidth, bottom.y),
+            new(bottom.x + halfWidth, bottom.y)
+        };
+
+        foreach (var point in groundCheckPoints)
+        {
+            if (Physics2D.Raycast(point, Vector2.down, groundDistance, castFilter.layerMask))
+                return true;
         }
 
+        return false;
+    }
+
+    private bool IsAnyWallRayHit(Vector2[] points)
+    {
+        foreach (var point in points)
+        {
+            if (Physics2D.Raycast(point, WallCheckDirection, wallDistance, castFilter.layerMask))
+                return true;
+        }
+
+        return false;
+    }
+
+    private void DrawDebugRays(Vector2 bottom, Vector2 top, Vector2[] wallCheckPoints)
+    {
         Debug.DrawRay(bottom, Vector2.down * groundDistance, Color.green);
+        Debug.DrawRay(new Vector2(bottom.x - touchingCollider.bounds.size.x / 4f, bottom.y), Vector2.down * groundDistance, Color.yellow);
+        Debug.DrawRay(new Vector2(bottom.x + touchingCollider.bounds.size.x / 4f, bottom.y), Vector2.down * groundDistance, Color.yellow);
+
         Debug.DrawRay(top, Vector2.up * ceilingDistance, Color.red);
-        Debug.DrawRay(wallSideTop, wallCheckDirection * wallDistance, Color.blue);
-        Debug.DrawRay(wallSideMiddle, wallCheckDirection * wallDistance, Color.cyan); // Middle debug ray
-        Debug.DrawRay(wallSideBottom, wallCheckDirection * wallDistance, Color.blue);
-        Debug.DrawRay(wallSideHigh, wallCheckDirection * wallDistance, Color.magenta); // High side debug ray
-        Debug.DrawRay(wallSideLow, wallCheckDirection * wallDistance, Color.magenta); // Low side debug ray
-        Debug.DrawRay(new Vector2(bottom.x - touchingCol.bounds.size.x / 4f, bottom.y), Vector2.down * groundDistance, Color.yellow);
-        Debug.DrawRay(new Vector2(bottom.x + touchingCol.bounds.size.x / 4f, bottom.y), Vector2.down * groundDistance, Color.yellow);
+
+        Color[] wallColors = { Color.blue, Color.cyan, Color.blue, Color.magenta, Color.magenta };
+
+        for (int i = 0; i < wallCheckPoints.Length; i++)
+        {
+            Debug.DrawRay(wallCheckPoints[i], WallCheckDirection * wallDistance, wallColors[i]);
+        }
     }
 }

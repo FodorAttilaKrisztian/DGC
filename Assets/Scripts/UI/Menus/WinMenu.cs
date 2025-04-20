@@ -1,63 +1,50 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.IO;
 
 public class WinMenu : MonoBehaviour
 {
     public static WinMenu instance { get; private set; }
-    
-    public void Awake()
+
+    private DataPersistenceManager dataPersistenceManager;
+
+    private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        instance = this;
     }
 
-    public void Start() 
+    private void Start()
     {
-        if (PlayerController.instance != null)
+        SceneCleanup.DestroyPersistents();
+
+        dataPersistenceManager = DataPersistenceManager.instance;
+
+        if (dataPersistenceManager == null)
         {
-            Destroy(PlayerController.instance.gameObject);
+            Debug.LogError("DataPersistenceManager is not initialized! Make sure it is added to the scene.");
+            
+            return;
         }
 
-        if (Managers.instance != null)
-        {
-            Destroy(Managers.instance.gameObject);
-        }
-        
-        if (PersistentCanvas.instance != null)
-        {
-            Destroy(PersistentCanvas.instance.gameObject);
-        }
-
-        if (PersistentCamera.instance != null)
-        {
-            Destroy(PersistentCamera.instance.gameObject);
-        }
-
-        if (PauseMenu.instance != null)
-        {
-            Destroy(PauseMenu.instance.gameObject);
-        }
+        dataPersistenceManager.LoadGame(); 
     }
-    
+
     public void BackToMenu()
     {
         string filePath = Path.Combine(Application.persistentDataPath, DataPersistenceManager.instance.FileName);
-        
+
         if (File.Exists(filePath))
         {
             File.Delete(filePath);
         }
 
         DataPersistenceManager.instance.NewGame();
-
         SceneManager.LoadScene("MainMenu");
     }
 }

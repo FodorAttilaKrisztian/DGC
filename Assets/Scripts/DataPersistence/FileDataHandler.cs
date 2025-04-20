@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;  
 using System.IO;
+using System.Text;
 
 public class FileDataHandler
 {
-    private string dataDirPath = "";
-    private string dataFileName = "";
-    private bool useEncryption = false;
+    private readonly string dataDirPath;
+    private readonly string dataFileName;
+    private readonly bool useEncryption;
     private readonly string encryptionCodeWord = "peanutbutter";
 
     public FileDataHandler(string dataDirPath, string dataFileName, bool useEncryption)
@@ -59,6 +60,12 @@ public class FileDataHandler
 
     public void Save(GameData data)
     {
+        if (data == null)
+        {
+            Debug.LogWarning("Attempted to save null GameData.");
+            return;
+        }
+
         string fullPath = Path.Combine(dataDirPath, dataFileName);
 
         try
@@ -88,13 +95,13 @@ public class FileDataHandler
 
     private string EncryptDecrypt(string data)
     {
-        string modifiedData = "";
+        var modifiedData = new StringBuilder(data.Length);
 
         for (int i = 0; i < data.Length; i++)
         {
-            modifiedData += (char) (data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]);
+            modifiedData.Append((char)(data[i] ^ encryptionCodeWord[i % encryptionCodeWord.Length]));
         }
 
-        return modifiedData;
+        return modifiedData.ToString();
     }
 }

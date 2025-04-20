@@ -29,30 +29,7 @@ public class MainMenuController : MonoBehaviour
 
     private void Start()
     {
-        if (PlayerController.instance != null)
-        {
-            Destroy(PlayerController.instance.gameObject);
-        }
-
-        if (Managers.instance != null)
-        {
-            Destroy(Managers.instance.gameObject);
-        }
-        
-        if (PersistentCanvas.instance != null)
-        {
-            Destroy(PersistentCanvas.instance.gameObject);
-        }
-
-        if (PersistentCamera.instance != null)
-        {
-            Destroy(PersistentCamera.instance.gameObject);
-        }
-
-        if (PauseMenu.instance != null)
-        {
-            Destroy(PauseMenu.instance.gameObject);
-        }
+        SceneCleanup.DestroyPersistents();
 
         dataPersistenceManager = DataPersistenceManager.instance;
 

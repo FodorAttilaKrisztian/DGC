@@ -2,18 +2,40 @@ using UnityEngine;
 
 public class ProjectileLauncher : MonoBehaviour
 {
-    public Transform firePoint;
-    public GameObject projectilePrefab;
+    [Header("Projectile Settings")]
+    [Tooltip("The point from which the projectile will be fired.")]
+    [SerializeField] private Transform firePoint;
+
+    [Tooltip("The projectile prefab to instantiate.")]
+    [SerializeField] private GameObject projectilePrefab;
+
+    public GameObject ProjectilePrefab
+    {
+        get => projectilePrefab;
+        set => projectilePrefab = value;
+    }
+
+    private void Reset()
+    {
+        if (firePoint == null) firePoint = transform;  // Default to current transform if not set
+    }
 
     public void FireProjectile()
     {
-        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, projectilePrefab.transform.rotation);
-        Vector3 origScale = projectile.transform.localScale;
+        if (projectilePrefab == null || firePoint == null)
+        {
+            Debug.LogWarning($"{nameof(ProjectileLauncher)}: Missing firePoint or projectilePrefab.");
+            return;
+        }
 
+        GameObject projectile = Instantiate(projectilePrefab, firePoint.position, projectilePrefab.transform.rotation);
+        
+        Vector3 originalScale = projectile.transform.localScale;
+        float facingDirection = Mathf.Sign(transform.localScale.x);
         projectile.transform.localScale = new Vector3(
-            (transform.localScale.x > 0 ? 1 : -1) * Mathf.Abs(origScale.x),
-            origScale.y,
-            origScale.z
+            facingDirection * Mathf.Abs(originalScale.x),
+            originalScale.y,
+            originalScale.z
         );
     }
 }

@@ -33,7 +33,7 @@ public class LifeBuffPickup : MonoBehaviour, IDataPersistence
 
                 if (AudioManager.instance != null)
                 {
-                    AudioManager.instance.PlaySFX(AudioManager.instance.keyPickupSound, 2.5f);
+                    AudioManager.instance.PlaySFX(AudioManager.instance.KeyPickupSound, 2.5f);
                 }
 
                 Destroy(gameObject);

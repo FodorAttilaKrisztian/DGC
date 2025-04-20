@@ -2283,6 +2283,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6223793080583299690, guid: 55f0000af3f0ad54bbadb3ec09399d67, type: 3}
+      propertyPath: m_Name
+      value: MainMenuDataPersistenceManager
+      objectReference: {fileID: 0}
     - target: {fileID: 7469929494485027158, guid: 55f0000af3f0ad54bbadb3ec09399d67, type: 3}
       propertyPath: m_Name
       value: DataPersistenceManager
@@ -3154,9 +3158,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1471199572575467633, guid: 8494bc2b2b9d1c244a2e86c9523df192, type: 3}
+      propertyPath: m_Volume
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 3015403231969487061, guid: 8494bc2b2b9d1c244a2e86c9523df192, type: 3}
       propertyPath: m_Name
       value: Audio
+      objectReference: {fileID: 0}
+    - target: {fileID: 7918589345056470834, guid: 8494bc2b2b9d1c244a2e86c9523df192, type: 3}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

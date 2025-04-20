@@ -1,20 +1,26 @@
 using UnityEngine;
 
+/// <summary>
+/// Controls layered parallax movement based on camera movement.
+/// Attach to an empty GameObject and assign background layers.
+/// </summary>
 public class ParallaxController : MonoBehaviour
 {
-    private Transform cam;
-    private Vector3 previousCamPos;
-
     [System.Serializable]
     public class ParallaxLayer
     {
         public Transform layerTransform;
-        [Header("Parallax Multiplier")]
+
+        [Header("Parallax Multipliers (0 = no movement, 1 = full camera movement)")]
         [Range(0f, 1f)] public float xMultiplier = 0.5f;
         [Range(0f, 1f)] public float yMultiplier = 0f;
     }
 
-    public ParallaxLayer[] layers;
+    [Header("Background Layers")]
+    [SerializeField] private ParallaxLayer[] layers;
+
+    private Transform cam;
+    private Vector3 previousCamPos;
 
     private void Start()
     {

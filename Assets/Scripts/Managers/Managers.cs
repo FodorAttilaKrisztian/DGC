@@ -5,65 +5,51 @@ using Unity.Cinemachine;
 
 public class Managers : MonoBehaviour
 {
-    public static Managers instance;
-    
-    public GameObject playerPrefab; // Assign in Inspector
-    public GameObject cinemachineCameraPrefab;
-    public GameObject gameCanvasPrefab; // Assign in Inspector
-    public GameObject sceneManagerPrefab;
-    public GameObject uiManagerPrefab;
-    public GameObject powerupManagerPrefab;
-    public GameObject dataPersistenceManagerPrefab;
+    public static Managers instance { get; private set; }
+
+    [Header("Prefab Assignments")]
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject cinemachineCameraPrefab;
+    [SerializeField] private GameObject gameCanvasPrefab;
+    [SerializeField] private GameObject sceneManagerPrefab;
+    [SerializeField] private GameObject uiManagerPrefab;
+    [SerializeField] private GameObject powerupManagerPrefab;
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null && instance != this)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject); // Keeps the player across scenes
-            EnsurePersistentObjects();
+            Destroy(gameObject);
+            return;
         }
-        else
-        {
-            Destroy(gameObject); // Prevent duplicates
-        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
+        EnsurePersistentObjects();
     }
 
     private void EnsurePersistentObjects()
     {
-        if (FindFirstObjectByType<PlayerController>() == null)
-        {
-            Instantiate(playerPrefab);
-        }
-
-        if (FindFirstObjectByType<CinemachineCamera>() == null)
-        {
-            Instantiate(cinemachineCameraPrefab);
-        }
-
+        InstantiateIfNotFound<PlayerController>(playerPrefab);
+        InstantiateIfNotFound<CinemachineCamera>(cinemachineCameraPrefab);
+        
+        // Special case for Canvas, since it's not MonoBehaviour-based
         if (FindFirstObjectByType<Canvas>() == null)
         {
             Instantiate(gameCanvasPrefab);
         }
 
-        if (FindFirstObjectByType<SceneController>() == null)
-        {
-            Instantiate(sceneManagerPrefab);
-        }
+        InstantiateIfNotFound<SceneController>(sceneManagerPrefab);
+        InstantiateIfNotFound<UIManager>(uiManagerPrefab);
+        InstantiateIfNotFound<PowerupInventory>(powerupManagerPrefab);
+    }
 
-        if (FindFirstObjectByType<UIManager>() == null)
+    // Generic method to instantiate objects if not found
+    private void InstantiateIfNotFound<T>(GameObject prefab) where T : MonoBehaviour
+    {
+        if (FindFirstObjectByType<T>() == null)
         {
-            Instantiate(uiManagerPrefab);
-        }
-
-        if (FindFirstObjectByType<PowerupInventory>() == null)
-        {
-            Instantiate(powerupManagerPrefab);
-        }
-
-        if (FindFirstObjectByType<DataPersistenceManager>() == null)
-        {
-            Instantiate(dataPersistenceManagerPrefab);
+            Instantiate(prefab);
         }
     }
 

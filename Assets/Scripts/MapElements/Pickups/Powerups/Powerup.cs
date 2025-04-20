@@ -94,7 +94,7 @@ public class Powerup : MonoBehaviour, IDataPersistence
 
                 if (AudioManager.instance != null)
                 {
-                    AudioManager.instance.PlaySFX(AudioManager.instance.pickupSound, 2f);
+                    AudioManager.instance.PlaySFX(AudioManager.instance.PickupSound, 2f);
                 }
 
                 Destroy(gameObject);

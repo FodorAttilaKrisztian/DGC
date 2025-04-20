@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,27 +9,43 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
     private Dictionary<string, Queue<PowerupEffect>> storedPowerups = new Dictionary<string, Queue<PowerupEffect>>();
     public UnityEvent PowerupChanged;
     private AudioManager audioManager;
-
-    [SerializeField]
+    private PlayerController playerController;
     private GameObject player;
 
     private void Awake()
     {
         audioManager = AudioManager.instance;
 
-        var playerInput = GetComponent<PlayerInput>();
-
-        if (playerInput != null)
+        if (audioManager == null)
         {
-            playerInput.actions["UseHealthBuff"].performed += _ => UsePowerup("HealthBuff");
-            playerInput.actions["UseSpeedBuff"].performed += _ => UsePowerup("SpeedBuff");
-            playerInput.actions["UseGravityBuff"].performed += _ => UsePowerup("GravityBuff");
+            Debug.LogError("AudioManager instance not found in the scene.");
+        }
+    }
+
+    private void Start()
+    {
+        StartCoroutine(DelayedStart());
+    }
+
+    private IEnumerator DelayedStart()
+    {
+        // Wait for PlayerController.instance to be assigned
+        while (PlayerController.instance == null)
+            yield return null;
+
+        playerController = PlayerController.instance;
+        
+        Debug.Log("PlayerController instance found: " + playerController.name);
+
+        player = playerController.gameObject;
+
+        if (player == null)
+        {
+            Debug.LogError("Player not found in the scene.");
+            yield break;
         }
 
-        if (PowerupChanged == null)
-        {
-            PowerupChanged = new UnityEvent();
-        }
+        PowerupChanged?.Invoke();
     }
 
     public void StorePowerup(PowerupEffect powerup)
@@ -148,7 +165,7 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.healSound, 0.25f);
+            audioManager.PlaySFX(audioManager.HealSound, 0.25f);
         }
     }
 
@@ -156,7 +173,7 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.speedSound, 0.25f);
+            audioManager.PlaySFX(audioManager.SpeedSound, 0.25f);
         }
     }
 
@@ -164,7 +181,7 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.gravitySound, 0.25f);
+            audioManager.PlaySFX(audioManager.GravitySound, 0.25f);
         }
     }
 }

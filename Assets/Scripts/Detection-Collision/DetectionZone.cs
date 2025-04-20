@@ -2,29 +2,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(Collider2D))]
 public class DetectionZone : MonoBehaviour
 {
+    [Header("Detection Events")]
+    [Tooltip("Invoked when no colliders remain in the detection zone.")]
     public UnityEvent noCollidersRemain;
 
-    public List<Collider2D> detectedColliders = new List<Collider2D>();
-    Collider2D col;
+    private readonly List<Collider2D> detectedColliders = new();
+    private Collider2D detectionCollider;
 
-    void Awake()
+    public IReadOnlyList<Collider2D> DetectedColliders => detectedColliders;
+
+    private void Awake()
     {
-        col = GetComponent<Collider2D>();   
+        detectionCollider = GetComponent<Collider2D>();
+        if (!detectionCollider.isTrigger)
+        {
+            Debug.LogWarning($"{nameof(DetectionZone)} requires the Collider2D to be set as a trigger.");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        detectedColliders.Add(collision);
+        if (!detectedColliders.Contains(collision))
+        {
+            detectedColliders.Add(collision);
+        }
     }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-        detectedColliders.Remove(collision);
-
-        if(detectedColliders.Count <= 0)
+        if (detectedColliders.Remove(collision) && detectedColliders.Count == 0)
         {
-            noCollidersRemain.Invoke();
+            noCollidersRemain?.Invoke();
         }
     }
 }

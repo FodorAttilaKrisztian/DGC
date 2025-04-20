@@ -131,9 +131,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         get {
             if (canMove)
             {
-                if (isMoving && (!touchingDirections.isOnWall))
+                if (isMoving && (!touchingDirections.IsOnWall))
                 {
-                    if(touchingDirections.isGrounded)
+                    if(touchingDirections.IsGrounded)
                     {
                         if (isRunning)
                         {
@@ -229,6 +229,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 uiManager?.SetKeyUI(false);
                 uiManager.UpdatePowerupUI();
                 DataPersistenceManager.instance.SaveGame();
+                DataPersistenceManager.instance.GameData.uncollectedPowerups = new List<PowerupData>();
                 SceneController.instance.NextLevel();
             }
         }
@@ -275,7 +276,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (isAlive)
         {
-            if (touchingDirections.isGrounded && !touchingDirections.isOnCeiling)
+            if (touchingDirections.IsGrounded && !touchingDirections.IsOnCeiling)
             {   
                 canDoubleJump = true;
                 coyoteTimeCounter = coyoteTime;
@@ -308,7 +309,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         {
             if (context.started && canMove && isAlive)
             {
-                if (touchingDirections.isGrounded)
+                if (touchingDirections.IsGrounded)
                 {
                     animator.SetTrigger(AnimationStrings.jumpTrigger);
                     PlayJumpSound();
@@ -359,7 +360,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                     animator.SetTrigger(AnimationStrings.rangedAttackTrigger);
                 }
                 
-                projectileLauncher.projectilePrefab = hasFireball ? fireballProjectilePrefab : defaultProjectilePrefab;
+                projectileLauncher.ProjectilePrefab = hasFireball ? fireballProjectilePrefab : defaultProjectilePrefab;
                 
                 rangedAttackCooldown = hasFireball ? fireballRangedCooldown : defaultRangedCooldown;
                 lastRangedAttackTime = Time.time;
@@ -527,7 +528,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.playerHurtSound, 1f);
+            audioManager.PlaySFX(audioManager.PlayerHurtSound, 1f);
         }
     }
 
@@ -535,7 +536,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if(audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.deathSound, 0.75f);
+            audioManager.PlaySFX(audioManager.DeathSound, 0.75f);
         }
     }
 
@@ -543,7 +544,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if(audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.gameOverSound, 0.75f);
+            audioManager.PlaySFX(audioManager.GameOverSound, 0.75f);
         }
     }
 
@@ -551,7 +552,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.jumpSound, 0.1f);
+            audioManager.PlaySFX(audioManager.JumpSound, 0.1f);
         }
     }
 
@@ -559,7 +560,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.pickupSound, 2f);
+            audioManager.PlaySFX(audioManager.PickupSound, 2f);
         }
     }
 
@@ -567,7 +568,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.keyPickupSound, 2.5f);
+            audioManager.PlaySFX(audioManager.KeyPickupSound, 2.5f);
         }
     }
 
@@ -575,7 +576,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.rockThrowSound, 0.2f);
+            audioManager.PlaySFX(audioManager.RockThrowSound, 0.2f);
         }
     }
 
@@ -583,7 +584,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.rockHitSound, 0.1f);
+            audioManager.PlaySFX(audioManager.RockHitSound, 0.1f);
         }
     }
 
@@ -591,7 +592,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.fireballThrowSound, 0.25f);
+            audioManager.PlaySFX(audioManager.FireballThrowSound, 0.25f);
         }
     }
 
@@ -599,7 +600,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.fireballHitSound, 0.15f);
+            audioManager.PlaySFX(audioManager.FireballHitSound, 0.15f);
         }
     }
 
@@ -607,7 +608,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.singlePunchSound, 0.75f);
+            audioManager.PlaySFX(audioManager.SinglePunchSound, 0.75f);
         }
     }
 
@@ -615,7 +616,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.doublePunchSound, 0.75f);
+            audioManager.PlaySFX(audioManager.DoublePunchSound, 0.75f);
         }
     }
 }

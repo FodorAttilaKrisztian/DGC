@@ -45,10 +45,6 @@ public class Breakable : MonoBehaviour, IDataPersistence
         {
             Debug.LogWarning($"[Breakable:{gameObject.name}] Start(): DataPersistenceManager.instance is STILL null!");
         }
-        else
-        {
-            Debug.Log($"[Breakable:{gameObject.name}] Start(): Got DataPersistenceManager instance.");
-        }
     }
 
     public void OnHit(int damage, Vector2 knockback)
@@ -143,7 +139,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.boxBreakSound, 0.25f);
+            audioManager.PlaySFX(audioManager.BoxBreakSound, 0.25f);
         }
     }
 
@@ -151,7 +147,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.vaseBreakSound, 0.25f);
+            audioManager.PlaySFX(audioManager.VaseBreakSound, 0.25f);
         }
     }
 
@@ -159,7 +155,7 @@ public class Breakable : MonoBehaviour, IDataPersistence
     {
         if (audioManager != null)
         {
-            audioManager.PlaySFX(audioManager.barrelBreakSound, 0.25f);
+            audioManager.PlaySFX(audioManager.BarrelBreakSound, 0.25f);
         }
     }
 

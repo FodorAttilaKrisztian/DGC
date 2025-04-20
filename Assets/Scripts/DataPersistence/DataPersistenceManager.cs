@@ -5,22 +5,20 @@ using UnityEngine;
 
 public class DataPersistenceManager : MonoBehaviour
 {
+    public static DataPersistenceManager instance { get; private set; }
+
     [Header("File Storage Config")]
     
-    [SerializeField] 
-    private string fileName;
+    [SerializeField] private string fileName;
 
-    [SerializeField] 
-    private bool useEncryption;
+    [SerializeField] private bool useEncryption;
 
     private GameData gameData;
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
-    public string FileName => fileName;  // Expose file name for the MainMenuController
-    public GameData GameData => gameData;  // Expose game data for checking/loading
-
-    public static DataPersistenceManager instance { get; private set; }
+    public string FileName => fileName;
+    public GameData GameData => gameData;
 
     private void Awake()
     {

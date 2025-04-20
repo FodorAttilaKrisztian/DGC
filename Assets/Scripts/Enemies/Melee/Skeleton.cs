@@ -10,8 +10,7 @@ public class Skeleton : MonoBehaviour
     TouchingDirections touchingDirections;
     Animator animator;
     Damageable damageable;
-
-    AudioManager audioManager;
+    private AudioManager audioManager;
 
     public DetectionZone attackZone;
     public DetectionZone cliffDetectionZone;
@@ -51,7 +50,7 @@ public class Skeleton : MonoBehaviour
 
     public void onCliffDetected()
     {
-        if(touchingDirections.isGrounded)
+        if(touchingDirections.IsGrounded)
         {
             FlipDirection();
         }
@@ -105,7 +104,7 @@ public class Skeleton : MonoBehaviour
 
     void Update()
     {
-        hasTarget = attackZone.detectedColliders.Count > 0;
+        hasTarget = attackZone.DetectedColliders.Count > 0;
         attackCooldown -= Time.deltaTime;
 
         Vector2 boxSize = new Vector2(chaseRadius * 2f, chaseRadius);
@@ -139,9 +138,9 @@ public class Skeleton : MonoBehaviour
 
     private void FixedUpdate()
     {
-        bool nearCliff = cliffDetectionZone.detectedColliders.Count == 0;
+        bool nearCliff = cliffDetectionZone.DetectedColliders.Count == 0;
 
-        if (touchingDirections.isGrounded && (touchingDirections.isOnWall || nearCliff))
+        if (touchingDirections.IsGrounded && (touchingDirections.IsOnWall || nearCliff))
         {
             FlipDirection();
         }
@@ -163,7 +162,7 @@ public class Skeleton : MonoBehaviour
                 return;
             }
 
-            if (canMove && touchingDirections.isGrounded)
+            if (canMove && touchingDirections.IsGrounded)
             {
                 rb.linearVelocity = new Vector2(Mathf.Clamp(rb.linearVelocity.x + (walkAcceleration * walkDirectionVector.x * Time.fixedDeltaTime), -maxSpeed, maxSpeed), rb.linearVelocity.y);
             }
@@ -186,7 +185,7 @@ public class Skeleton : MonoBehaviour
     {
         if (audioManager != null) 
         {
-            audioManager.PlaySFX(audioManager.skeletonSwordSound, 1.25f);
+            audioManager.PlaySFX(audioManager.SkeletonSwordSound, 1.25f);
         }
     }
 
@@ -194,7 +193,7 @@ public class Skeleton : MonoBehaviour
     {
         if (audioManager != null) 
         {
-            audioManager.PlaySFX(audioManager.skeletonHammerSound, 0.5f);
+            audioManager.PlaySFX(audioManager.SkeletonHammerSound, 0.5f);
         }
     }
 
@@ -202,7 +201,7 @@ public class Skeleton : MonoBehaviour
     {
         if (audioManager != null) 
         {
-            audioManager.PlaySFX(audioManager.skeletonHurtSound, 0.15f);
+            audioManager.PlaySFX(audioManager.SkeletonHurtSound, 0.15f);
         }
     }
 
@@ -210,7 +209,7 @@ public class Skeleton : MonoBehaviour
     {
         if (audioManager != null) 
         {
-            audioManager.PlaySFX(audioManager.skeletonDeathSound, 0.5f);
+            audioManager.PlaySFX(audioManager.SkeletonDeathSound, 0.5f);
         }
     }
 

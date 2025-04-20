@@ -10,6 +10,7 @@ public class ScoreUI : MonoBehaviour
     {
         if (DataPersistenceManager.instance == null || DataPersistenceManager.instance.GameData == null)
         {
+            Debug.Log("DataPersistenceManager or GameData is null. Cannot update score.");
             return;
         }
 
