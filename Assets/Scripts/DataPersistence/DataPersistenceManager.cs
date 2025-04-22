@@ -9,7 +9,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     [Header("File Storage Config")]
     
-    [SerializeField] private string fileName;
+    [SerializeField] private string fileName = "defaultSaveFile.json";
 
     [SerializeField] private bool useEncryption;
 
@@ -17,7 +17,12 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
-    public string FileName => fileName;
+    public string FileName
+    {
+        get => fileName;
+        set => fileName = value; // Allow test code to assign the file name
+    }
+
     public GameData GameData => gameData;
 
     private void Awake()
@@ -45,6 +50,13 @@ public class DataPersistenceManager : MonoBehaviour
 
     public void LoadGame()
     {
+
+        if (dataHandler == null)
+        {
+            Debug.LogError("Data handler is not initialized.");
+            return;
+        }
+        
         gameData = dataHandler.Load();
 
         if (gameData == null)
@@ -54,6 +66,12 @@ public class DataPersistenceManager : MonoBehaviour
         }
 
         dataPersistenceObjects = FindAllDataPersistenceObjects();
+
+        if (dataPersistenceObjects == null || dataPersistenceObjects.Count == 0)
+        {
+            Debug.LogWarning("No IDataPersistence objects found in the scene.");
+            return;
+        }
 
         foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
@@ -66,6 +84,12 @@ public class DataPersistenceManager : MonoBehaviour
         if (gameData == null) return;
 
         dataPersistenceObjects = FindAllDataPersistenceObjects();
+
+        if (dataPersistenceObjects == null || dataPersistenceObjects.Count == 0)
+        {
+            Debug.LogWarning("No data persistence objects found.");
+            return;
+        }
 
         foreach(IDataPersistence dataPersistenceObj in dataPersistenceObjects)
         {
@@ -94,6 +118,11 @@ public class DataPersistenceManager : MonoBehaviour
     private List<IDataPersistence> FindAllDataPersistenceObjects()
     {
         IEnumerable<IDataPersistence> dataPersistenceObjects = FindObjectsByType<MonoBehaviour>(FindObjectsSortMode.None).OfType<IDataPersistence>();
+
+        if (dataPersistenceObjects == null || !dataPersistenceObjects.Any())
+        {
+            Debug.LogWarning("No IDataPersistence objects found.");
+        }
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }

@@ -3,8 +3,11 @@
     "rootNamespace": "",
     "references": [
         "Unity.Cinemachine",
+        "Unity.TextMeshPro",
+        "Unity.Cinemachine.Editor",
         "Unity.InputSystem",
-        "Unity.TextMeshPro"
+        "Unity.2D.Animation.Editor",
+        "Unity.2D.Animation.EditorTests"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

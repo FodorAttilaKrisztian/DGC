@@ -35,6 +35,8 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
                 + keys.Count + ") does not match the number of values (" + values.Count
                 + ") which indicates that something went wrong."
             );
+
+            return;
         }
 
         for (int i = 0; i < keys.Count; i++)

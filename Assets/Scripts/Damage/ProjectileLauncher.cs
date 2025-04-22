@@ -15,6 +15,12 @@ public class ProjectileLauncher : MonoBehaviour
         set => projectilePrefab = value;
     }
 
+    public Transform FirePoint
+    {
+        get => firePoint;
+        set => firePoint = value;
+    }
+
     private void Reset()
     {
         if (firePoint == null) firePoint = transform;  // Default to current transform if not set

@@ -10,6 +10,11 @@ public class PersistentCamera : MonoBehaviour
 
     private void Awake()
     {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
         if (instance != null && instance != this)
         {
             Destroy(gameObject);
@@ -19,11 +24,13 @@ public class PersistentCamera : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
+        // If CinemachineCamera is not found, try adding it automatically.
         cam = GetComponent<CinemachineCamera>();
-
+        
         if (cam == null)
         {
-            Debug.LogError("PersistentCamera: CinemachineCamera component is missing.");
+            Debug.LogWarning("PersistentCamera: CinemachineCamera component is missing. Adding a new one.");
+            cam = gameObject.AddComponent<CinemachineCamera>();
         }
     }
 
@@ -47,7 +54,7 @@ public class PersistentCamera : MonoBehaviour
         UpdateCameraTarget();
     }
 
-    private void UpdateCameraTarget()
+    public void UpdateCameraTarget()
     {
         if (cam == null)
         {
@@ -61,7 +68,13 @@ public class PersistentCamera : MonoBehaviour
         }
         else
         {
+            cam.Follow = null;
             Debug.LogWarning("PersistentCamera: PlayerController instance not found.");
         }
+    }
+
+    public CinemachineCamera GetCinemachineCamera()
+    {
+        return cam;
     }
 }

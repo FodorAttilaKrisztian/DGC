@@ -6,6 +6,11 @@ public class Attack : MonoBehaviour
     [SerializeField] private int attackDamage = 10;
     [SerializeField] private Vector2 knockBackForce = Vector2.zero;
 
+    public void SetKnockBackForce(Vector2 newKnockbackForce)
+    {
+        knockBackForce = newKnockbackForce;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var damageable = collision.GetComponent<Damageable>();

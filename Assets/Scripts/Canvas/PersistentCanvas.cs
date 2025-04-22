@@ -6,6 +6,11 @@ public class PersistentCanvas : MonoBehaviour
     public static PersistentCanvas instance { get; private set; }
     private Canvas canvas;
 
+    public static void SetSingleton(PersistentCanvas canvas)
+    {
+        instance = canvas;
+    }
+
     private void Awake()
     {
         if (instance != null && instance != this)

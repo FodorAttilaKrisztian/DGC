@@ -13,6 +13,7 @@ TagManager:
   - LifeUI
   - PowerupUI
   - Audio
+  - Projectile
   layers:
   - Default
   - TransparentFX

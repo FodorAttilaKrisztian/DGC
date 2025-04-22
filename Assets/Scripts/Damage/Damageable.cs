@@ -39,7 +39,7 @@ public class Damageable : MonoBehaviour
         {
             _health = value;
             healthChanged?.Invoke(_health, maxHealth);
-            if (_health <= 0) isAlive = false;
+            if (_health <= 0 && isAlive) isAlive = false;
         }
     }
 
@@ -49,7 +49,11 @@ public class Damageable : MonoBehaviour
         set
         {
             _isAlive = value;
-            animator.SetBool(AnimationStrings.isAlive, value);
+
+            if (animator != null)
+            {
+                animator.SetBool(AnimationStrings.isAlive, value);
+            }
         }
     }
 
@@ -60,7 +64,7 @@ public class Damageable : MonoBehaviour
     }
 
     // --- Unity Methods ---
-    void Awake()
+    private void Awake()
     {
         animator = GetComponent<Animator>();
     }
@@ -79,18 +83,21 @@ public class Damageable : MonoBehaviour
     }
 
     // --- Public Methods ---
-    public bool Hit(int damage, Vector2 knockBackForce)
+    public virtual bool Hit(int damage, Vector2 knockBackForce)
     {
         if (!isAlive || isInvincible) return false;
 
         health = Mathf.Max(health - damage, 0);
         isInvincible = true;
 
-        animator.SetTrigger(AnimationStrings.hitTrigger);
-        lockVelocity = true;
+        if (animator != null)
+        {
+            animator.SetTrigger(AnimationStrings.hitTrigger);
+            lockVelocity = true;
+        }
 
         damageableHit?.Invoke(damage, knockBackForce);
-        CharacterEvents.characterDamaged.Invoke(gameObject, damage);
+        CharacterEvents.characterDamaged?.Invoke(gameObject, damage);
 
         return true;
     }
@@ -102,7 +109,7 @@ public class Damageable : MonoBehaviour
         int actualHeal = Mathf.Min(maxHealth - health, healAmount);
         health += actualHeal;
 
-        CharacterEvents.characterHealed(gameObject, actualHeal);
+        CharacterEvents.characterHealed?.Invoke(gameObject, actualHeal);
         return true;
     }
 }

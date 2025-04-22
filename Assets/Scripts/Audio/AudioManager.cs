@@ -130,7 +130,7 @@ public class AudioManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlaySFX(AudioClip clip, float volume = 1f)
+    public virtual void PlaySFX(AudioClip clip, float volume = 1f)
     {
         if (clip != null && sfxSource != null)
         {

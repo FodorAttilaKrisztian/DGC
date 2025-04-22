@@ -8,6 +8,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] private Vector2 moveSpeed = new Vector2(18f, 0f);
     [SerializeField] private Vector2 knockBackForce = new Vector2(5f, 2f);
 
+    public Vector2 MoveSpeed => moveSpeed; // Expose moveSpeed
+    public Vector2 KnockBackForce => knockBackForce; // Expose knockBackForce
+
     [Header("Projectile Type")]
     [SerializeField] private ProjectileType projectileType;
     public enum ProjectileType { Rock, Fireball }
