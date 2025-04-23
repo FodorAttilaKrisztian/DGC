@@ -10,7 +10,6 @@ public class MainMenuController : MonoBehaviour
     public static MainMenuController instance;
     public GameObject mainMenu;
     public GameObject optionsMenu;
-    public GameObject creditsMenu;
     public GameObject managersPrefab;
 
     private DataPersistenceManager dataPersistenceManager;
@@ -42,7 +41,6 @@ public class MainMenuController : MonoBehaviour
 
         mainMenu.SetActive(true);
         optionsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
     }
 
     public void NewGame()

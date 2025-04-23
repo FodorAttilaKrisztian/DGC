@@ -26,6 +26,11 @@ public class TouchingDirections : MonoBehaviour
         }
     }
 
+    public void SetGrounded(bool grounded)
+    {
+        IsGrounded = grounded;
+    }
+
     public bool IsOnCeiling
     {
         get => _isOnCeiling;

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private Dictionary<string, Coroutine> activeBuffs = new Dictionary<string, Coroutine>();
     public PowerupEffect storedPowerup;
     private float originalGravityScale = 2.25f;
+    public float OriginalGravityScale => originalGravityScale;
     public int maxLives = 3;
     public int currentLives; 
     private bool respawnTriggered = false;
@@ -44,7 +45,9 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     
     TouchingDirections touchingDirections;
 
-    Damageable damageable;
+    private Damageable damageable;
+
+    public Damageable playerDamageable => damageable;
 
     public Vector3 respawnPoint;
 
@@ -269,7 +272,8 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         }
     }
  
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+    public Rigidbody2D Rb => rb;
     Animator animator;
 
     private void FixedUpdate()

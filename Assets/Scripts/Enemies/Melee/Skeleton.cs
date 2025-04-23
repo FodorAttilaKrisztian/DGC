@@ -29,6 +29,19 @@ public class Skeleton : MonoBehaviour
     private Vector2 walkDirectionVector = Vector2.right;
     public bool canMove => animator.GetBool(AnimationStrings.canMove);
 
+    public Animator Animator => animator; // Add this to access the Animator in your tests
+
+    public float AttackCooldown
+    {
+        get => animator.GetFloat(AnimationStrings.attackCooldown);
+        set => animator.SetFloat(AnimationStrings.attackCooldown, value);
+    }
+
+    public void SetAnimator(Animator animator)
+    {
+        this.animator = animator;
+    }
+
     public WalkableDirection walkDirection
     {
         get => _walkDirection;
