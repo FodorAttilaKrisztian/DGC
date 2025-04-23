@@ -38,7 +38,11 @@ public class Damageable : MonoBehaviour
         set
         {
             _health = value;
+            
+            Debug.Log($"[Health SET] {value}");
+
             healthChanged?.Invoke(_health, maxHealth);
+            
             if (_health <= 0 && isAlive) isAlive = false;
         }
     }
@@ -67,6 +71,13 @@ public class Damageable : MonoBehaviour
     private void Awake()
     {
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        // Ensure health only initializes if it's not already manually set
+        if (_health <= 0 || _health > maxHealth)
+            _health = maxHealth;
     }
 
     private void Update()

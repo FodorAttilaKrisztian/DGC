@@ -11,8 +11,13 @@ public class Breakable : MonoBehaviour, IDataPersistence
     [SerializeField]
     private string id;
 
+    public string GetID()
+    {
+        return id;
+    }
+
     [ContextMenu("Generate guid for id")]
-    private void GenerateGuid()
+    public void GenerateGuid()
     {
         id = System.Guid.NewGuid().ToString();
     }
@@ -188,4 +193,11 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
         dataPersistenceManager.SaveGame();
     }
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetDataPersistenceManagerForTesting(DataPersistenceManager manager)
+    {
+        this.dataPersistenceManager = manager;
+    }
+    #endif
 }

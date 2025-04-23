@@ -6,7 +6,10 @@ public class Skeleton : MonoBehaviour
 {
     private Transform player;
     private DataPersistenceManager dataPersistenceManager;
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+
+    public Rigidbody2D Rb => rb;
+
     TouchingDirections touchingDirections;
     Animator animator;
     Damageable damageable;
@@ -27,6 +30,7 @@ public class Skeleton : MonoBehaviour
     public float walkStopRate = 0.2f;
 
     private Vector2 walkDirectionVector = Vector2.right;
+    public Vector2 WalkDirectionVector => walkDirectionVector;
     public bool canMove => animator.GetBool(AnimationStrings.canMove);
 
     public Animator Animator => animator; // Add this to access the Animator in your tests
@@ -56,7 +60,7 @@ public class Skeleton : MonoBehaviour
         }
     }
 
-    private void FlipDirection()
+    public void FlipDirection()
     {
         walkDirection = walkDirection == WalkableDirection.Right ? WalkableDirection.Left : WalkableDirection.Right;
     }
@@ -65,12 +69,21 @@ public class Skeleton : MonoBehaviour
     {
         if(touchingDirections.IsGrounded)
         {
-            FlipDirection();
+            if (animator != null)
+            {
+                FlipDirection();
+            }
         }
     }
 
     public void onHit(int damage, Vector2 knockBackForce)
     {
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody2D is not assigned!");
+            return;
+        }
+
         rb.linearVelocity = new Vector2(knockBackForce.x, rb.linearVelocity.y + knockBackForce.y);
     }
 
@@ -241,4 +254,25 @@ public class Skeleton : MonoBehaviour
             dataPersistenceManager.SaveGame();
         }
     }
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetDataPersistenceManagerForTesting(DataPersistenceManager manager)
+    {
+        this.dataPersistenceManager = manager;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetTouchingDirections(TouchingDirections directions)
+    {
+        this.touchingDirections = directions;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetRigidbody(Rigidbody2D rb)
+    {
+        this.rb = rb;
+    }
+    #endif
 }

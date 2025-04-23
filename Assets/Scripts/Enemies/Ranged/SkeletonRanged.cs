@@ -6,7 +6,10 @@ public class SkeletonRanged : MonoBehaviour
 {
     private Transform player;
     private DataPersistenceManager dataPersistenceManager;
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
+
+    public Rigidbody2D Rb => rb;
+    
     TouchingDirections touchingDirections;
     Animator animator;
     Damageable damageable;
@@ -236,4 +239,25 @@ public class SkeletonRanged : MonoBehaviour
             dataPersistenceManager.SaveGame();
         }
     }
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetDataPersistenceManagerForTesting(DataPersistenceManager manager)
+    {
+        this.dataPersistenceManager = manager;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetTouchingDirections(TouchingDirections directions)
+    {
+        this.touchingDirections = directions;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetRigidbody(Rigidbody2D rb)
+    {
+        this.rb = rb;
+    }
+    #endif
 }

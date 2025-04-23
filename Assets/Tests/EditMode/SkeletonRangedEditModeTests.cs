@@ -1,86 +1,120 @@
 using NUnit.Framework;
 using UnityEngine;
-using System.Collections.Generic;
-using System.Reflection;
+using UnityEngine.TestTools;
 
 public class SkeletonRangedEditModeTests
 {
-    private GameObject skeletonGO;
+    private GameObject skeletonObj;
     private Skeleton skeleton;
-    private Animator animator;
+    private Rigidbody2D rb;
+    private TouchingDirections touching;
 
     [SetUp]
     public void Setup()
     {
-        skeletonGO = new GameObject("Skeleton");
-        var rb = skeletonGO.AddComponent<Rigidbody2D>();  // Ensure Rigidbody2D is added
-        skeletonGO.AddComponent<TouchingDirections>();
-        
-        // Add Animator only if not already present
-        if (skeletonGO.GetComponent<Animator>() == null)
+        skeletonObj = new GameObject("Skeleton");
+
+        rb = skeletonObj.AddComponent<Rigidbody2D>();
+        touching = skeletonObj.AddComponent<TouchingDirections>();
+        skeleton = skeletonObj.AddComponent<Skeleton>();
+
+        var animator = skeletonObj.GetComponent<Animator>();
+        if (animator == null)
         {
-            animator = skeletonGO.AddComponent<Animator>();
+            animator = skeletonObj.AddComponent<Animator>();
         }
 
-        skeleton = skeletonGO.AddComponent<Skeleton>();
         skeleton.SetAnimator(animator);
-
-        // Add BoxCollider2D to the Skeleton GameObject (required for onHit)
-        skeletonGO.AddComponent<BoxCollider2D>();
-
-        // Add proper DetectionZone components with colliders
-        var attackGO = new GameObject("AttackZone");
-        var attackZone = attackGO.AddComponent<DetectionZone>();
-        var attackCollider = attackGO.AddComponent<BoxCollider2D>();
-        attackCollider.isTrigger = true;
-
-        var cliffGO = new GameObject("CliffZone");
-        var cliffZone = cliffGO.AddComponent<DetectionZone>();
-        var cliffCollider = cliffGO.AddComponent<BoxCollider2D>();
-        cliffCollider.isTrigger = true;
-
-        skeleton.attackZone = attackZone;
-        skeleton.cliffDetectionZone = cliffZone;
+        skeleton.SetRigidbody(rb);
+        skeleton.SetTouchingDirections(touching); // ✅ Nice and clear
     }
 
     [TearDown]
     public void Teardown()
     {
-        Object.DestroyImmediate(skeletonGO);
-        ClearSingleton();
+        Object.DestroyImmediate(skeletonObj);
     }
 
     [Test]
-    public void WalkDirectionSetter_FlipsLocalScaleAndDirection()
+    public void WalkDirection_FlipsScaleAndVector()
     {
-        skeleton.walkDirection = Skeleton.WalkableDirection.Left;
-        Assert.AreEqual(Skeleton.WalkableDirection.Left, skeleton.walkDirection);
+        Vector2 originalScale = skeleton.transform.localScale;
 
+        skeleton.walkDirection = Skeleton.WalkableDirection.Left;
+        Assert.AreEqual(Vector2.left, skeletonObj.GetComponent<Skeleton>().WalkDirectionVector);
+        Assert.AreEqual(-originalScale.x, skeleton.transform.localScale.x);
+    }
+
+    [Test]
+    public void FlipDirection_TogglesWalkDirection()
+    {
         skeleton.walkDirection = Skeleton.WalkableDirection.Right;
+        skeletonObj.GetComponent<Skeleton>().FlipDirection();
+        Assert.AreEqual(Skeleton.WalkableDirection.Left, skeleton.walkDirection);
+    }
+
+    [Test]
+    public void OnCliffDetected_Flips_WhenGrounded()
+    {
+        // Initialize IsGrounded property to true to simulate the character being on the ground
+        touching.SetGrounded(true);
+        skeleton.walkDirection = Skeleton.WalkableDirection.Right;
+
+        skeleton.onCliffDetected();
+
+        Assert.AreEqual(Skeleton.WalkableDirection.Left, skeleton.walkDirection);
+    }
+
+    [Test]
+    public void OnCliffDetected_DoesNothing_WhenNotGrounded()
+    {
+        // Initialize IsGrounded property to false to simulate the character being in the air
+        touching.SetGrounded(false);
+        skeleton.walkDirection = Skeleton.WalkableDirection.Right;
+
+        skeleton.onCliffDetected();
+
         Assert.AreEqual(Skeleton.WalkableDirection.Right, skeleton.walkDirection);
     }
 
-    // Set internal static instance field
-    private void SetSingleton(DataPersistenceManager instance)
+    [Test]
+    public void OnHit_AppliesKnockback()
     {
-        typeof(DataPersistenceManager)
-            .GetProperty("instance", BindingFlags.Static | BindingFlags.Public)
-            ?.SetValue(null, instance);
+        Vector2 knockback = new Vector2(-5, 3);
+        rb.linearVelocity = Vector2.zero; // Reset velocity before the test
+
+        skeleton.onHit(10, knockback);
+
+        Assert.AreEqual(-5f, rb.linearVelocity.x);
+        Assert.AreEqual(3f, rb.linearVelocity.y);
     }
 
-    private void ClearSingleton()
+    [Test]
+    public void AddToEliminationCounter_UpdatesGameData()
     {
-        var instanceField = typeof(DataPersistenceManager)
-            .GetProperty("instance", BindingFlags.Static | BindingFlags.Public);
-        if (instanceField != null)
-        {
-            instanceField.SetValue(null, null);
-        }
+        // Arrange
+        var gameData = new GameData(); // Ensure GameData is initialized
+        var mockManager = new GameObject().AddComponent<MockDataPersistenceManager>();
+        mockManager.GameData = gameData;
+        skeleton.SetDataPersistenceManagerForTesting(mockManager);
+
+        // Act
+        skeleton.AddToEliminationCounter(); // This should increment eliminationsTotal and score
+
+        // Assert
+        Assert.AreEqual(1, gameData.eliminationsTotal); // Check if eliminationsTotal is updated
+        Assert.AreEqual(100, gameData.score); // Check if score is updated
     }
 
-    private void SetPrivateField(object obj, string fieldName, object value)
+    [Test]
+    public void AttackCooldown_CannotBeNegative()
     {
-        var field = obj.GetType().GetField(fieldName, BindingFlags.Instance | BindingFlags.NonPublic);
-        if (field != null) field.SetValue(obj, value);
+        skeleton.AttackCooldown = -5f;
+        Assert.GreaterOrEqual(skeleton.AttackCooldown, 0f);
+    }
+
+    class MockDataPersistenceManager : DataPersistenceManager
+    {
+        public override void SaveGame() { }
     }
 }

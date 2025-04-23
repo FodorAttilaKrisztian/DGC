@@ -137,4 +137,11 @@ public class AudioManager : MonoBehaviour
             sfxSource.PlayOneShot(clip, volume);
         }
     }
+
+    #if UNITY_EDITOR
+    public static void SetInstanceForTesting(AudioManager mock)
+    {
+        instance = mock;
+    }
+    #endif
 }

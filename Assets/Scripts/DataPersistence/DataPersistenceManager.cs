@@ -13,7 +13,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     [SerializeField] private bool useEncryption;
 
-    private GameData gameData;
+    private GameData gameData; 
     private List<IDataPersistence> dataPersistenceObjects;
     private FileDataHandler dataHandler;
 
@@ -23,7 +23,11 @@ public class DataPersistenceManager : MonoBehaviour
         set => fileName = value; // Allow test code to assign the file name
     }
 
-    public GameData GameData => gameData;
+    public GameData GameData
+    {
+        get => gameData;
+        set => gameData = value;
+    }
 
     private void Awake()
     {
@@ -79,7 +83,7 @@ public class DataPersistenceManager : MonoBehaviour
         }
     }
 
-    public void SaveGame()
+    public virtual void SaveGame()
     {
         if (gameData == null) return;
 
@@ -126,4 +130,12 @@ public class DataPersistenceManager : MonoBehaviour
 
         return new List<IDataPersistence>(dataPersistenceObjects);
     }
+
+    #if UNITY_EDITOR || TEST_MODE
+    // Test hook to set the instance for unit tests
+    public static void SetInstanceForTesting(DataPersistenceManager testInstance)
+    {
+        instance = testInstance;
+    }
+    #endif
 }

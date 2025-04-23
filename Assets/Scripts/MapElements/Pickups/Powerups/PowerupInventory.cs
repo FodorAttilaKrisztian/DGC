@@ -62,6 +62,7 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
             storedPowerups[powerupType].Enqueue(powerup);
 
             PowerupChanged?.Invoke();
+            Debug.Log($"Stored powerup: {powerupType}");
         }
     }
 
@@ -80,16 +81,27 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
 
     public void UsePowerup(string powerupType)
     {
+        Debug.Log($"Using powerup i GUESS: {powerupType}");
+        
         if (storedPowerups.ContainsKey(powerupType) && storedPowerups[powerupType].Count > 0)
         {
+            Debug.Log($"Using powerup: {powerupType}");
+
+            foreach (var item in storedPowerups)
+            {
+                Debug.Log($"Powerup Type: {item.Key}, Count: {item.Value.Count}");
+            }
+
             if (powerupType == "HealthBuff")
             {
                 PowerupEffect powerup = storedPowerups["HealthBuff"].Peek();
-                
+                Debug.Log("HealthBuff powerup found in inventory");
+
                 bool applied = powerup.Apply(player);
 
                 if (applied)
                 {
+                    Debug.Log("HealthBuff applied successfully");
                     storedPowerups["HealthBuff"].Dequeue();
 
                     if (storedPowerups[powerupType].Count == 0)
@@ -184,4 +196,21 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
             audioManager.PlaySFX(audioManager.GravitySound, 0.25f);
         }
     }
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetPlayer(GameObject player)
+    {
+        this.player = player;
+        var damageable = player.GetComponent<Damageable>();
+    
+        Debug.Log($"SetPlayer called. Damageable health: {damageable.health}");
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetPlayerController(PlayerController playerController)
+    {
+        this.playerController = playerController;
+    }
+    #endif
 }

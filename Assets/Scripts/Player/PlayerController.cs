@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     private float originalGravityScale = 2.25f;
     public float OriginalGravityScale => originalGravityScale;
     public int maxLives = 3;
-    public int currentLives; 
+    public int currentLives = 3; 
     private bool respawnTriggered = false;
 
     private float baseWalkSpeed;
@@ -268,7 +268,15 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         get
         {
-            return animator.GetBool(AnimationStrings.isAlive);
+            if (animator != null)
+            {
+                return animator.GetBool(AnimationStrings.isAlive);
+            }
+            else
+            {
+                Debug.Log("Animator is not assigned or not found on the PlayerController.");
+                return false;
+            }
         }
     }
  
@@ -335,7 +343,10 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void onHit(int damage, Vector2 knockBackForce)
     {
-        rb.linearVelocity = new Vector2(knockBackForce.x, rb.linearVelocity.y + knockBackForce.y);
+        if (rb != null)
+        {
+            rb.linearVelocity = new Vector2(knockBackForce.x, rb.linearVelocity.y + knockBackForce.y);
+        }
     }
 
     public void onAttack(InputAction.CallbackContext context)
@@ -374,18 +385,42 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void OnUsePowerup1(InputAction.CallbackContext context)
     {
-        if (!PauseMenu.isPaused)
+        Debug.Log("OnUsePowerup1 triggered");
+
+        if (PauseMenu.instance != null && !PauseMenu.isPaused) // Ensure PauseMenu is assigned
         {
             if (context.started)
             {
+                Debug.Log("PauseMenu is not null and not paused");
                 powerupInventory.UsePowerup("HealthBuff");
             }
         }
+        else if (PauseMenu.instance == null) // If PauseMenu is not assigned, assume it's not paused
+        {
+            Debug.Log("PauseMenu is null, context NOT started");
+            if (context.started)
+            {
+                Debug.Log("PauseMenu is null, context started");
+                powerupInventory.UsePowerup("HealthBuff");
+            }
+        }
+        else
+        {
+            Debug.Log("PauseMenu is not null?");
+        }
     }
+
 
     public void OnUsePowerup2(InputAction.CallbackContext context)
     {
-        if (!PauseMenu.isPaused)
+        if (PauseMenu.instance != null && !PauseMenu.isPaused) // Ensure PauseMenu is assigned
+        {
+            if (context.started)
+            {
+                powerupInventory.UsePowerup("SpeedBuff");
+            }
+        }
+        else if (PauseMenu.instance == null) // If PauseMenu is not assigned, assume it's not paused
         {
             if (context.started)
             {
@@ -396,7 +431,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void OnUsePowerup3(InputAction.CallbackContext context)
     {
-        if (!PauseMenu.isPaused)
+        if (PauseMenu.instance != null && !PauseMenu.isPaused) // Ensure PauseMenu is assigned
+        {
+            if (context.started)
+            {
+                powerupInventory.UsePowerup("GravityBuff");
+            }
+        }
+        else if (PauseMenu.instance == null) // If PauseMenu is not assigned, assume it's not paused
         {
             if (context.started)
             {
@@ -485,9 +527,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
         else
         {
             damageable.isAlive = true;
-            animator.SetBool(AnimationStrings.isAlive, true);
+
+            if (animator != null)
+            {
+                animator.SetBool(AnimationStrings.isAlive, true);
+                animator.SetBool(AnimationStrings.canMove, true);
+            }
+
             damageable.Heal(damageable.maxHealth);
-            animator.SetBool(AnimationStrings.canMove, true);
             transform.position = respawnPoint;   
         }
     }
@@ -623,4 +670,32 @@ public class PlayerController : MonoBehaviour, IDataPersistence
             audioManager.PlaySFX(audioManager.DoublePunchSound, 0.75f);
         }
     }
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetTouchingDirections(TouchingDirections directions)
+    {
+        this.touchingDirections = directions;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetPowerupInventory(PowerupInventory inventory)
+    {
+        this.powerupInventory = inventory;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetRigidbody(Rigidbody2D rb)
+    {
+        this.rb = rb;
+    }
+    #endif
+
+    #if UNITY_EDITOR || TEST_MODE
+    public void SetDamageable(Damageable damageable)
+    {
+        this.damageable = damageable;
+    }
+    #endif
 }
