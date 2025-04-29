@@ -15,7 +15,6 @@ public class BreakableCounterUI : MonoBehaviour
 
         int current = DataPersistenceManager.instance.GameData.breakablesTotal;
 
-        // Update only when value changes
         if (current != lastBreakablesTotal)
         {
             lastBreakablesTotal = current;

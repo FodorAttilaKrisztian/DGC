@@ -13,12 +13,10 @@ public class PowerupEditModeTests
     [SetUp]
     public void SetUp()
     {
-        // Set up Powerup GameObject
         powerupGO = new GameObject("TestPowerup");
         powerup = powerupGO.AddComponent<Powerup>();
         powerup.effect = Resources.Load<PowerupEffect>("Powerups/SmallSpeedBuff");
 
-        // Set up DataPersistenceManager
         managerGO = new GameObject("DataPersistenceManager");
         var manager = managerGO.AddComponent<DataPersistenceManager>();
         manager.GameData = new GameData();

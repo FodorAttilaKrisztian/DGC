@@ -19,7 +19,7 @@ public class PowerupSpawnManager : MonoBehaviour, IDataPersistence
 
         instance = this;
 
-        DontDestroyOnLoad(gameObject); // Optional: Only if you want it to persist across scenes
+        DontDestroyOnLoad(gameObject);
     }
 
     public void SaveData(ref GameData data){}

@@ -33,7 +33,7 @@ public class Managers : MonoBehaviour
         InstantiateIfNotFound<PlayerController>(playerPrefab);
         InstantiateIfNotFound<CinemachineCamera>(cinemachineCameraPrefab);
         
-        // Special case for Canvas, since it's not MonoBehaviour-based
+        // Canvas nem MonoBehaviour
         if (FindFirstObjectByType<Canvas>() == null)
         {
             Instantiate(gameCanvasPrefab);
@@ -44,7 +44,6 @@ public class Managers : MonoBehaviour
         InstantiateIfNotFound<PowerupInventory>(powerupManagerPrefab);
     }
 
-    // Generic method to instantiate objects if not found
     private void InstantiateIfNotFound<T>(GameObject prefab) where T : MonoBehaviour
     {
         if (FindFirstObjectByType<T>() == null)
@@ -55,7 +54,7 @@ public class Managers : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        EnsurePersistentObjects(); // Check again whenever a new scene loads
+        EnsurePersistentObjects();
     }
 
     private void OnEnable()

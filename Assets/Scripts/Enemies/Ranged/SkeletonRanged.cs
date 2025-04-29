@@ -154,7 +154,6 @@ public class SkeletonRanged : MonoBehaviour
             {
                 float directionToPlayer = player.position.x - transform.position.x;
 
-                // Flip to face player
                 walkDirection = directionToPlayer > 0 ? WalkableDirection.Right : WalkableDirection.Left;
             }
 

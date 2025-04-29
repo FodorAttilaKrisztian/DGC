@@ -33,14 +33,14 @@ public class PlayerControllerEditModeTests
     
         playerController.playerDamageable.maxHealth = 100;
         
-        playerController.playerDamageable.health = 60; // Set initial health for testing
+        playerController.playerDamageable.health = 60;
         Debug.Log($"Initial health: {playerController.playerDamageable.health}");
     }
 
     [TearDown]
     public void Teardown()
     {
-        Object.DestroyImmediate(playerObj); // Clean up
+        Object.DestroyImmediate(playerObj);
     }
 
     [Test]
@@ -52,22 +52,22 @@ public class PlayerControllerEditModeTests
     [Test]
     public void PlayerCanUseSpeedBuff()
     {
-        playerController.ApplySpeedBuff(2f, 5f); // Buff multiplier = 2, duration = 5 seconds
-        Assert.AreEqual(playerController.walkSpeed, 6f); // Speed should be 3 * 2
-        Assert.AreEqual(playerController.runSpeed, 12f); // Speed should be 6 * 2
+        playerController.ApplySpeedBuff(2f, 5f);
+        Assert.AreEqual(playerController.walkSpeed, 6f);
+        Assert.AreEqual(playerController.runSpeed, 12f);
     }
 
     [Test]
     public void PlayerCanUseGravityBuff()
     {
-        playerController.ApplyGravityBuff(1f, 5f); // Gravity scale set to 1, duration = 5 seconds
-        Assert.AreEqual(playerController.Rb.gravityScale, 1f); // Should match the new gravity scale
+        playerController.ApplyGravityBuff(1f, 5f);
+        Assert.AreEqual(playerController.Rb.gravityScale, 1f);
     }
 
     [Test]
     public void PlayerCannotMoveWhenDead()
     {
-        playerController.onHit(9999, Vector2.zero); // Kill the player
+        playerController.onHit(9999, Vector2.zero);
         Assert.IsFalse(playerController.isMoving);
     }
 
@@ -75,7 +75,7 @@ public class PlayerControllerEditModeTests
     public void SetFacingDirection_FlipsCorrectly()
     {
         var player = new GameObject().AddComponent<PlayerController>();
-        player.SetDamageable(new Damageable()); // or mock
+        player.SetDamageable(new Damageable());
         player.SetTouchingDirections(new TouchingDirections());
         player.SetRigidbody(player.gameObject.AddComponent<Rigidbody2D>());
 
@@ -96,10 +96,10 @@ public class PlayerControllerEditModeTests
         player.SetRigidbody(player.gameObject.AddComponent<Rigidbody2D>());
         var context = new InputAction.CallbackContext();
 
-        player.onRangedAttack(context); // First attack, should set lastRangedAttackTime
+        player.onRangedAttack(context);
 
         float firstTime = player.GetType().GetField("lastRangedAttackTime", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(player) as float? ?? -999f;
-        player.onRangedAttack(context); // Shouldn't allow another attack right away
+        player.onRangedAttack(context);
 
         float secondTime = player.GetType().GetField("lastRangedAttackTime", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(player) as float? ?? -999f;
         

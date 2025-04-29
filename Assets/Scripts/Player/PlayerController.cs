@@ -387,7 +387,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
     {
         Debug.Log("OnUsePowerup1 triggered");
 
-        if (PauseMenu.instance != null && !PauseMenu.isPaused) // Ensure PauseMenu is assigned
+        if (PauseMenu.instance != null && !PauseMenu.isPaused)
         {
             if (context.started)
             {
@@ -395,7 +395,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
                 powerupInventory.UsePowerup("HealthBuff");
             }
         }
-        else if (PauseMenu.instance == null) // If PauseMenu is not assigned, assume it's not paused
+        else if (PauseMenu.instance == null)
         {
             Debug.Log("PauseMenu is null, context NOT started");
             if (context.started)
@@ -413,14 +413,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void OnUsePowerup2(InputAction.CallbackContext context)
     {
-        if (PauseMenu.instance != null && !PauseMenu.isPaused) // Ensure PauseMenu is assigned
+        if (PauseMenu.instance != null && !PauseMenu.isPaused)
         {
             if (context.started)
             {
                 powerupInventory.UsePowerup("SpeedBuff");
             }
         }
-        else if (PauseMenu.instance == null) // If PauseMenu is not assigned, assume it's not paused
+        else if (PauseMenu.instance == null)
         {
             if (context.started)
             {
@@ -431,14 +431,14 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void OnUsePowerup3(InputAction.CallbackContext context)
     {
-        if (PauseMenu.instance != null && !PauseMenu.isPaused) // Ensure PauseMenu is assigned
+        if (PauseMenu.instance != null && !PauseMenu.isPaused)
         {
             if (context.started)
             {
                 powerupInventory.UsePowerup("GravityBuff");
             }
         }
-        else if (PauseMenu.instance == null) // If PauseMenu is not assigned, assume it's not paused
+        else if (PauseMenu.instance == null)
         {
             if (context.started)
             {
@@ -549,7 +549,7 @@ public class PlayerController : MonoBehaviour, IDataPersistence
 
     public void LoadData(GameData data)
     {
-        damageable.health = data.currentHP; // Assuming damageable has a `currentHealth` property
+        damageable.health = data.currentHP;
         currentLives = data.currentLifeCount;
         transform.position = data.lastCheckpointPosition;
         hasFireball = data.fireballCollected;

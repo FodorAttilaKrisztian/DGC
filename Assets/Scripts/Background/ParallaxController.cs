@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Controls layered parallax movement based on camera movement.
-/// Attach to an empty GameObject and assign background layers.
-/// </summary>
 public class ParallaxController : MonoBehaviour
 {
     [System.Serializable]

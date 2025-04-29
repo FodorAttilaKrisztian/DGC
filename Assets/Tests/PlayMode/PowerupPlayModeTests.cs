@@ -12,27 +12,25 @@ public class PowerupPlayModeTests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
-        // Create and initialize DataPersistenceManager
         dpManagerGO = new GameObject("DataPersistenceManager");
         var testManager = dpManagerGO.AddComponent<TestDataPersistenceManager>();
-        testManager.Awake(); // Initialize
+        testManager.Awake();
         testManager.GameData = new GameData();
 
-        yield return null; // Wait a frame so manager becomes "active"
+        yield return null;
 
-        // Now set up the powerup
         powerupGO = new GameObject("TestPowerup");
         powerup = powerupGO.AddComponent<Powerup>();
         powerup.effect = Resources.Load<PowerupEffect>("Powerups/SmallSpeedBuff");
         powerup.InitializePersistentID("powerup-test-id");
 
-        yield return null; // Let Start() on Powerup run
+        yield return null;
     }
 
     [UnityTest]
     public IEnumerator Start_RegistersUncollectedPowerup()
     {
-        yield return new WaitForSeconds(0.1f); // Let coroutine complete
+        yield return new WaitForSeconds(0.1f);
 
         var data = DataPersistenceManager.instance.GameData;
         var registered = data.uncollectedPowerups.Find(p => p.id == "powerup-test-id");
@@ -44,10 +42,8 @@ public class PowerupPlayModeTests
     [UnityTest]
     public IEnumerator Awake_GeneratesGUID_IfIDEmpty()
     {
-        // We don’t need to manually call Awake() here as Unity will handle it
-        yield return null; // Let Unity run one frame
+        yield return null;
 
-        // Now check that the GUID is generated
         string id = powerup.GetID();
         Assert.IsFalse(string.IsNullOrEmpty(id));
     }
@@ -70,7 +66,5 @@ public class TestDataPersistenceManager : DataPersistenceManager
     }
 
     public void Start()
-    {
-        // Skip base Start() to avoid auto-loading/saving
-    }
+    {}
 }

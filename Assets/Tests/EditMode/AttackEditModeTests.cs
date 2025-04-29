@@ -27,13 +27,10 @@ public class AttackEditModeTests
     [Test]
     public void Attack_ShouldHaveCorrectInitialValues()
     {
-        // Checking initial values set by default in the inspector
         var attack = attackComponent;
 
-        // Assert default attack damage
         Assert.AreEqual(10, attack.GetType().GetField("attackDamage", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(attack));
 
-        // Assert default knockback force (should be zero initially)
         var knockBackForce = (Vector2)attack.GetType().GetField("knockBackForce", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(attack);
         Assert.AreEqual(Vector2.zero, knockBackForce);
     }

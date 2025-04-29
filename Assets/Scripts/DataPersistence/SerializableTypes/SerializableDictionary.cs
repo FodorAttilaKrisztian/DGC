@@ -11,7 +11,6 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
     [SerializeField]
     private List<TValue> values = new List<TValue>();
 
-    // Save the dictionary to lists
     public void OnBeforeSerialize()
     {
         keys.Clear();
@@ -24,7 +23,6 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
         }
     }
 
-    // Load the dictionary from lists
     public void OnAfterDeserialize()
     {
         this.Clear();

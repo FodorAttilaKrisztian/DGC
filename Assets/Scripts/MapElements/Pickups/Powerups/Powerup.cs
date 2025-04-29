@@ -37,8 +37,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
 
     private void Start()
     {
-        // At this point, effect should be assigned (by spawn manager)
-        // Now we can safely register to GameData
         if (!isInitialized && effect != null)
         {
             StartCoroutine(WaitForGameData());
@@ -65,13 +63,11 @@ public class Powerup : MonoBehaviour, IDataPersistence
 
     private IEnumerator WaitForGameData()
     {
-        // Wait until DataPersistenceManager.instance.GameData is not null
         while (DataPersistenceManager.instance == null || DataPersistenceManager.instance.GameData == null)
         {
-            yield return null; // Wait for one frame and try again
+            yield return null;
         }
 
-        // Now GameData is available, so register the powerup
         RegisterUncollected();
     }
 
@@ -86,7 +82,6 @@ public class Powerup : MonoBehaviour, IDataPersistence
                 inventory.StorePowerup(effect);
                 isCollected = true;
 
-                // Remove from GameData (collected)
                 GameData data = DataPersistenceManager.instance.GameData;
                 data.uncollectedPowerups.RemoveAll(p => p.id == id);
 

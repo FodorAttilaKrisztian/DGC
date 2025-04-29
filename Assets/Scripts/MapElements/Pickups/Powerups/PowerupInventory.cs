@@ -29,7 +29,6 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
 
     private IEnumerator DelayedStart()
     {
-        // Wait for PlayerController.instance to be assigned
         while (PlayerController.instance == null)
             yield return null;
 
@@ -74,7 +73,7 @@ public class PowerupInventory : MonoBehaviour, IDataPersistence
         {
             foreach (var powerup in powerupQueue.Value)
             {
-                data.powerupNames.Add(powerup.name); // Save the ScriptableObject name
+                data.powerupNames.Add(powerup.name);
             }
         }
     }

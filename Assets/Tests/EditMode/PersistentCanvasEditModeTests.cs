@@ -20,10 +20,8 @@ public class PersistentCanvasEditModeTests
         persistentCanvas = canvasObject.AddComponent<PersistentCanvas>();
 
 
-        // Important: manually set the singleton for EditMode
         PersistentCanvas.SetSingleton(persistentCanvas);
 
-        // Skip Awake logic that uses DontDestroyOnLoad in EditMode
         if (!Application.isPlaying)
         {
             persistentCanvas.enabled = false;
@@ -40,7 +38,6 @@ public class PersistentCanvasEditModeTests
     [Test]
     public void Singleton_ShouldOnlyHaveOneInstance()
     {
-        // Ensure the PersistentCanvas instance is properly initialized
         Assert.NotNull(PersistentCanvas.instance, "PersistentCanvas instance should not be null.");
         Assert.AreEqual(persistentCanvas, PersistentCanvas.instance, "There should only be one instance of PersistentCanvas.");
     }
@@ -48,14 +45,12 @@ public class PersistentCanvasEditModeTests
     [Test]
     public void Canvas_ShouldBeAttached()
     {
-        // Ensure the canvas is attached to the PersistentCanvas
         Assert.NotNull(canvas, "PersistentCanvas should have a Canvas component attached.");
     }
 
     [Test]
     public void Canvas_ShouldNotHaveChildrenInitially()
     {
-        // Ensure the canvas does not have any child objects at the start
         Assert.AreEqual(0, persistentCanvas.transform.childCount, "PersistentCanvas should not have any child objects at the start.");
     }
 }

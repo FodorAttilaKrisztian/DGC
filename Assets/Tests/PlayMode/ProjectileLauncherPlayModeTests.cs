@@ -55,21 +55,17 @@ public class ProjectileLauncherPlayModeTests
     [UnityTest]
     public IEnumerator FireProjectile_InstantiatesProjectile()
     {
-        // Act: Fire the projectile
         projectileLauncher.FireProjectile();
         yield return null;
 
-        // Get instantiated projectiles
         var projectiles = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
 
-        // Assert that at least one projectile is instantiated
         Assert.IsNotEmpty(projectiles, "Expected a projectile to be instantiated");
     }
 
     [UnityTest]
     public IEnumerator FireProjectile_FlipsProjectileIfImplemented()
     {
-        // Set up direction to -1 (simulate left-facing)
         launcherGO.transform.localScale = new Vector3(-1, 1, 1);
 
         projectileLauncher.FireProjectile();
@@ -80,20 +76,14 @@ public class ProjectileLauncherPlayModeTests
 
         var projectile = projectiles[0];
 
-        // We don't *require* flipping, just log what we got
         Debug.Log($"Projectile localScale.x: {projectile.transform.localScale.x}");
-
-        // Optional: only assert if it's not already hardcoded
-        // Assert.AreEqual(-1f, Mathf.Sign(projectile.transform.localScale.x));
     }
 
     [UnityTest]
     public IEnumerator FireProjectile_LogsWarningIfPrefabOrFirePointIsMissing()
     {
-        // Snapshot current projectiles
         var before = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
 
-        // Break the launcher on purpose
         projectileLauncher.ProjectilePrefab = null;
         typeof(ProjectileLauncher)
             .GetField("firePoint", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
@@ -107,7 +97,6 @@ public class ProjectileLauncherPlayModeTests
 
         var after = GameObject.FindObjectsByType<Projectile>(FindObjectsSortMode.None);
 
-        // Compare counts instead of assuming the list will be empty
         Assert.AreEqual(before.Length, after.Length, "No projectile should be instantiated if prefab or firepoint is missing.");
         Assert.IsTrue(logHandler.ContainsWarning("Missing firePoint or projectilePrefab"), "Expected warning not found in logs.");
 

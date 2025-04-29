@@ -13,7 +13,6 @@ public class ProjectilePlayModeTests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
-        // Create Projectile GameObject
         projectileGO = new GameObject("Projectile");
         projectileGO.transform.position = Vector2.zero;
         var rb = projectileGO.AddComponent<Rigidbody2D>();
@@ -21,10 +20,8 @@ public class ProjectilePlayModeTests
         projectile = projectileGO.AddComponent<Projectile>();
         projectileGO.AddComponent<CircleCollider2D>().isTrigger = true;
 
-        // Set layer to Default
         projectileGO.layer = LayerMask.NameToLayer("Default");
 
-        // Create Damageable GameObject
         damageableGO = new GameObject("Damageable");
         damageableGO.transform.position = new Vector2(5f, 0f);
         var collider = damageableGO.AddComponent<BoxCollider2D>();
@@ -49,12 +46,11 @@ public class ProjectilePlayModeTests
     public IEnumerator Projectile_HitsDamageable_And_DestroysItself()
     {
         var mock = damageableGO.GetComponent<MockDamageable>();
-        projectileGO.transform.localScale = Vector3.one; // face right
-        projectileGO.transform.position = new Vector3(-5f, 0f); // start left of target
+        projectileGO.transform.localScale = Vector3.one;
+        projectileGO.transform.position = new Vector3(-5f, 0f);
 
-        yield return new WaitForSeconds(0.1f); // Let velocity apply
+        yield return new WaitForSeconds(0.1f);
 
-        // Wait until projectile reaches target
         float timeout = 3f;
         while (projectileGO != null && timeout > 0f)
         {
@@ -66,7 +62,6 @@ public class ProjectilePlayModeTests
         Assert.IsTrue(projectileGO == null, "Projectile should have destroyed itself.");
     }
 
-    // Simple mock for Damageable
     private class MockDamageable : Damageable
     {
         public bool WasHit = false;

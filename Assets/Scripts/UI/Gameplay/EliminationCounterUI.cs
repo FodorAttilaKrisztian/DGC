@@ -15,7 +15,6 @@ public class EliminationCounterUI : MonoBehaviour
 
         int current = DataPersistenceManager.instance.GameData.eliminationsTotal;
 
-        // Update only when value changes
         if (current != lastEliminationsTotal)
         {
             lastEliminationsTotal = current;

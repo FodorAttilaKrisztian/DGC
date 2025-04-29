@@ -33,7 +33,7 @@ public class Skeleton : MonoBehaviour
     public Vector2 WalkDirectionVector => walkDirectionVector;
     public bool canMove => animator.GetBool(AnimationStrings.canMove);
 
-    public Animator Animator => animator; // Add this to access the Animator in your tests
+    public Animator Animator => animator;
 
     public float AttackCooldown
     {
@@ -177,7 +177,6 @@ public class Skeleton : MonoBehaviour
             {
                 float directionToPlayer = player.position.x - transform.position.x;
 
-                // Flip to face player
                 walkDirection = directionToPlayer > 0 ? WalkableDirection.Right : WalkableDirection.Left;
             }
 

@@ -25,7 +25,6 @@ public class Damageable : MonoBehaviour
     public float timeSinceHit = 0f;
     private Animator animator;
 
-    // --- Properties ---
     public int maxHealth
     {
         get => _maxHealth;
@@ -67,7 +66,6 @@ public class Damageable : MonoBehaviour
         set => animator.SetBool(AnimationStrings.lockVelocity, value);
     }
 
-    // --- Unity Methods ---
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -75,7 +73,6 @@ public class Damageable : MonoBehaviour
 
     private void Start()
     {
-        // Ensure health only initializes if it's not already manually set
         if (_health <= 0 || _health > maxHealth)
             _health = maxHealth;
     }
@@ -93,7 +90,6 @@ public class Damageable : MonoBehaviour
         }
     }
 
-    // --- Public Methods ---
     public virtual bool Hit(int damage, Vector2 knockBackForce)
     {
         if (!isAlive || isInvincible) return false;

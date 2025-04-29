@@ -16,21 +16,17 @@ public class PersistentCameraPlayModeTests
     [UnitySetUp]
     public IEnumerator SetUp()
     {
-        // Set up PersistentCamera GameObject
         cameraObject = new GameObject("PersistentCamera");
 
-        // Important: add the CinemachineCamera first
         cinemachineCamera = cameraObject.AddComponent<CinemachineCamera>();
         persistentCamera = cameraObject.AddComponent<PersistentCamera>();
 
-        // Set up player
         playerObject = new GameObject("Player");
         var controller = playerObject.AddComponent<PlayerController>();
         PlayerController.instance = controller;
 
-        yield return null;  // Wait for one frame to ensure Awake() is called
+        yield return null;
 
-        // Assert the singleton instance is correctly assigned after Awake()
         Assert.NotNull(PersistentCamera.instance, "PersistentCamera.instance should be assigned after Awake.");
         Assert.AreEqual(persistentCamera, PersistentCamera.instance, "Singleton instance should match the camera in the scene.");
     }
@@ -38,7 +34,6 @@ public class PersistentCameraPlayModeTests
     [UnityTearDown]
     public IEnumerator TearDown()
     {
-        // Cleanup
         Object.Destroy(cameraObject);
         Object.Destroy(playerObject);
         PlayerController.instance = null;
@@ -51,7 +46,7 @@ public class PersistentCameraPlayModeTests
     {
         var testScene = SceneManager.CreateScene("TestScene");
 
-        yield return null; // Let Unity process the scene switch
+        yield return null;
 
         SceneManager.SetActiveScene(testScene);
         yield return null;
@@ -62,9 +57,8 @@ public class PersistentCameraPlayModeTests
     [UnityTest]
     public IEnumerator Camera_ShouldFollowPlayer()
     {
-        yield return null; // Wait to ensure Start/Awake has run
+        yield return null;
 
-        // Check that the camera follows the player's transform
         Assert.AreEqual(playerObject.transform, cinemachineCamera.Follow, "Camera should follow the PlayerController's transform.");
     }
 
@@ -73,7 +67,6 @@ public class PersistentCameraPlayModeTests
     {
         PlayerController.instance = null;
 
-        // Manually trigger the camera's behavior to update
         persistentCamera.GetComponent<CinemachineCamera>().Follow = null;
 
         yield return null;

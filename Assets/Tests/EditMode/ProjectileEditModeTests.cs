@@ -13,7 +13,7 @@ public class ProjectileEditModeTests
     {
         projectileGO = new GameObject("Projectile");
         projectile = projectileGO.AddComponent<Projectile>();
-        projectileGO.AddComponent<Rigidbody2D>();  // Ensure Rigidbody2D is added as required
+        projectileGO.AddComponent<Rigidbody2D>();
     }
 
     [Test]
@@ -37,6 +37,6 @@ public class ProjectileEditModeTests
     [TearDown]
     public void Teardown()
     {
-        Object.DestroyImmediate(projectileGO);  // Cleanup
+        Object.DestroyImmediate(projectileGO);
     }
 }

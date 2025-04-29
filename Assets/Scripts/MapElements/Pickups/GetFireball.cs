@@ -19,7 +19,7 @@ public class GetFireball : MonoBehaviour, IDataPersistence
         if (other.CompareTag("Player") && !PlayerController.instance.hasFireball)
         {
             PlayerController.instance.hasFireball = true;
-            UIManager.instance.SetFireballUI(true);  // Use the cached reference
+            UIManager.instance.SetFireballUI(true);
             DataPersistenceManager.instance.SaveGame();
 
             if (AudioManager.instance != null)

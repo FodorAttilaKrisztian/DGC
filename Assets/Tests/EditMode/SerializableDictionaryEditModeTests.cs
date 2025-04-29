@@ -13,14 +13,11 @@ public class SerializableDictionaryTests
         dict.Add(1, "One");
         dict.Add(2, "Two");
 
-        // Before serialization, populate the keys and values lists
         dict.OnBeforeSerialize();
 
-        // Convert keys and values collections to lists for indexing
         List<int> keys = dict.Keys.ToList();
         List<string> values = dict.Values.ToList();
 
-        // Check if keys and values lists are populated correctly
         Assert.AreEqual(2, keys.Count, "Keys list should contain 2 items.");
         Assert.AreEqual(2, values.Count, "Values list should contain 2 items.");
         Assert.AreEqual(1, keys[0], "First key should be 1.");
@@ -34,13 +31,11 @@ public class SerializableDictionaryTests
     {
         var dict = new SerializableDictionary<int, string>();
 
-        // Manually set up the internal lists (not the Values or Keys properties)
         dict.GetType().GetField("keys", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(dict, new List<int> { 1, 2 });
         dict.GetType().GetField("values", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(dict, new List<string> { "One", "Two" });
 
         dict.OnAfterDeserialize();
 
-        // Check if the dictionary was correctly rebuilt
         Assert.AreEqual(2, dict.Count, "Dictionary should contain 2 key-value pairs.");
         Assert.AreEqual("One", dict[1], "Dictionary should contain key 1 with value 'One'.");
         Assert.AreEqual("Two", dict[2], "Dictionary should contain key 2 with value 'Two'.");
@@ -51,11 +46,9 @@ public class SerializableDictionaryTests
     {
         var dict = new SerializableDictionary<int, string>();
 
-        // Manually set up the internal lists with mismatched counts
         dict.GetType().GetField("keys", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(dict, new List<int> { 1, 2 });
         dict.GetType().GetField("values", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).SetValue(dict, new List<string> { "One" });
 
-        // Expect an error log to be generated when mismatched keys and values are detected
         LogAssert.Expect(LogType.Error, "Tried to deserialize a SerializableDictionary, but the amount of keys (2) does not match the number of values (1) which indicates that something went wrong.");
 
         dict.OnAfterDeserialize();

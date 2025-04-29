@@ -17,7 +17,7 @@ public class LifeBuffPickup : MonoBehaviour, IDataPersistence
     {
         if (string.IsNullOrEmpty(id))
         {
-            id = System.Guid.NewGuid().ToString();  // Assign a new GUID if missing
+            id = System.Guid.NewGuid().ToString();
         }
     }
 

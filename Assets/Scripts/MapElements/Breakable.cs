@@ -85,7 +85,6 @@ public class Breakable : MonoBehaviour, IDataPersistence
 
             if (powerupComponent != null)
             {
-                // Combine the breakable ID + effect type to make a consistent unique ID
                 powerupComponent.InitializePersistentID(id + "_" + powerupComponent.effect.name);
             }
         }

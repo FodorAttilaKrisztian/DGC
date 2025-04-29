@@ -20,7 +20,7 @@ public class DataPersistenceManager : MonoBehaviour
     public string FileName
     {
         get => fileName;
-        set => fileName = value; // Allow test code to assign the file name
+        set => fileName = value;
     }
 
     public GameData GameData
@@ -115,7 +115,7 @@ public class DataPersistenceManager : MonoBehaviour
 
     private IEnumerator InitializeDataPersistence()
     {
-        yield return new WaitForEndOfFrame(); // Wait until the first frame is done rendering
+        yield return new WaitForEndOfFrame();
         LoadGame();
     }
 
@@ -132,7 +132,6 @@ public class DataPersistenceManager : MonoBehaviour
     }
 
     #if UNITY_EDITOR || TEST_MODE
-    // Test hook to set the instance for unit tests
     public static void SetInstanceForTesting(DataPersistenceManager testInstance)
     {
         instance = testInstance;

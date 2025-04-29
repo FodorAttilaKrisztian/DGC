@@ -13,13 +13,12 @@ public class FileDataHandlerTests
     {
         testPath = Path.Combine(Application.persistentDataPath, "testDir");
         testFileName = "testSaveData.json";
-        fileDataHandler = new FileDataHandler(testPath, testFileName, false); // No encryption for simplicity
+        fileDataHandler = new FileDataHandler(testPath, testFileName, false);
     }
 
     [TearDown]
     public void TearDown()
     {
-        // Clean up after each test
         string fullPath = Path.Combine(testPath, testFileName);
         if (File.Exists(fullPath))
         {
@@ -58,7 +57,6 @@ public class FileDataHandlerTests
     [Test]
     public void LoadGame_ReturnsNullWhenFileDoesNotExist()
     {
-        // Ensure the file doesn't exist before the test
         string fullPath = Path.Combine(testPath, testFileName);
         if (File.Exists(fullPath))
         {
@@ -73,7 +71,6 @@ public class FileDataHandlerTests
     [Test]
     public void SaveGame_HandlesFileWriteError()
     {
-        // Simulate a write error by providing an invalid directory
         string invalidPath = "/invalid/directory";
         FileDataHandler faultyFileDataHandler = new FileDataHandler(invalidPath, testFileName, false);
 

@@ -24,7 +24,6 @@ public class BreakableEditModeTests
     [Test]
     public void GenerateGuid_GeneratesNewID()
     {
-        // Generate a GUID for the breakable object
         breakable.GenerateGuid();
 
         string id = breakable.GetID();

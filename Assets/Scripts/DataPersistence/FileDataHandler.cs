@@ -29,7 +29,6 @@ public class FileDataHandler
         {
             try
             {
-                //Load the serialized data from the file
                 string dataToLoad = "";
 
                 using (FileStream stream = new FileStream(fullPath, FileMode.Open))
@@ -45,7 +44,6 @@ public class FileDataHandler
                     dataToLoad = EncryptDecrypt(dataToLoad);
                 }
 
-                //deserialize the data from Json back into the C# object
                 loadedData = JsonUtility.FromJson<GameData>(dataToLoad);
             }
             catch (Exception e)

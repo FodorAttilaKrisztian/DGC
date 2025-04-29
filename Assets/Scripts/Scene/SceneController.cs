@@ -59,7 +59,6 @@ public class SceneController : MonoBehaviour
 
         SetPlayerSpawnPosition();
 
-        // Load game data after scene load
         DataPersistenceManager.instance?.LoadGame();
 
         TriggerLevelStartTransition();
@@ -70,7 +69,7 @@ public class SceneController : MonoBehaviour
         if (transitionAnim != null)
         {
             transitionAnim.SetTrigger(AnimationStrings.levelEndTrigger);
-            yield return new WaitForSeconds(1f); // Wait 1 second before proceeding
+            yield return new WaitForSeconds(1f);
         }
 
         yield break;

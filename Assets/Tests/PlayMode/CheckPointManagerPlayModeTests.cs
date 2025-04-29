@@ -24,7 +24,7 @@ public class CheckpointManagerPlayModeTests
 
         playerGO.AddComponent<Animator>();
 
-        yield return null; // Let Unity initialize
+        yield return null;
     }
 
     [UnityTearDown]
@@ -57,13 +57,11 @@ public class CheckpointManagerPlayModeTests
     [UnityTest]
     public IEnumerator TryActivateCheckpoint_IgnoresLowerPriority()
     {
-        // Higher priority one first
         var cp1GO = new GameObject("CP1");
         var cp1 = cp1GO.AddComponent<CheckPoint>();
         cp1.priority = 5;
         manager.TryActivateCheckpoint(cp1);
 
-        // Lower priority one
         var cp2GO = new GameObject("CP2");
         var cp2 = cp2GO.AddComponent<CheckPoint>();
         cp2.priority = 2;

@@ -12,14 +12,13 @@ public class Spike : MonoBehaviour
         {
             float horizontalDirection = Mathf.Sign(rb.linearVelocity.x);
 
-            Vector2 deliveredKnockBackForce = new Vector2(horizontalDirection * 2f, 5f); // Strong upward force
+            Vector2 deliveredKnockBackForce = new Vector2(horizontalDirection * 2f, 5f);
             
-            //Notify other subscribed components that this object was hit to handle the knockback and damage
             animator.SetTrigger(AnimationStrings.hitTrigger);
 
             damageable.Hit(damageable.health, deliveredKnockBackForce);
 
-            rb.linearVelocity = Vector2.zero; // reset current velocity to prevent downward drag
+            rb.linearVelocity = Vector2.zero;
             rb.AddForce(deliveredKnockBackForce, ForceMode2D.Impulse);
         }
     }

@@ -1,10 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// Simple material-based horizontal parallax (auto-scroll).
-/// Attach to a background object with a material using a tiling texture.
-/// </summary>
-
 [RequireComponent(typeof(Renderer))]
 public class Parallax : MonoBehaviour
 {

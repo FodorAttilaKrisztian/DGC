@@ -12,7 +12,6 @@ public class PersistentCameraEditModeTests
     [SetUp]
     public void SetUp()
     {
-        // Use reflection to set PersistentCamera.instance to null before each test
         var fieldInfo = typeof(PersistentCamera).GetProperty("instance", BindingFlags.Public | BindingFlags.Static);
         fieldInfo.SetValue(null, null);
     }
@@ -32,7 +31,6 @@ public class PersistentCameraEditModeTests
     [Test]
     public void PersistentCamera_Singleton_InstanceShouldBeNullInEditor()
     {
-        // Assert that PersistentCamera.instance is null in EditMode before play.
         Assert.IsNull(PersistentCamera.instance, "PersistentCamera.instance should be null in EditMode before play.");
     }
 }

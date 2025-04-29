@@ -26,7 +26,7 @@ public class SkeletonRangedEditModeTests
 
         skeleton.SetAnimator(animator);
         skeleton.SetRigidbody(rb);
-        skeleton.SetTouchingDirections(touching); // ✅ Nice and clear
+        skeleton.SetTouchingDirections(touching);
     }
 
     [TearDown]
@@ -56,7 +56,6 @@ public class SkeletonRangedEditModeTests
     [Test]
     public void OnCliffDetected_Flips_WhenGrounded()
     {
-        // Initialize IsGrounded property to true to simulate the character being on the ground
         touching.SetGrounded(true);
         skeleton.walkDirection = Skeleton.WalkableDirection.Right;
 
@@ -68,7 +67,6 @@ public class SkeletonRangedEditModeTests
     [Test]
     public void OnCliffDetected_DoesNothing_WhenNotGrounded()
     {
-        // Initialize IsGrounded property to false to simulate the character being in the air
         touching.SetGrounded(false);
         skeleton.walkDirection = Skeleton.WalkableDirection.Right;
 
@@ -81,7 +79,7 @@ public class SkeletonRangedEditModeTests
     public void OnHit_AppliesKnockback()
     {
         Vector2 knockback = new Vector2(-5, 3);
-        rb.linearVelocity = Vector2.zero; // Reset velocity before the test
+        rb.linearVelocity = Vector2.zero;
 
         skeleton.onHit(10, knockback);
 
@@ -92,18 +90,15 @@ public class SkeletonRangedEditModeTests
     [Test]
     public void AddToEliminationCounter_UpdatesGameData()
     {
-        // Arrange
-        var gameData = new GameData(); // Ensure GameData is initialized
+        var gameData = new GameData();
         var mockManager = new GameObject().AddComponent<MockDataPersistenceManager>();
         mockManager.GameData = gameData;
         skeleton.SetDataPersistenceManagerForTesting(mockManager);
 
-        // Act
-        skeleton.AddToEliminationCounter(); // This should increment eliminationsTotal and score
+        skeleton.AddToEliminationCounter();
 
-        // Assert
-        Assert.AreEqual(1, gameData.eliminationsTotal); // Check if eliminationsTotal is updated
-        Assert.AreEqual(100, gameData.score); // Check if score is updated
+        Assert.AreEqual(1, gameData.eliminationsTotal);
+        Assert.AreEqual(100, gameData.score);
     }
 
     [Test]

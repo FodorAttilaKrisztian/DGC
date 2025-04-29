@@ -14,12 +14,10 @@ public class PowerupInventoryTests
     [SetUp]
     public void Setup()
     {
-        // Mock player
         playerObject = new GameObject("Player");
 
         playerController = playerObject.AddComponent<PlayerController>();
 
-        // PowerupInventory
         var inventoryGO = new GameObject("PowerupInventory");
         inventory = inventoryGO.AddComponent<PowerupInventory>();
 
@@ -30,7 +28,6 @@ public class PowerupInventoryTests
     [UnityTest]
     public IEnumerator StorePowerup_AddsToInventory()
     {
-        // Load powerup from Resources
         PowerupEffect powerup = Resources.Load<PowerupEffect>("Powerups/SmallSpeedBuff");
         Assert.IsNotNull(powerup, "SmallSpeedBuff not found in Resources/Powerups");
 
@@ -45,7 +42,6 @@ public class PowerupInventoryTests
     [UnityTest]
     public IEnumerator UsePowerup_RemovesAfterUse()
     {
-        // Load powerup from Resources
         PowerupEffect powerup = Resources.Load<PowerupEffect>("Powerups/SmallSpeedBuff");
         Assert.IsNotNull(powerup, "SmallSpeedBuff not found in Resources/Powerups");
 

@@ -19,7 +19,7 @@ public class KeyPickup : MonoBehaviour, IDataPersistence
         if (other.CompareTag("Player") && !PlayerController.instance.hasKey)
         {
             PlayerController.instance.hasKey = true;
-            UIManager.instance.SetKeyUI(true);  // Use the cached reference
+            UIManager.instance.SetKeyUI(true);
             DataPersistenceManager.instance.SaveGame();
 
             if (AudioManager.instance != null)

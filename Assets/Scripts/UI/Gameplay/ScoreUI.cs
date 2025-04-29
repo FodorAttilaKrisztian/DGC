@@ -16,7 +16,6 @@ public class ScoreUI : MonoBehaviour
 
         int current = DataPersistenceManager.instance.GameData.score;
 
-        // Update only when value changes
         if (current != lastScore)
         {
             lastScore = current;

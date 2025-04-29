@@ -24,7 +24,6 @@ public class PersistentCamera : MonoBehaviour
         instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // If CinemachineCamera is not found, try adding it automatically.
         cam = GetComponent<CinemachineCamera>();
         
         if (cam == null)

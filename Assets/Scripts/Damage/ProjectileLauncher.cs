@@ -23,7 +23,7 @@ public class ProjectileLauncher : MonoBehaviour
 
     private void Reset()
     {
-        if (firePoint == null) firePoint = transform;  // Default to current transform if not set
+        if (firePoint == null) firePoint = transform;
     }
 
     public void FireProjectile()

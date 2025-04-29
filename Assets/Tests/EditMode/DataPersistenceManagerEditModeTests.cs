@@ -10,7 +10,6 @@ public class DataPersistenceManagerEditModeTests
     [SetUp]
     public void Setup()
     {
-        // Create a new DataPersistenceManager in EditMode.
         GameObject gameObject = new GameObject();
         dataPersistenceManager = gameObject.AddComponent<DataPersistenceManager>();
     }
@@ -18,13 +17,12 @@ public class DataPersistenceManagerEditModeTests
     [TearDown]
     public void TearDown()
     {
-        Object.DestroyImmediate(dataPersistenceManager.gameObject);  // Clean up after each test
+        Object.DestroyImmediate(dataPersistenceManager.gameObject);
     }
 
     [Test]
     public void NewGame_InitializesWithDefaultData()
     {
-        // Test that a new game initializes with default data.
         dataPersistenceManager.NewGame();
 
         Assert.AreEqual(100, dataPersistenceManager.GameData.currentHP);
