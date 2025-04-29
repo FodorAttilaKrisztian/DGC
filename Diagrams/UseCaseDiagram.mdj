@@ -1,0 +1,160 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Main",
+					"defaultDiagram": true
+				}
+			]
+		},
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAGWg5GghYTSzL0=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model1",
+			"ownedElements": [
+				{
+					"_type": "UMLUseCaseDiagram",
+					"_id": "AAAAAAGWg5GghYTT/1U=",
+					"_parent": {
+						"$ref": "AAAAAAGWg5GghYTSzL0="
+					},
+					"name": "UseCaseDiagramMenus",
+					"ownedViews": [
+						{
+							"_type": "UMLFrameView",
+							"_id": "AAAAAAGWg5G5L4TXt1k=",
+							"_parent": {
+								"$ref": "AAAAAAGWg5GghYTT/1U="
+							},
+							"model": {
+								"$ref": "AAAAAAGWg5GghYTT/1U="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAGWg5G5L4TYVIs=",
+									"_parent": {
+										"$ref": "AAAAAAGWg5G5L4TXt1k="
+									},
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": 800.72998046875,
+									"top": 613,
+									"width": 141.60986328125,
+									"height": 13,
+									"text": "UseCaseDiagramMenus"
+								},
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAGWg5G5L4TZYUU=",
+									"_parent": {
+										"$ref": "AAAAAAGWg5G5L4TXt1k="
+									},
+									"font": "Arial;13;1",
+									"parentStyle": true,
+									"left": 781,
+									"top": 613,
+									"width": 13.72998046875,
+									"height": 13,
+									"text": "uc"
+								}
+							],
+							"font": "Arial;13;0",
+							"parentStyle": false,
+							"left": 776,
+							"top": 608,
+							"width": 700,
+							"height": 600,
+							"nameLabel": {
+								"$ref": "AAAAAAGWg5G5L4TYVIs="
+							},
+							"frameTypeLabel": {
+								"$ref": "AAAAAAGWg5G5L4TZYUU="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLUseCaseDiagram",
+					"_id": "AAAAAAGWg5KVTYTil5g=",
+					"_parent": {
+						"$ref": "AAAAAAGWg5GghYTSzL0="
+					},
+					"name": "UseCaseDiagramGameplay",
+					"ownedViews": [
+						{
+							"_type": "UMLFrameView",
+							"_id": "AAAAAAGWg5KyrITljSs=",
+							"_parent": {
+								"$ref": "AAAAAAGWg5KVTYTil5g="
+							},
+							"model": {
+								"$ref": "AAAAAAGWg5KVTYTil5g="
+							},
+							"subViews": [
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAGWg5KyrITmxT0=",
+									"_parent": {
+										"$ref": "AAAAAAGWg5KyrITljSs="
+									},
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": 640.72998046875,
+									"top": 245,
+									"width": 161.83984375,
+									"height": 13,
+									"text": "UseCaseDiagramGameplay"
+								},
+								{
+									"_type": "LabelView",
+									"_id": "AAAAAAGWg5KyrITnrWU=",
+									"_parent": {
+										"$ref": "AAAAAAGWg5KyrITljSs="
+									},
+									"font": "Arial;13;1",
+									"parentStyle": true,
+									"left": 621,
+									"top": 245,
+									"width": 13.72998046875,
+									"height": 13,
+									"text": "uc"
+								}
+							],
+							"font": "Arial;13;0",
+							"parentStyle": false,
+							"left": 616,
+							"top": 240,
+							"width": 700,
+							"height": 600,
+							"nameLabel": {
+								"$ref": "AAAAAAGWg5KyrITmxT0="
+							},
+							"frameTypeLabel": {
+								"$ref": "AAAAAAGWg5KyrITnrWU="
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

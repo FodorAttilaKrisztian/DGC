@@ -125,7 +125,7 @@ public class SceneController : MonoBehaviour
         dataPersistenceManager.NewGame();
     }
 
-     private IEnumerator LoadNextSceneAsync()
+    private IEnumerator LoadNextSceneAsync()
     {
         AsyncOperation operation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         

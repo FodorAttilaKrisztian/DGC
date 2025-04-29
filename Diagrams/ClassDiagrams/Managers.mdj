@@ -1,0 +1,637 @@
+{
+	"_type": "Project",
+	"_id": "AAAAAAFF+h6SjaM2Hec=",
+	"name": "Untitled",
+	"ownedElements": [
+		{
+			"_type": "UMLModel",
+			"_id": "AAAAAAFF+qBWK6M3Z8Y=",
+			"_parent": {
+				"$ref": "AAAAAAFF+h6SjaM2Hec="
+			},
+			"name": "Model",
+			"ownedElements": [
+				{
+					"_type": "UMLClassDiagram",
+					"_id": "AAAAAAFF+qBtyKM79qY=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Main",
+					"defaultDiagram": true,
+					"ownedViews": [
+						{
+							"_type": "UMLClassView",
+							"_id": "AAAAAAGWgqk1benAZig=",
+							"_parent": {
+								"$ref": "AAAAAAFF+qBtyKM79qY="
+							},
+							"model": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAGWgqk1benB+Oo=",
+									"_parent": {
+										"$ref": "AAAAAAGWgqk1benAZig="
+									},
+									"model": {
+										"$ref": "AAAAAAGWgqk1bOm+P1I="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAGWgqk1benC6BA=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benB+Oo="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 341,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "«MonoBehaviour»"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAGWgqk1benDe4Y=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benB+Oo="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;1",
+											"parentStyle": true,
+											"left": 149,
+											"top": 356,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "Managers"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAGWgqk1benEJXU=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benB+Oo="
+											},
+											"visible": false,
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": -128,
+											"top": -96,
+											"width": 73.67724609375,
+											"height": 13,
+											"text": "(from Model)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAGWgqk1benF8VQ=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benB+Oo="
+											},
+											"visible": false,
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": -128,
+											"top": -96,
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"fillColor": "#B5E6FF",
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": 144,
+									"top": 336,
+									"width": 547.5546875,
+									"height": 38,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAGWgqk1benC6BA="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAGWgqk1benDe4Y="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAGWgqk1benEJXU="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAGWgqk1benF8VQ="
+									}
+								},
+								{
+									"_type": "UMLAttributeCompartmentView",
+									"_id": "AAAAAAGWgqk1benGLQo=",
+									"_parent": {
+										"$ref": "AAAAAAGWgqk1benAZig="
+									},
+									"model": {
+										"$ref": "AAAAAAGWgqk1bOm+P1I="
+									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqltJ+ntnXg=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqltIOnqhok="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 379,
+											"width": 537.5546875,
+											"height": 13,
+											"underline": true,
+											"text": "+instance: Managers",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqm9Fun20UU=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqm9E+nzF9Q="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 394,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-playerPrefab: GameObject",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqn3Fun/mg0=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqn3E+n8mI0="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 409,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-cinemachineCameraPrefab: GameObject",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqqBvOoIM4w=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqqBuOoF+Bs="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 424,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-gameCanvasPrefab: GameObject",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqrg5OoRSFk=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqrg4OoOpFM="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 439,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-sceneManagerPrefab: GameObject",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqsqJ+oabMg=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqsqI+oXoOE="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 454,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-uiManagerPrefab: GameObject",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAGWgqtvN+ojlEY=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benGLQo="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqtvM+og3vA="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 469,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-powerupManagerPrefab: GameObject",
+											"horizontalAlignment": 0
+										}
+									],
+									"fillColor": "#B5E6FF",
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": 144,
+									"top": 374,
+									"width": 547.5546875,
+									"height": 113
+								},
+								{
+									"_type": "UMLOperationCompartmentView",
+									"_id": "AAAAAAGWgqk1benH++E=",
+									"_parent": {
+										"$ref": "AAAAAAGWgqk1benAZig="
+									},
+									"model": {
+										"$ref": "AAAAAAGWgqk1bOm+P1I="
+									},
+									"subViews": [
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGWgqv2d+osHxo=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benH++E="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqv2c+opzvo="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 492,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-Awake()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGWgqwb9eo0Stw=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benH++E="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqwb8eoxW0I="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 507,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-EnsurePersistentObjects()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGWgqxz8Oo80AA=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benH++E="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgqxz7Oo5Kak="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 522,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "«T:MonoBehaviour»-<<T:MonoBehaviour>>InstantiateIfNotFound<T>(prefab: GameObject)()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGWgq9PdepHB5s=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benH++E="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgq9PcepEpl4="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 537,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-OnSceneLoaded(scene: Scene, mode: LoadSceneMode)",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGWgrAb4OpVc58=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benH++E="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgrAb3epSPe0="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 552,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-OnEnable()",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLOperationView",
+											"_id": "AAAAAAGWgrBRm+pds+E=",
+											"_parent": {
+												"$ref": "AAAAAAGWgqk1benH++E="
+											},
+											"model": {
+												"$ref": "AAAAAAGWgrBRmOpaqmk="
+											},
+											"fillColor": "#B5E6FF",
+											"font": "Arial;13;0",
+											"parentStyle": true,
+											"left": 149,
+											"top": 567,
+											"width": 537.5546875,
+											"height": 13,
+											"text": "-OnDisable()",
+											"horizontalAlignment": 0
+										}
+									],
+									"fillColor": "#B5E6FF",
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": 144,
+									"top": 487,
+									"width": 547.5546875,
+									"height": 98
+								},
+								{
+									"_type": "UMLReceptionCompartmentView",
+									"_id": "AAAAAAGWgqk1benI2N0=",
+									"_parent": {
+										"$ref": "AAAAAAGWgqk1benAZig="
+									},
+									"model": {
+										"$ref": "AAAAAAGWgqk1bOm+P1I="
+									},
+									"visible": false,
+									"fillColor": "#B5E6FF",
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": -64,
+									"top": -48,
+									"width": 10,
+									"height": 10
+								},
+								{
+									"_type": "UMLTemplateParameterCompartmentView",
+									"_id": "AAAAAAGWgqk1benJgdI=",
+									"_parent": {
+										"$ref": "AAAAAAGWgqk1benAZig="
+									},
+									"model": {
+										"$ref": "AAAAAAGWgqk1bOm+P1I="
+									},
+									"visible": false,
+									"fillColor": "#B5E6FF",
+									"font": "Arial;13;0",
+									"parentStyle": true,
+									"left": -64,
+									"top": -48,
+									"width": 10,
+									"height": 10
+								}
+							],
+							"fillColor": "#B5E6FF",
+							"font": "Arial;13;0",
+							"parentStyle": false,
+							"containerChangeable": true,
+							"left": 144,
+							"top": 336,
+							"width": 546.5546875,
+							"height": 249,
+							"nameCompartment": {
+								"$ref": "AAAAAAGWgqk1benB+Oo="
+							},
+							"attributeCompartment": {
+								"$ref": "AAAAAAGWgqk1benGLQo="
+							},
+							"operationCompartment": {
+								"$ref": "AAAAAAGWgqk1benH++E="
+							},
+							"receptionCompartment": {
+								"$ref": "AAAAAAGWgqk1benI2N0="
+							},
+							"templateParameterCompartment": {
+								"$ref": "AAAAAAGWgqk1benJgdI="
+							}
+						}
+					]
+				},
+				{
+					"_type": "UMLClass",
+					"_id": "AAAAAAGWgqk1bOm+P1I=",
+					"_parent": {
+						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
+					},
+					"name": "Managers",
+					"stereotype": "MonoBehaviour",
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqltIOnqhok=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "instance",
+							"isStatic": true,
+							"type": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							}
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqm9E+nzF9Q=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "playerPrefab",
+							"visibility": "private",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqn3E+n8mI0=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "cinemachineCameraPrefab",
+							"visibility": "private",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqqBuOoF+Bs=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "gameCanvasPrefab",
+							"visibility": "private",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqrg4OoOpFM=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "sceneManagerPrefab",
+							"visibility": "private",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqsqI+oXoOE=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "uiManagerPrefab",
+							"visibility": "private",
+							"type": "GameObject"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAGWgqtvM+og3vA=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "powerupManagerPrefab",
+							"visibility": "private",
+							"type": "GameObject"
+						}
+					],
+					"operations": [
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGWgqv2c+opzvo=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "Awake",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGWgqwb8eoxW0I=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "EnsurePersistentObjects",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGWgqxz7Oo5Kak=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "<<T:MonoBehaviour>>InstantiateIfNotFound<T>(prefab: GameObject)",
+							"stereotype": "T:MonoBehaviour",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGWgq9PcepEpl4=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "OnSceneLoaded",
+							"visibility": "private",
+							"parameters": [
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGWgq+rXupMWCU=",
+									"_parent": {
+										"$ref": "AAAAAAGWgq9PcepEpl4="
+									},
+									"name": "scene",
+									"type": "Scene"
+								},
+								{
+									"_type": "UMLParameter",
+									"_id": "AAAAAAGWgq+rXupNl0E=",
+									"_parent": {
+										"$ref": "AAAAAAGWgq9PcepEpl4="
+									},
+									"name": "mode",
+									"type": "LoadSceneMode"
+								}
+							]
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGWgrAb3epSPe0=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "OnEnable",
+							"visibility": "private"
+						},
+						{
+							"_type": "UMLOperation",
+							"_id": "AAAAAAGWgrBRmOpaqmk=",
+							"_parent": {
+								"$ref": "AAAAAAGWgqk1bOm+P1I="
+							},
+							"name": "OnDisable",
+							"visibility": "private"
+						}
+					]
+				}
+			]
+		}
+	]
+}
